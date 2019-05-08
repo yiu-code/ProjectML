@@ -73,7 +73,7 @@ links.forEach(function(entry){
                     price2 = price2.substring(0, price2.indexOf('t'));
                 }
  
-                 if (image != undefined && title != '' && price != '' && brand != '' && id != 150){
+                 if (image != undefined || title != '' || price != '' || brand != '' || id != 150){
                      id = id + 1;
                      //console.log(id, title2, brand, image, price2);
                      writeStream.write(`${id},${title2},${brand},${image},${price2} \n`);
