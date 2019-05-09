@@ -23,7 +23,8 @@ var links = ['https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584',
              'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=2', 
              'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=3',
              'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=4',
-             'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=5'];
+             'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=5',
+             'https://www.ebay.com/b/PC-Laptops-Netbooks/177/bn_317584?_pgn=6'];
 var id = 0;
 var linkIndex = 1;
 
@@ -43,7 +44,10 @@ links.forEach(function(entry){
                  .replace(/\s\s+/g, '');
 
                 var title2 = title;
-                 if (title2.includes('New Listing') == true){
+                if (title2.includes(',') == true){
+                    title2 = '';
+                } 
+                if (title2.includes('New Listing') == true){
                     title2 = title2.replace('New Listing', '');
                 } else if (title.includes('New') == true){
                     title2 = title2.replace('New', '');
@@ -72,11 +76,29 @@ links.forEach(function(entry){
                 if(price2.includes('t')){
                     price2 = price2.substring(0, price2.indexOf('t'));
                 }
+                if (price2.includes(',')){
+                    price2 = '';
+                }
  
-                 if (image != undefined || title != '' || price != '' || brand != '' || id != 150){
+                 /*if (image != undefined && (title2 != '' || price2 != '' || brand != '') || id > 150){
                      id = id + 1;
                      //console.log(id, title2, brand, image, price2);
-                     writeStream.write(`${id},${title2},${brand},${image},${price2} \n`);
+                     console.log(id, brand);
+                     //writeStream.write(`${id},${title2},${brand},${image},${price2} \n`);
+                 }*/
+
+                 if (image != undefined){
+                     if (title2 != ''){
+                         if (price2 != ''){
+                             if (brand != ''){
+                                 if (id < 150){
+                                     id += 1;
+                                     console.log(id, title2);
+                                     writeStream.write(`${id},${title2},${brand},${image},${price2} \n`);
+                                 }
+                             }
+                         }
+                     }
                  }
                 
             });
