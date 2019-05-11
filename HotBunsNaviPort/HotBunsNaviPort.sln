@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "HotBunsNaviPort", "HotBunsNaviPort\HotBunsNaviPort.pyproj", "{0D5224ED-9FA6-491C-9076-82FE1A0B3263}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D5224ED-9FA6-491C-9076-82FE1A0B3263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D5224ED-9FA6-491C-9076-82FE1A0B3263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D5224ED-9FA6-491C-9076-82FE1A0B3263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D5224ED-9FA6-491C-9076-82FE1A0B3263}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {463C39D4-9A6B-477F-93D4-C2A6A08AAE09}
+	EndGlobalSection
+EndGlobal
