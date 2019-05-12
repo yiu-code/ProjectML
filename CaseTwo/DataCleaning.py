@@ -1,11 +1,16 @@
 import pandas as pd
+import numpy as np
+import sklearn as sk
+import sys
 
-inv_col = ['ProductId']
-inventory = pd.read_csv("../DataSets/inventory.csv", sep=";", names=inv_col, usecols=[0])
-employeeWitem = pd.read_csv	("../DataSets/peoplewithitems.csv", sep=";", usecols=[0,3])
+# inv_col = ['InventoryId']
+# inventory = pd.read_csv("./DataSets/inventory.csv", sep=";", names=inv_col, usecols=[0])
+employeeWitem = pd.read_csv	("./DataSets/OrderHistoryNew.csv", sep=";", usecols=[1,2])
 
-df = employeeWitem.groupby(employeeWitem.columns.tolist(), as_index=False).size()
-print(df)
-# df.to_csv("CountItemPerEmployee.csv", sep=';', encoding="utf-8")
+employeeWitem = employeeWitem.groupby(['UserId', 'ProductId']).size().to_frame('Count')
+# df.columns = ["UserID", "ProductID", "Count"]
+# employeeWitem["Mean"] = employeeWitem.apply(employeeWitem["Count"].mean(), axis = 1)
+print(employeeWitem)
+employeeWitem.to_csv("CountTest.csv", sep=';', encoding="utf-8")
 
 
