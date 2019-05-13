@@ -85,18 +85,18 @@ productAmountCount = (
 
 #combine count data with tot amount count data 
 countWithTotal = combineItemCount.merge(productAmountCount, left_on = "Title", right_on = 'Title', how= 'left')
-print(countWithTotal)
+# print(countWithTotal)
 
 #statistics of total count 
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
-print(productAmountCount['totalAmountCount'].describe())
+# print(productAmountCount['totalAmountCount'].describe())
 
-print(productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)))
+# print(productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)))
 # top 1 percent is around 19times borrowed, however there aren't many items in the top 1% therefore we take the top 10% items with is around 12
 
 popularity = 12
 CountpopluarItem = countWithTotal.query('totalAmountCount >= @popularity')
-print(CountpopluarItem)
+# print(CountpopluarItem)
 
 #------------------------------------------------------------------------------------------------
 #knn inplementation
@@ -113,10 +113,17 @@ model_knn.fit(CountpopluarItemMaxtrix)
 queryIndex = np.random.choice(CountpopluarItemPivot.shape[0])
 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.iloc[queryIndex, :].values.reshape(1, -1), n_neighbors=6)
 
+
+
 for i in range(0, len(distances.flatten())):
     if i == 0:
         print('Recommendations for {0}:\n'.format(CountpopluarItemPivot.index[queryIndex]))
     else:
         print('{0}: {1}, with distance of {2}:'.format(i, CountpopluarItemPivot.index[indices.flatten()[i]], distances.flatten()[i]))
 
-print(model_knn.score(CountpopluarItemMaxtrix))
+
+# De functie moet een array van user history accepteren 
+# voor ieder loop voeg die de top 3 in de lijst
+# how to find accuracy
+# dan order die de lijst 
+# geeft terug  
