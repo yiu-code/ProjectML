@@ -37,8 +37,8 @@ toprecommendedItems = pd.merge(totalCountPerItem.sort_values("Count", ascending=
 #recommendation based on correlation 
 avarageCount = pd.DataFrame(countItems.groupby(['ProductId'])['Count'].mean())
 avarageCount['meanCount'] = pd.DataFrame(countItems.groupby(['ProductId'])['Count'].count())
-# print(avarageCount.sort_values("Count", ascending=False).head())
-# print("-------------------------------------------------------------")
+print(avarageCount.sort_values("Count", ascending=False).head())
+print("-------------------------------------------------------------")
 
 #exclude count with less than 2
 newCount = countItems["Count"].value_counts()
@@ -66,7 +66,7 @@ topTen = sortedSummary.index
 
 itemsCorrToMyRatings = pd.DataFrame(topTen, index= np.arange(10), columns=['ProductId'])
 corrItems = pd.merge(itemsCorrToMyRatings, inventory, on='ProductId')
-# print(corrItems)
+print(corrItems)
 
 
 #-------------------------------------------------------------------------------------------------------
@@ -91,10 +91,15 @@ countWithTotal = combineItemCount.merge(productAmountCount, left_on = "Title", r
 pd.set_option('display.float_format', lambda x: '%.3f' % x)
 # print(productAmountCount['totalAmountCount'].describe())
 
-# print(productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)))
+print(productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)))
 # top 1 percent is around 19times borrowed, however there aren't many items in the top 1% therefore we take the top 10% items with is around 12
+print("--------------------------------------------------------------------")
+quantile = productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01))
 
-popularity = 12
+
+
+popularity = int(quantile.mode())
+print(popularity)
 CountpopluarItem = countWithTotal.query('totalAmountCount >= @popularity')
 # print(CountpopluarItem)
 

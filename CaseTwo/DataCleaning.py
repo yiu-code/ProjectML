@@ -11,6 +11,6 @@ employeeWitem = employeeWitem.groupby(['UserId', 'ProductId']).size().to_frame('
 # df.columns = ["UserID", "ProductID", "Count"]
 # employeeWitem["Mean"] = employeeWitem.apply(employeeWitem["Count"].mean(), axis = 1)
 print(employeeWitem)
-employeeWitem.to_csv("CountTest.csv", sep=';', encoding="utf-8")
+employeeWitem.to_csv("Count.csv", sep=';', encoding="utf-8")
 
 
