@@ -50,15 +50,17 @@ class Recommender:
         #drop NA
         combineItemCount = combineItemCount.dropna(axis = 0, subset = ['Title'])
 
-        productAmountCount = (combineItemCount.groupby(by= ['Title'])['Count'].count().reset_index().rename(columns = {'Count': 'totalAmountCount'})[['Title', 'totalAmountCount']])
+        productAmountCount = (combineItemCount.groupby(by= ['Title'])['Count'].sum().reset_index().rename(columns = {'Count': 'totalAmountCount'})[['Title', 'totalAmountCount']])
+   
         
         #combine count data with total amount count data 
         countWithTotal = combineItemCount.merge(productAmountCount, left_on = "Title", right_on = 'Title', how= 'left')
-
+        # print(countWithTotal)
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 #Take a look at this later
         #due to top 1 percent is a small amount of borrowed item we took the top 5-6% instead.
-        # quantile = productAmountCount['totalAmountCount'].quantile(np.arange(.6, 1, .01)).mean()
+        quantile = productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)).mean()
+        print(quantile)
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         CountpopluarItem = countWithTotal
