@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>HotBunsNaviPort</Name>
+    <RootNamespace>HotBunsNaviPort</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>0d5224ed-9fa6-491c-9076-82fe1a0b3263</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <DjangoSettingsModule>HotBunsNaviPort.settings</DjangoSettingsModule>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="app\forms.py" />
+    <Compile Include="app\models.py" />
+    <Compile Include="app\tests.py" />
+    <Compile Include="app\views.py" />
+    <Compile Include="app\__init__.py" />
+    <Compile Include="app\migrations\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="HotBunsNaviPort\__init__.py" />
+    <Compile Include="HotBunsNaviPort\settings.py" />
+    <Compile Include="HotBunsNaviPort\urls.py" />
+    <Compile Include="HotBunsNaviPort\wsgi.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\" />
+    <Folder Include="app\migrations\" />
+    <Folder Include="app\static\app\scripts\" />
+    <Folder Include="app\static\image\" />
+    <Folder Include="app\static\image\brood\" />
+    <Folder Include="app\static\image\koek\" />
+    <Folder Include="app\static\image\zoetigheid\" />
+    <Folder Include="app\static\" />
+    <Folder Include="app\static\app\" />
+    <Folder Include="app\static\app\content\" />
+    <Folder Include="app\static\app\fonts\" />
+    <Folder Include="app\templates\" />
+    <Folder Include="app\templates\app\" />
+    <Folder Include="HotBunsNaviPort\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app\static\app\scripts\jquery.validate-vsdoc.js" />
+    <None Include="app\static\app\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="app\static\app\scripts\bootstrap.js" />
+    <Content Include="app\static\app\scripts\bootstrap.min.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.min.js" />
+    <Content Include="app\static\app\scripts\jquery-1.10.2.min.map" />
+    <Content Include="app\static\app\scripts\jquery.validate.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.min.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="app\static\app\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="app\static\app\scripts\modernizr-2.6.2.js" />
+    <Content Include="app\static\app\scripts\respond.js" />
+    <Content Include="app\static\app\scripts\respond.min.js" />
+    <None Include="app\static\app\scripts\_references.js" />
+    <Content Include="app\static\image\brood\ahbasicmeergranenheel.jpg" />
+    <Content Include="app\static\image\brood\ahboerenvolkorensesamhalf.jpg" />
+    <Content Include="app\static\image\brood\ahboerenvolkorensesamheel.jpg" />
+    <Content Include="app\static\image\brood\ahcasinowithalf.JPG" />
+    <Content Include="app\static\image\brood\ahcasinowitheel.jpg" />
+    <Content Include="app\static\image\brood\ahlepainsmadeleineversingevroren.jpg" />
+    <Content Include="app\static\image\brood\ahlespainsbastillevolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\ahlespainsboulognemeergranenhalf.jpg" />
+    <Content Include="app\static\image\brood\ahlespainsboulogneversingevroren.jpg" />
+    <Content Include="app\static\image\brood\ahlespainsmadelainemaishalf.jpg" />
+    <Content Include="app\static\image\brood\ahlespainsmediterranebruinhalf.jpg" />
+    <Content Include="app\static\image\brood\ahlespainstriomphemeergranenhalf.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassiemeerzaden%28versingevrorenenongesneden%29.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassiepetitepainsspelt.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassiepistoletsmeergranen.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassieroggeongesneden.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassiesanfransisco.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassiespeltversingevroren.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassievolkorenongesneden.jpg" />
+    <Content Include="app\static\image\brood\ahliefdeenpassipetitbeurreversingevroren.jpg" />
+    <Content Include="app\static\image\brood\ahmeerzaden%28ongesneden%29.jpg" />
+    <Content Include="app\static\image\brood\ahstevigdonkermeergranen.jpg" />
+    <Content Include="app\static\image\brood\ahstevigspeltgesneden.jpg" />
+    <Content Include="app\static\image\brood\ahtijgerbroodbruinheel%28versingevroren%29.jpg" />
+    <Content Include="app\static\image\brood\ahtijgerbruinhalf.jpg" />
+    <Content Include="app\static\image\brood\ahtijgerbruinheel.jpg" />
+    <Content Include="app\static\image\brood\ahtijgervolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\ahtijgervolkorenheel%28versingevroren%29.jpg" />
+    <Content Include="app\static\image\brood\ahtijgerwithalf.jpg" />
+    <Content Include="app\static\image\brood\ahtijgerwitheel.jpg" />
+    <Content Include="app\static\image\brood\ahvloerbroodmeergranen.jpg" />
+    <Content Include="app\static\image\brood\ahvloerbroodvolkoren.jpg" />
+    <Content Include="app\static\image\brood\ahvloerbroodwit.jpg" />
+    <Content Include="app\static\image\brood\ahzaansbruin%28versingevroren%29.JPG" />
+    <Content Include="app\static\image\brood\ahzaansbruinheel.JPG" />
+    <Content Include="app\static\image\brood\ahzaansesnijderbruinhalf.jpg" />
+    <Content Include="app\static\image\brood\ahzaansmeergranenheel.jpg" />
+    <Content Include="app\static\image\brood\ahzaansvolkoren%28versingevroren%29.jpg" />
+    <Content Include="app\static\image\brood\ahzaansvolkorenhalf%28versingevroren%29.jpg" />
+    <Content Include="app\static\image\brood\ahzaansvolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\ahzaansvolkorenheel.jpg" />
+    <Content Include="app\static\image\brood\ahzaanswithalf.jpg" />
+    <Content Include="app\static\image\brood\ahzaanswitheel.jpg" />
+    <Content Include="app\static\image\brood\authentiekvruchtennotenbol.jpg" />
+    <Content Include="app\static\image\brood\bluebandgoedestartvezelrijklichtbruinheel.jpg" />
+    <Content Include="app\static\image\brood\bolletjefriesroggebrood5sneetjes250g.jpg" />
+    <Content Include="app\static\image\brood\bolletjefriesroggebrood9sneetjes500g.jpg" />
+    <Content Include="app\static\image\brood\bolletjeroggebroodfries.jpg" />
+    <Content Include="app\static\image\brood\carreetigreblanc.jpg" />
+    <Content Include="app\static\image\brood\consenzabruinbroodplakjes.jpg" />
+    <Content Include="app\static\image\brood\consenzawitbroodplakjes.jpg" />
+    <Content Include="app\static\image\brood\coopboerenbruinbroodheel.jpg" />
+    <Content Include="app\static\image\brood\coopboerenbruintijgerbrood.jpg" />
+    <Content Include="app\static\image\brood\coopboerenvolkorenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\coopboerenvolkorenbroodheel.jpg" />
+    <Content Include="app\static\image\brood\coopboerenwaldkornbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\coopboerenwaldkornbroodheel.jpg" />
+    <Content Include="app\static\image\brood\coopboerenwitsesambroodheel.jpg" />
+    <Content Include="app\static\image\brood\coopboerenwittijgerbroodheel.jpg" />
+    <Content Include="app\static\image\brood\coopbrabantssuikerbrood.jpg" />
+    <Content Include="app\static\image\brood\coopgeldersrozijnenbrood.jpg" />
+    <Content Include="app\static\image\brood\coopheelvolkorentarwebrood.jpg" />
+    <Content Include="app\static\image\brood\cooprondbruinbroodheel.jpg" />
+    <Content Include="app\static\image\brood\cooprondvolkorenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\cooprondvolkorenbroodheel.jpg" />
+    <Content Include="app\static\image\brood\cooprondwitbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\crispyroggebrood.jpg" />
+    <Content Include="app\static\image\brood\geniusglutenvrijbruinbrood.jpg" />
+    <Content Include="app\static\image\brood\geniusglutenvrijmeerzadenbrood.jpg" />
+    <Content Include="app\static\image\brood\krentenrozijnenbollen.jpeg" />
+    <Content Include="app\static\image\brood\krentenwegge5plakjes.jpg" />
+    <Content Include="app\static\image\brood\LiefdeNPassieMeerzadenIngevrorenNOngesneden.jpg" />
+    <Content Include="app\static\image\brood\LiefdeNPassiePetitBeurreVersIngevroren.jpg" />
+    <Content Include="app\static\image\brood\LiefdeNPassiePetitPainsSpelt.jpg" />
+    <Content Include="app\static\image\brood\LiefdeNPassieRoggeOngesneden.jpg" />
+    <Content Include="app\static\image\brood\LiefdeNPassieSpeltVersIngevroren.jpg" />
+    <Content Include="app\static\image\brood\minisuikerbol.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbiodonkermeergranenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbiolichtmeergranenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbiolichtmeergranenbroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodboerendubbeldonkerbroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodboerenvolkorenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbuslichtmeergranenbroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbustarwebroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbustarwebroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbusvolkorenbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbusvolkorenbroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbuswitbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbuswitbroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodbuszonnebroodheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodstoervolkorenbroodhalf.jpeg" />
+    <Content Include="app\static\image\brood\molenbroodstoervolkorenzonnepitbroodzwaarhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodvloerbrooddonkerheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodvloerbrooddonkerspeltheel.jpg" />
+    <Content Include="app\static\image\brood\molenbroodwaldkornbroodhalf.jpg" />
+    <Content Include="app\static\image\brood\molenbroodwaldkornbroodheel.jpg" />
+    <Content Include="app\static\image\brood\petitpainwit.jpg" />
+    <Content Include="app\static\image\brood\proeftverschilbatardspelt.jpg" />
+    <Content Include="app\static\image\brood\pureambachtappelkaneelbol.jpg" />
+    <Content Include="app\static\image\brood\pureambachtboerendonkermeergranenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtboerendonkermeergranenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtboerenvolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtboerenzonnepitmeergranenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtcarreecereal.jpg" />
+    <Content Include="app\static\image\brood\pureambachtcarreecomplet.jpg" />
+    <Content Include="app\static\image\brood\pureambachtcarreemais.jpg" />
+    <Content Include="app\static\image\brood\pureambachtcarreenoir.jpg" />
+    <Content Include="app\static\image\brood\pureambachtfriesmeergranenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtfriesmeergranenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsallinsonvolkorengesnedenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsallinsonvolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsbruinhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsbruinheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsdonkervolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsdonkervolkorenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsgrofvolkorenhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsgrofvolkorenheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsmelkwithalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumsmelkwitheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumswoutkornhalf.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmokumswoutkornheel.jpg" />
+    <Content Include="app\static\image\brood\pureambachtmueslibroodvolkoren.jpg" />
+    <Content Include="app\static\image\brood\pureambachtpanebiancotigre.jpg" />
+    <Content Include="app\static\image\brood\pureambachtpanecereali.jpg" />
+    <Content Include="app\static\image\brood\pureambachtpanecompleto.jpg" />
+    <Content Include="app\static\image\brood\pureambachtreuzemueslibol.jpg" />
+    <Content Include="app\static\image\brood\pureambachtreuzerozijnenbol.jpg" />
+    <Content Include="app\static\image\brood\pureambachtrozijnenbrood.jpg" />
+    <Content Include="app\static\image\brood\pureambachtrozijnscharreleierkoeken.jpg" />
+    <Content Include="app\static\image\brood\pureambachtscharreleierenkoeken.jpg" />
+    <Content Include="app\static\image\brood\smaaktroggebroodbiologisch.jpg" />
+    <Content Include="app\static\image\brood\somaobelanderroggebrood.jpg" />
+    <Content Include="app\static\image\brood\somaoberlander.jpg" />
+    <Content Include="app\static\image\brood\somarozijnennotenroggetarwebrood.jpg" />
+    <Content Include="app\static\image\brood\somaslankin.jpg" />
+    <Content Include="app\static\image\brood\somaspeltkoren.jpg" />
+    <Content Include="app\static\image\brood\somawaldkorn.jpg" />
+    <Content Include="app\static\image\brood\somawaldkorntarwerogge.jpg" />
+    <Content Include="app\static\image\brood\sportknipminderkoolhydraat.jpg" />
+    <Content Include="app\static\image\brood\tostibroodwit.jpg" />
+    <Content Include="app\static\image\brood\turksbrood.jpg" />
+    <Content Include="app\static\image\brood\vandermeulencrispyroggebroodfries.jpg" />
+    <Content Include="app\static\image\brood\vandermeulenfriesroggebrood.jpg" />
+    <Content Include="app\static\image\brood\vandermeulenroggebroodfriesbakkers.jpg" />
+    <Content Include="app\static\image\brood\vandermeulenroggebroodperstukverpakt.jpg" />
+    <Content Include="app\static\image\brood\vandijk%27sroggebroodfries.jpg" />
+    <Content Include="app\static\image\brood\vandijkfriesgesnedenroggebrood.jpg" />
+    <Content Include="app\static\image\brood\vdveerfriesroggebrood.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenbaguettecereal.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenbatardmeergranen.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenbatardpompadour.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenbatardvolkoren.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenbatardwit.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenpainblanc.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenstokbroodtarwe.jpg" />
+    <Content Include="app\static\image\brood\versafgebakkenstokbroodwit.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerenbruinheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerensesamvolkorenheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerenspelthalf.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerentijgerbruinheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerentijgerwitheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenboerenwitheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovencasinobruinhalf.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovencasinobruinheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovencasinowithalf.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovencasinowitheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenfijnvolkoren.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenrondbruinheel.jpg" />
+    <Content Include="app\static\image\brood\versuitonzeovenrondwitheel.jpg" />
+    <Content Include="app\static\image\brood\versvoordeelindeknipbruinheelgesneden.jpg" />
+    <Content Include="app\static\image\brood\versvoordeelindeknipwitheelgesneden.jpg" />
+    <Content Include="app\static\image\brood\volkorenrozijnenkrentenbol.jpg" />
+    <Content Include="app\static\image\brood\waldkornheel.jpg" />
+    <Content Include="app\static\image\Display.jpg" />
+    <Content Include="app\static\image\HotBunsLogoWhite.png" />
+    <Content Include="app\static\image\koek\Abrikozenvlaaiheel.jpg" />
+    <Content Include="app\static\image\koek\ahbasicchocolatechipcookies.jpg" />
+    <Content Include="app\static\image\koek\ahbasicminichocokisses.jpg" />
+    <Content Include="app\static\image\koek\ahbrossechocospritsen.jpg" />
+    <Content Include="app\static\image\koek\ahcaramelkoekjeswittechocolade.jpg" />
+    <Content Include="app\static\image\koek\ahchipcookiesmelkpuur.jpg" />
+    <Content Include="app\static\image\koek\ahchocchipcaramelfilling.jpg" />
+    <Content Include="app\static\image\koek\ahchocchipcoconutdarkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchocchipcookieswit-cranberry.jpg" />
+    <Content Include="app\static\image\koek\ahchocchiphazelnutfilling.jpg" />
+    <Content Include="app\static\image\koek\ahchocchippecandarkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchocchippistachiodarkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchocchipredvelvetwhitechocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchockchipcookieswit-melk-puur.jpg" />
+    <Content Include="app\static\image\koek\ahchocochiphazelnutdark.jpg" />
+    <Content Include="app\static\image\koek\ahchocochiphazelnutmilk.jpg" />
+    <Content Include="app\static\image\koek\ahchocochipmacademiamilkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchocoladepindakoeken.jpg" />
+    <Content Include="app\static\image\koek\ahchocoladetarwebiscuitpuur.jpg" />
+    <Content Include="app\static\image\koek\ahchocoladetarwebiscuitsmelk.jpg" />
+    <Content Include="app\static\image\koek\ahchocolatechipcaramelseasaltmilk.jpg" />
+    <Content Include="app\static\image\koek\ahchocolatechipdarkroast.jpg" />
+    <Content Include="app\static\image\koek\ahchocolatechiphazelnootmelkmini.jpg" />
+    <Content Include="app\static\image\koek\ahchocorollsdarkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahchocorollsmilkchocolate.jpg" />
+    <Content Include="app\static\image\koek\ahdonkerbruintjespuur.jpg" />
+    <Content Include="app\static\image\koek\ahdoublechocolatemuffin.jpg" />
+    <Content Include="app\static\image\koek\ahgaletteschocolade.jpg" />
+    <Content Include="app\static\image\koek\ahhaverkoekjeschoco.jpg" />
+    <Content Include="app\static\image\koek\ahkaramelkoekjesmelkchocolade.jpg" />
+    <Content Include="app\static\image\koek\ahkokoskoekchocolade.jpg" />
+    <Content Include="app\static\image\koek\ahlichtbruintjesmelk.jpg" />
+    <Content Include="app\static\image\koek\ahpauzekoekenchocolade.jpg" />
+    <Content Include="app\static\image\koek\ahstroopwafeldarkroastchocolade.jpg" />
+    <Content Include="app\static\image\koek\ahzaanshuisjemelk.jpg" />
+    <Content Include="app\static\image\koek\ahzaanshuisjePuur.jpg" />
+    <Content Include="app\static\image\koek\ahzaanshuisjewit.jpg" />
+    <Content Include="app\static\image\koek\alysseminibrownies8stuks.jpg" />
+    <Content Include="app\static\image\koek\Ambachtelijke speculaascake.jpg" />
+    <Content Include="app\static\image\koek\Ambachtelijkespeculaascake.jpg" />
+    <Content Include="app\static\image\koek\Appelkaneeltaart.jpg" />
+    <Content Include="app\static\image\koek\Appelkruimelvlaai.jpg" />
+    <Content Include="app\static\image\koek\aronparisettes.jpg" />
+    <Content Include="app\static\image\koek\aviateurkano%27s.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofamandelpencees.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofgrotespritsen.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofreuzemergpijpen.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofroomboterromeo.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofspeculaasmolens10stuks.jpg" />
+    <Content Include="app\static\image\koek\bakkerbollebofspijsallerhande.jpg" />
+    <Content Include="app\static\image\koek\bakkerjoopstroopkoeken.jpg" />
+    <Content Include="app\static\image\koek\bakkerjoopstroopwafels.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestaardbeiengebak.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestamandeltongenroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestappelkoekenmini.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestappelkruimelkoekenroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestbakkersmakronenreuze.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestbokkenpootjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestbokkenpotenreuze.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestboterkoekblokjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestboterkoektaartjeroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcakejesabrikozen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcakerolaardbei.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestchocoruiten.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestconfettini%27s.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcremebrulee.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcremedoublies.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcrememergpijpjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestcustardcakejesroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestdeugnietjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbesteierkoeken.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestfondantcakejes5stuks.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestgangmakers.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestgevuldekoekenmini.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestgevuldekoekenroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbesthazelnootzandjesroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestjavawafels.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkletskoppen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkletsmajoorsroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkoekjesassortieroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkoffiekoekjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkoffiewafels.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkokoskransen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkokosmakronen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkrakelingengesuikerdroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestkrakelingenroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestluxeduocakejesroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestluxeeiercakejesroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestmarmercake.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestmergpijpcakejes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestmergpijpreuze.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestminiappelkoeken.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestminichococaramelkoekjesmelk.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestminichococaramelkoekjeswittechocolade.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestministroopwafelsroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestnaturelcake.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestoranjekoekstukjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestpindakoeken.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestpindakoekenchocolade.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestpondjecake.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestreuzekokoskransen5stuks.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestreuzeroomboterkrakelingen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestroombotercarrees.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestroomboterkano%27s.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestroomboterselectie.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestroomboterspritsengroot.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestroompuddingcakejesvanille.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestrozijnenstercakejesroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestsneeuwwafels.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestsneeuwwitjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspeculaasbrokken.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspeculooskaramelkoek.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspijsbroodjes.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspritsen.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspritsenchocolade.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspritsencremeadvocaat.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestspritsenlunetta.jpg" />
+    <Content Include="app\static\image\koek\bakkersbeststroopkoekenroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbeststroopwafelshoning.jpg" />
+    <Content Include="app\static\image\koek\bakkersbeststroopwafelskaramel.jpg" />
+    <Content Include="app\static\image\koek\bakkersbeststroopwafelsroomboter.jpg" />
+    <Content Include="app\static\image\koek\bakkersbeststroopwafelsroombotervulling.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestvruchtengebak.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestwafelsmetchocoladehazelnoot.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestzebraspritsengroot.jpg" />
+    <Content Include="app\static\image\koek\bakkersbestzeeuwserondjes.jpg" />
+    <Content Include="app\static\image\koek\bakkestbestjanhagel.jpg" />
+    <Content Include="app\static\image\koek\balconicakechocolade.jpg" />
+    <Content Include="app\static\image\koek\balconirollinolatte.jpg" />
+    <Content Include="app\static\image\koek\BasicChocolateChipCookies.jpg" />
+    <Content Include="app\static\image\koek\bolletjebezigkrokantegraanreepwaldkorn.jpg" />
+    <Content Include="app\static\image\koek\bolletjebrosseeierkoekmelk.jpg" />
+    <Content Include="app\static\image\koek\bolletjegoedbezigkrokantegraanrepencranberry.jpg" />
+    <Content Include="app\static\image\koek\bolletjegoedbezigkrokantegraanrepennaturel.jpg" />
+    <Content Include="app\static\image\koek\bolletjegoedbezigstevigegraanrepennaturel.jpg" />
+    <Content Include="app\static\image\koek\bolletjegoedbezigstevigereeproodfruit.jpg" />
+    <Content Include="app\static\image\koek\bolletjenotenengranenamandelhavermout.jpg" />
+    <Content Include="app\static\image\koek\bolletjenotenengranenhazelnootspelt.jpg" />
+    <Content Include="app\static\image\koek\bonnemamanminibrownies.jpg" />
+    <Content Include="app\static\image\koek\bonnemamansablestoutchocolat.jpg" />
+    <Content Include="app\static\image\koek\brinkychocofourrevolkoren.jpg" />
+    <Content Include="app\static\image\koek\brinkycocofourre.jpg" />
+    <Content Include="app\static\image\koek\brinkytriplechocolae.jpg" />
+    <Content Include="app\static\image\koek\Buyszoenen.jpg" />
+    <Content Include="app\static\image\koek\buyszoenen2x6stuks.jpg" />
+    <Content Include="app\static\image\koek\cakeawayluiksjewafels.jpg" />
+    <Content Include="app\static\image\koek\calvepindakaasreepchocolade.jpg" />
+    <Content Include="app\static\image\koek\calvepindakaasrepennaturel.jpg" />
+    <Content Include="app\static\image\koek\ChocChipCookiesWitMelkPuur.jpg" />
+    <Content Include="app\static\image\koek\continentalbakeriesluxeroomboterspritsnaturel.jpg" />
+    <Content Include="app\static\image\koek\creamkakoa.jpg" />
+    <Content Include="app\static\image\koek\davelaarjodenkoeken.jpg" />
+    <Content Include="app\static\image\koek\davelaarstroopkoeken.jpg" />
+    <Content Include="app\static\image\koek\debesemueslirepen.jpg" />
+    <Content Include="app\static\image\koek\debestebakkersspeculaas.jpg" />
+    <Content Include="app\static\image\koek\debestebiscuitskokos.jpg" />
+    <Content Include="app\static\image\koek\debestebitterkoekjes.jpg" />
+    <Content Include="app\static\image\koek\debestecafenoir.jpg" />
+    <Content Include="app\static\image\koek\debestechocoprentjesmelk.jpg" />
+    <Content Include="app\static\image\koek\debestechocoprentjespuur.jpg" />
+    <Content Include="app\static\image\koek\debestedigestive.jpg" />
+    <Content Include="app\static\image\koek\debestefruitbiscuitappel.jpg" />
+    <Content Include="app\static\image\koek\debestefruitbiscuitbosvruchten.jpeg" />
+    <Content Include="app\static\image\koek\debestefruitbiscuitnaturel.jpg" />
+    <Content Include="app\static\image\koek\debestefruitrepenappel.jpg" />
+    <Content Include="app\static\image\koek\debestefruitrepenbosvruchten.jpg" />
+    <Content Include="app\static\image\koek\debestegranenbiscuitchocolade.jpg" />
+    <Content Include="app\static\image\koek\debestekandijkoeken.jpg" />
+    <Content Include="app\static\image\koek\debestelangevingers.jpg" />
+    <Content Include="app\static\image\koek\debestemeergranenbiscuitappel.jpg" />
+    <Content Include="app\static\image\koek\debestemeergranenbiscuitbosvruchten.jpg" />
+    <Content Include="app\static\image\koek\debestemeergranenbiscuitkrentandrozijn.jpg" />
+    <Content Include="app\static\image\koek\debestemelkbiscuitsaardbei.jpg" />
+    <Content Include="app\static\image\koek\debestemelkbiscuitschoco.jpg" />
+    <Content Include="app\static\image\koek\debestemelkbiscuitsmelk.jpg" />
+    <Content Include="app\static\image\koek\debestemueslirepen.jpg" />
+    <Content Include="app\static\image\koek\debestemueslirepenchocolade.jpg" />
+    <Content Include="app\static\image\koek\debestespeculaasamandel.jpg" />
+    <Content Include="app\static\image\koek\debestesuikerbruintjesmelk.jpg" />
+    <Content Include="app\static\image\koek\debestevolkorenbiscuits.jpg" />
+    <Content Include="app\static\image\koek\debesteyoghurtbiscuitaardbei.jpg" />
+    <Content Include="app\static\image\koek\debesteyoghurtbiscuitbosvruchten.jpg" />
+    <Content Include="app\static\image\koek\deestevolkorenbiscuits.jpg" />
+    <Content Include="app\static\image\koek\degraanschuursoftamandelcranberrywittechocolade.jpg" />
+    <Content Include="app\static\image\koek\deruiter%27sbanketechtebakkerspeculaas.jpg" />
+    <Content Include="app\static\image\koek\dutchanddapperframbooskokoswit.jpg" />
+    <Content Include="app\static\image\koek\dutchanddapperpartytime.jpg" />
+    <Content Include="app\static\image\koek\dutchanddapperpecancaramelmilk.jpg" />
+    <Content Include="app\static\image\koek\dutchanddappertriplechocolate.jpg" />
+    <Content Include="app\static\image\koek\dutchanddapperwittechocolade.jpg" />
+    <Content Include="app\static\image\koek\eatnaturalamandelandabrikoosmeteenyoghurtlaagje3stuks.jpg" />
+    <Content Include="app\static\image\koek\eatnaturalproteinpacketmetpinda%27senchocolade3stuks.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerglaceoriginal.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerglacepetitfondants.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerjodekoekenchoco.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerjodekoekenkaneel.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerjodekoekroomboter.jpg" />
+    <Content Include="app\static\image\koek\echteenkhuizerkokosjodekoeken.jpg" />
+    <Content Include="app\static\image\koek\echtenkhuizerjodekoekroomboter.jpg" />
+    <Content Include="app\static\image\koek\echtlekkerchocoladestixx.jpg" />
+    <Content Include="app\static\image\koek\europatisseriemergpijpreuze.jpg" />
+    <Content Include="app\static\image\koek\farmbrothersdarkchocolateandseasalt.jpg" />
+    <Content Include="app\static\image\koek\gooskensappelkoeken.jpg" />
+    <Content Include="app\static\image\koek\gooskensbiscuitschocolade.jpg" />
+    <Content Include="app\static\image\koek\gooskensboerencake.jpg" />
+    <Content Include="app\static\image\koek\gooskensgevuldekoeken.jpg" />
+    <Content Include="app\static\image\koek\gooskenskrakelingen.jpg" />
+    <Content Include="app\static\image\koek\gooskensmariebiscuit.jpg" />
+    <Content Include="app\static\image\koek\gooskensmelkbiscuits.jpg" />
+    <Content Include="app\static\image\koek\gooskenspennywafels.jpg" />
+    <Content Include="app\static\image\koek\gooskensrozekoeken.jpg" />
+    <Content Include="app\static\image\koek\gooskensveelkorenbiscuit.jpg" />
+    <Content Include="app\static\image\koek\gullpanchito%27swit.jpg" />
+    <Content Include="app\static\image\koek\gustinichocoboy.jpg" />
+    <Content Include="app\static\image\koek\gustinifruitboyaardbeien.jpg" />
+    <Content Include="app\static\image\koek\handmadedeliciouslydarkallbutterbrowncookie.jpg" />
+    <Content Include="app\static\image\koek\handmaderoomboterchocoladekoekjes.jpg" />
+    <Content Include="app\static\image\koek\hellemabuurtkoekjesbuurmanenbuurman.jpg" />
+    <Content Include="app\static\image\koek\hellemachokickvanille.jpg" />
+    <Content Include="app\static\image\koek\herobtweenhazelnoot.jpg" />
+    <Content Include="app\static\image\koek\herobtweenkokosrepen6stuks.jpg" />
+    <Content Include="app\static\image\koek\herobtweenmelkchocoladerepen.jpg" />
+    <Content Include="app\static\image\koek\herobtweenpindapindakaas.jpg" />
+    <Content Include="app\static\image\koek\julesdestrooperdelicescacoaandchocoalde.jpg" />
+    <Content Include="app\static\image\koek\julesdestrooperkandijkoekjesinchocolade.jpg" />
+    <Content Include="app\static\image\koek\kanjerchocowafelswit.jpg" />
+    <Content Include="app\static\image\koek\kanjerschocowafelswit.jpg" />
+    <Content Include="app\static\image\koek\kanjerschocwafels.jpg" />
+    <Content Include="app\static\image\koek\kanjershaagehopjestoefzak.jpg" />
+    <Content Include="app\static\image\koek\kanjerssaltedcaramel.jpg" />
+    <Content Include="app\static\image\koek\kanjersstroopfwagels10stuks.jpg" />
+    <Content Include="app\static\image\koek\kanjersstroopwafels.jpg" />
+    <Content Include="app\static\image\koek\knoppersminismelkchocoladewafels.jpg" />
+    <Content Include="app\static\image\koek\leevbiologischeoerkoekhaverspeltchoco.jpg" />
+    <Content Include="app\static\image\koek\leevbiooerchocospeltandquinoawafelspuur.jpg" />
+    <Content Include="app\static\image\koek\ligabelvitachocolade6x4stuks.jpg" />
+    <Content Include="app\static\image\koek\ligabelvitahoningenhazelnoot.jpg" />
+    <Content Include="app\static\image\koek\ligabelvitameergranen.jpg" />
+    <Content Include="app\static\image\koek\ligabelvitaoriginal.jpg" />
+    <Content Include="app\static\image\koek\ligaevergreenappel.jpg" />
+    <Content Include="app\static\image\koek\ligaevergreenbosvruchten.jpg" />
+    <Content Include="app\static\image\koek\ligaevergreencrunchymueslichoco.jpg" />
+    <Content Include="app\static\image\koek\ligaevergreenkrenten.jpg" />
+    <Content Include="app\static\image\koek\ligahaverkickappel6x1.jpg" />
+    <Content Include="app\static\image\koek\ligahaverkickbosvruchten6stuks.jpg" />
+    <Content Include="app\static\image\koek\ligahaverrepenhoning6stuks.jpg" />
+    <Content Include="app\static\image\koek\ligahaverrepenkokos.jpg" />
+    <Content Include="app\static\image\koek\ligahaverrepenkokos6stuks.jpg" />
+    <Content Include="app\static\image\koek\ligamilkbreakbosvruchtenenframboos.jpg" />
+    <Content Include="app\static\image\koek\ligamilkbreakmelk.jpg" />
+    <Content Include="app\static\image\koek\ligamilkbreakmelkenaardbei.jpg" />
+    <Content Include="app\static\image\koek\lindemulderindischecake.jpg" />
+    <Content Include="app\static\image\koek\lotuscakejesminimadeleine.jpg" />
+    <Content Include="app\static\image\koek\lotusdinosaurisminigranen.jpg" />
+    <Content Include="app\static\image\koek\lotusdinosaurusminichocolade.jpg" />
+    <Content Include="app\static\image\koek\lotusminivanillewafels.jpg" />
+    <Content Include="app\static\image\koek\lotusspeculoos.jpg" />
+    <Content Include="app\static\image\koek\lotusspeculooskoffieleutjes12x2stuks.jpg" />
+    <Content Include="app\static\image\koek\lotusspeculoosmetchocolade7x3stuks.jpg" />
+    <Content Include="app\static\image\koek\lotusspeculoosrolls.jpg" />
+    <Content Include="app\static\image\koek\lubastogneoriginal.jpg" />
+    <Content Include="app\static\image\koek\luchacha.jpg" />
+    <Content Include="app\static\image\koek\luchocoprincevanille.jpg" />
+    <Content Include="app\static\image\koek\lumikadobiscuitsstokjesmelkchocolade.jpg" />
+    <Content Include="app\static\image\koek\lumikadochocolatblanc.jpg" />
+    <Content Include="app\static\image\koek\lumikadokingchoco.jpg" />
+    <Content Include="app\static\image\koek\lupimscakesinaasappelchocolade.jpg" />
+    <Content Include="app\static\image\koek\lupimscakesinaasappelchocolade150gr.jpg" />
+    <Content Include="app\static\image\koek\luprincecakeandchoc.jpg" />
+    <Content Include="app\static\image\koek\luprincefourrechocolade.jpg" />
+    <Content Include="app\static\image\koek\luprincefourremaxi.jpg" />
+    <Content Include="app\static\image\koek\luprincefourrevanille.jpg" />
+    <Content Include="app\static\image\koek\luprinceministars.jpg" />
+    <Content Include="app\static\image\koek\luprinceministarsblackandwhite.jpg" />
+    <Content Include="app\static\image\koek\luprincestartnaturel.JPG" />
+    <Content Include="app\static\image\koek\lurobuustekoekenchocolade.jpg" />
+    <Content Include="app\static\image\koek\luscholiertjebiscuitsmelkchocolade.jpg" />
+    <Content Include="app\static\image\koek\luscholiertjebiscuitspurechocolade.jpg" />
+    <Content Include="app\static\image\koek\luscholiertjemelk.jpg" />
+    <Content Include="app\static\image\koek\lutimeoutchocolade.jpg" />
+    <Content Include="app\static\image\koek\lutimeouthazelnoot6stuks.jpg" />
+    <Content Include="app\static\image\koek\lutimeoutnaturel.jpg" />
+    <Content Include="app\static\image\koek\lutimeoutspeculaas.jpg" />
+    <Content Include="app\static\image\koek\merbabrowniecookies.jpg" />
+    <Content Include="app\static\image\koek\merbachocolatecookies.jpg" />
+    <Content Include="app\static\image\koek\MerbaRainbowCookies.jpg" />
+    <Content Include="app\static\image\koek\milkacakeandchoc.jpg" />
+    <Content Include="app\static\image\koek\milkacakeandchoco.jpg" />
+    <Content Include="app\static\image\koek\milkacakechocandchoc.jpg" />
+    <Content Include="app\static\image\koek\milkacakechocandchoco175g.jpg" />
+    <Content Include="app\static\image\koek\MilkaChocobrownie.jpg" />
+    <Content Include="app\static\image\koek\MilkaChocowafelmelk.jpg" />
+    <Content Include="app\static\image\koek\milkachocowafelwit.jpg" />
+    <Content Include="app\static\image\koek\milkajoyfills.jpg" />
+    <Content Include="app\static\image\koek\MilkaMelocakes.jpg" />
+    <Content Include="app\static\image\koek\milkamelocakesbiscuitsschuimenchocolade.jpg" />
+    <Content Include="app\static\image\koek\milkawafelschocowafermelk.jpg" />
+    <Content Include="app\static\image\koek\milkawafelschocowaferwit.jpg" />
+    <Content Include="app\static\image\koek\milkcakeandchoc.jpg" />
+    <Content Include="app\static\image\koek\Muesli+Chocoladehazelnootmueslirepen8stuks.jpg" />
+    <Content Include="app\static\image\koek\mueslie+mueslireephazelnoot.jpg" />
+    <Content Include="app\static\image\koek\NonStop!Minidoublechocolatecookies.jpg" />
+    <Content Include="app\static\image\koek\norediscobiscuit.jpg" />
+    <Content Include="app\static\image\koek\oreobirthdayparty.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsdoublecreme.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsdoublecremerollpack.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsminioriginaluitdeelbeker.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsmintrollpack.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsomhuldmetmelkchocolade.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsomhuldmetwittechocolade.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsoriginal.jpg" />
+    <Content Include="app\static\image\koek\OreoBiscuitsOriginalRollpack.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsoriginalsmallsize.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsoriginaluitdeelverpakking.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitspeanutbutterrollpack.jpg" />
+    <Content Include="app\static\image\koek\oreobiscuitsstrawberrycheesecakerollpack.jpg" />
+    <Content Include="app\static\image\koek\oreochocolatecremecrispyandthin.jpg" />
+    <Content Include="app\static\image\koek\OreoClassic.jpg" />
+    <Content Include="app\static\image\koek\OreoClassic154g.jpg" />
+    <Content Include="app\static\image\koek\oreocookiesbrownierollpack.jpg" />
+    <Content Include="app\static\image\koek\oreocrispyandthincocos.jpg" />
+    <Content Include="app\static\image\koek\OreoCrispythinchocolade.jpg" />
+    <Content Include="app\static\image\koek\OreoDouble6x2stuks.jpg" />
+    <Content Include="app\static\image\koek\oreodoublecremeroll.jpg" />
+    <Content Include="app\static\image\koek\oreomilkchoco.jpg" />
+    <Content Include="app\static\image\koek\OreoMinicookiesbeker.jpg" />
+    <Content Include="app\static\image\koek\oreooriginalcrispyandthin.jpg" />
+    <Content Include="app\static\image\koek\OreoStrawberrycheesecake.jpg" />
+    <Content Include="app\static\image\koek\OreoWhitechoc.jpg" />
+    <Content Include="app\static\image\koek\PallyBiscuitskaneelmethoning.jpg" />
+    <Content Include="app\static\image\koek\PallyHaverbiscuitmelk.jpg" />
+    <Content Include="app\static\image\koek\PallyHaverbiscuitnaturel.jpg" />
+    <Content Include="app\static\image\koek\PallyTarwebiscuitmeergranen.jpg" />
+    <Content Include="app\static\image\koek\pallytheebiscuit.jpg" />
+    <Content Include="app\static\image\koek\PatriaMiniwafer.jpg" />
+    <Content Include="app\static\image\koek\peijnenburghzero6stuks.jpg" />
+    <Content Include="app\static\image\koek\preojoyfills.jpg" />
+    <Content Include="app\static\image\koek\PunseliesStroopkoekjesoriginal.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtAardbeienslof.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtAppelkruimelvlaai.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtBananensoezen.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtBosschebollen.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtCitroenfudgecake.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtGevuldespeculaas.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtRoombroodjes.jpg" />
+    <Content Include="app\static\image\koek\PureAmbachtSlagroomsoesjes.jpg" />
+    <Content Include="app\static\image\koek\quakerhavermoutbreakbanaan&amp;pecannoot.jpg" />
+    <Content Include="app\static\image\koek\QuakerHavermoutreepchocolade5stuks.jpg" />
+    <Content Include="app\static\image\koek\QuakerHavermoutrepengoldensyrup.jpg" />
+    <Content Include="app\static\image\koek\Roombotercakehalf.jpg" />
+    <Content Include="app\static\image\koek\Slagroomschnitt.jpg" />
+    <Content Include="app\static\image\koek\SmoeltjesSmoeltjesspeculaas.jpg" />
+    <Content Include="app\static\image\koek\SmoeltjesSmoeltjesufo_s.jpg" />
+    <Content Include="app\static\image\koek\Speculaasbrokken.jpg" />
+    <Content Include="app\static\image\koek\spitzknuspimelk&amp;hazelnoot.jpg" />
+    <Content Include="app\static\image\koek\SultanaCrunchersItaliaansekruiden5x3.jpg" />
+    <Content Include="app\static\image\koek\SultanaFruitbiscuitappelvoordeelpak.jpg" />
+    <Content Include="app\static\image\koek\SultanaFruitbiscuitbosvruchtenvoordeelpak.jpg" />
+    <Content Include="app\static\image\koek\SultanaFruitbiscuitnaturel.jpg" />
+    <Content Include="app\static\image\koek\sultanafruitbiscuitpeerenkaneel5x3.jpg" />
+    <Content Include="app\static\image\koek\SultanaGoodMorningcranberry.jpg" />
+    <Content Include="app\static\image\koek\SultanaGoodMorningnaturel.jpg" />
+    <Content Include="app\static\image\koek\SultanaJustgoodhazelnootcacao4pack.jpg" />
+    <Content Include="app\static\image\koek\sultanajustgoodsinaascacao4pack.jpg" />
+    <Content Include="app\static\image\koek\sultanaknapperskaneel.jpg" />
+    <Content Include="app\static\image\koek\sultanaknapperskokos.jpg" />
+    <Content Include="app\static\image\koek\SultanaSpeltquinoacranberry.jpg" />
+    <Content Include="app\static\image\koek\SultanaSpeltquinoadadel.jpg" />
+    <Content Include="app\static\image\koek\SultanaYofruitaardbei.jpg" />
+    <Content Include="app\static\image\koek\SultanaYofruitbosvruchten.jpg" />
+    <Content Include="app\static\image\koek\sultancruncherskaas&amp;tomaat5x3.jpg" />
+    <Content Include="app\static\image\koek\TimeoutGranenbiscuitChocolade.jpg" />
+    <Content Include="app\static\image\koek\TimeOutGranenbiscuitsChocolade.jpg" />
+    <Content Include="app\static\image\koek\timeoutnaturel.jpg" />
+    <Content Include="app\static\image\koek\Tompouce.jpg" />
+    <Content Include="app\static\image\koek\ulkerbiskremcocoabag.jpg" />
+    <Content Include="app\static\image\koek\VanDelftDubbeldikjes.jpg" />
+    <Content Include="app\static\image\koek\VanDelftLikkoekjes.jpg" />
+    <Content Include="app\static\image\koek\VanDijkAmbachtelijkespeculaas.jpg" />
+    <Content Include="app\static\image\koek\veganzschocokekschocobiscuits.jpg" />
+    <Content Include="app\static\image\koek\VerkadeBiscuitsmaria.jpg" />
+    <Content Include="app\static\image\koek\VerkadeBiscuitsnizzakaneel.jpg" />
+    <Content Include="app\static\image\koek\verkadebiscuitsnizzakokos.jpg" />
+    <Content Include="app\static\image\koek\VerkadeBlijebiscuitjes.jpg" />
+    <Content Include="app\static\image\koek\verkadecafenoir.jpg" />
+    <Content Include="app\static\image\koek\VerkadeChococookiesspongebob.jpg" />
+    <Content Include="app\static\image\koek\VerkadeCrunchyhaverkoek.jpg" />
+    <Content Include="app\static\image\koek\VerkadeDigestivemelk.jpg" />
+    <Content Include="app\static\image\koek\VerkadeDigestiveoriginal.jpg" />
+    <Content Include="app\static\image\koek\VerkadeDigestivepuur.jpg" />
+    <Content Include="app\static\image\koek\VerkadeFlexieschocococos4x2.jpg" />
+    <Content Include="app\static\image\koek\VerkadeFrou-frouvanille.jpg" />
+    <Content Include="app\static\image\koek\VerkadeGranolacranberry.jpg" />
+    <Content Include="app\static\image\koek\verkadegranolapurechocolade&amp;amandel.jpg" />
+    <Content Include="app\static\image\koek\VerkadeKnappertjes.jpg" />
+    <Content Include="app\static\image\koek\VerkadeKoeklangenekken.jpg" />
+    <Content Include="app\static\image\koek\VerkadeLangetjeskaneel.JPG" />
+    <Content Include="app\static\image\koek\VerkadeMokkasticks.jpg" />
+    <Content Include="app\static\image\koek\VerkadeNizzakaramelzeezout.jpg" />
+    <Content Include="app\static\image\koek\VerkadeNobospritsenoriginal.jpg" />
+    <Content Include="app\static\image\koek\VerkadeNobospritsmelk.jpg" />
+    <Content Include="app\static\image\koek\VerkadePrinsesaardbei.JPG" />
+    <Content Include="app\static\image\koek\VerkadeSanFrancisconaturel.jpg" />
+    <Content Include="app\static\image\koek\VerkadeSanFranciscotarwe.jpg" />
+    <Content Include="app\static\image\koek\VerkadeSanFranciscovolkoren.jpg" />
+    <Content Include="app\static\image\koek\VerkadeSmilies5x5.jpg" />
+    <Content Include="app\static\image\koek\VerkadeVanillecookiesDora.jpg" />
+    <Content Include="app\static\image\koek\WiegerKetellapperSnelleJellekruidkoek.jpg" />
+    <Content Include="app\static\image\koek\WiegerKetellapperSnelleJellezero6stuks.jpg" />
+    <Content Include="app\static\image\koek\ZaansHuisjeMelk.jpg" />
+    <Content Include="app\static\image\koek\ZaansHuisjePuur.jpg" />
+    <Content Include="app\static\image\koek\ZagazoeMinionsbellobiscuits.jpg" />
+    <Content Include="app\static\image\Vergrootglas.png" />
+    <Content Include="app\static\image\zoetigheid\Aardbeienbavvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\Abrikozenvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\amandelstaaf.jpg" />
+    <Content Include="app\static\image\zoetigheid\Ambachtelijke Aardbeienslof.png" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeAppelpunten.jpg" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeBakkerambachtelijkeskislof.jpg" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeBakkerBananensoes.jpg" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeBakkerBaveroisevierkantjes.jpg" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeBakkerRoombroodjes.jpg" />
+    <Content Include="app\static\image\zoetigheid\AmbachtelijkeBakkerSlagroomsoesjes.jpg" />
+    <Content Include="app\static\image\zoetigheid\Appel kruimelvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\Appelkaneeltaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\Appelkruimelvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\appelkruimelvlaai2.jpg" />
+    <Content Include="app\static\image\zoetigheid\Appeltaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\BakkerMoorkoppen.jpg" />
+    <Content Include="app\static\image\zoetigheid\bakkerTompoucen.jpg" />
+    <Content Include="app\static\image\zoetigheid\Bananensoezen.jpg" />
+    <Content Include="app\static\image\zoetigheid\Boscche bollen.jpg" />
+    <Content Include="app\static\image\zoetigheid\Brownievlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\cinnamonrolls.jpeg" />
+    <Content Include="app\static\image\zoetigheid\Hazelnootcreme.jpg" />
+    <Content Include="app\static\image\zoetigheid\Hazelnootschuimtaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\Mokkaschnitt.jpg" />
+    <Content Include="app\static\image\zoetigheid\MokkaSlagroomSchnitt.jpg" />
+    <Content Include="app\static\image\zoetigheid\Oreotaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\ouwe taart.jpg" />
+    <Content Include="app\static\image\zoetigheid\roomboterspeculaaspiccolo.png" />
+    <Content Include="app\static\image\zoetigheid\roomboterspeculaastaartjemetamandelschaafsel.jpg" />
+    <Content Include="app\static\image\zoetigheid\Roombroodjes.jpg" />
+    <Content Include="app\static\image\zoetigheid\Slagroomgebak.jpeg" />
+    <Content Include="app\static\image\zoetigheid\Slagroomschnitt.jpg" />
+    <Content Include="app\static\image\zoetigheid\Slagroomsoesjes.jpg" />
+    <Content Include="app\static\image\zoetigheid\slagroomtaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\slagsroomchnitt.jpg" />
+    <Content Include="app\static\image\zoetigheid\Sparabrikozenvlaaihalve.jpg" />
+    <Content Include="app\static\image\zoetigheid\SparBoerenappeltaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\Sparframbozentaarthalve.jpg" />
+    <Content Include="app\static\image\zoetigheid\Sparkersenvlaaihalve.jpg" />
+    <Content Include="app\static\image\zoetigheid\Sparmangotaart.jpg" />
+    <Content Include="app\static\image\zoetigheid\Sparroomkruimelvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\Speculaascake.png" />
+    <Content Include="app\static\image\zoetigheid\stroopwafelvlaai%281%29.jpg" />
+    <Content Include="app\static\image\zoetigheid\Stroopwafelvlaai.jpg" />
+    <Content Include="app\static\image\zoetigheid\Tompouce.jpg" />
+    <Content Include="app\static\image\zoetigheid\Vruchtengebak.png" />
+    <Content Include="app\static\app\content\main.css" />
+    <Content Include="app\templates\app\shared.html" />
+    <Content Include="app\templates\app\home.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="db.sqlite3" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="app\static\app\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="app\templates\app\login.html" />
+    <Content Include="app\templates\app\loginpartial.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.html">
+      <SubType>WebBrowser</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.6</Version>
+      <Description>env (Python 3.6 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
