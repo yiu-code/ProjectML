@@ -8,3 +8,4 @@ def Login(request):
 
 def Home(request):
     return HttpResponse('<h1>Home Page </h1>')
+    
