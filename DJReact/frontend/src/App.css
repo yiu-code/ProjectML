@@ -5,5 +5,11 @@
   background-image: url("https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/h39/h95/9126618693662/razer-blade-15-gallery08.jpg");
   background-color: black;
 }
+.footer {
+  padding: 24px 0;
+  background-color: #3478e5;
+  font-size: 0.875em;
+  color: white;
+}
 
 

@@ -20,6 +20,7 @@ class NavBar extends React.Component {
           <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link active" href="./login">Login</a>
           <a class="nav-item nav-link active" href="./productpage">Products</a>
+          <a class="nav-item nav-link active" href="/">Cart</a>
           {/* <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a> */}
     </div>
   </div>
