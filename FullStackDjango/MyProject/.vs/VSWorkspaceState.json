@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\api",
-    "\\MyProject",
-    "\\MyProject\\__pycache__",
-    "\\products",
-    "\\products\\__pycache__"
+    "\\MyProject"
   ],
-  "SelectedNode": "\\MyProject\\urls.py",
   "PreviewInSolutionExplorer": false
 }

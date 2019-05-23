@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpRequest
+from django.template import RequestContext
 from .models import Article, Author
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,8 +11,27 @@ from .serializers import ArticleSerializer
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
 
-def Home(request):
-    return HttpResponse('<h1>Home Page </h1>')
+
+
+def home(request):
+    """Renders the home page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'api/home.html',
+        {
+            'title':'Home Page',
+            
+        }
+    )
+
+## Webpagina die Db info laat zien ##
+def dbData(request):
+    Article_list = Article.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
+    return render(request, 'api/dbData.html', {'Article': Article_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
+
+
+### BASIS API ###
 
 class ArticleView(APIView):
     # GET METHOD - Laat de Artikelen zien. (In JSON natuurlijk)
