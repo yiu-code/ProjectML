@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
-from api.forms import RegistrationForm
 
 from django.http import HttpRequest
 from django.template import RequestContext
@@ -14,6 +13,7 @@ def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
 
 def Home(request):
+<<<<<<< HEAD
     return HttpResponse('<h1>Home Page </h1>')
 
 def Register(request):
@@ -70,3 +70,6 @@ class ArticleView(APIView):
         article = get_object_or_404(Article.objects.all(), pk=pk)
         article.delete()
         return Response({"message": "Article with id `{}` has been deleted.".format(pk)},status=204) 
+=======
+    return HttpResponse('<h1>Home Page </h1>')
+>>>>>>> parent of b7159b70... Setup en Register
