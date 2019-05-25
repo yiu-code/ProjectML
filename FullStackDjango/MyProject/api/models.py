@@ -1,13 +1,9 @@
 from django.db import models
-<<<<<<< HEAD
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django import forms
 
 from django.contrib.auth.models import AbstractBaseUser
 from rest_framework import serializers
-=======
-from django.contrib.auth.models import AbstractBaseUser
->>>>>>> parent of b7159b70... Setup en Register
 
 # Create your models here.
 #Models + __str__ dat ervoor zorgt dat hij bij een call de naam laat zien.
@@ -29,9 +25,37 @@ class Article(models.Model):
    
 
 
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None, is_active=True, is_staff= False, is_admin=False, **extra_fields):
+        if not email :
+            raise ValueError("Users must have an email address")
+        if not password:
+            raise ValueError("Users must have a password")
+        user_obj = self.model(email = self.normalize_email(email), **extra_fields)
+        user_obj.set_password(password)
+        user_obj.staff = is_staff
+        user_obj.admin = is_admin
+        user_obj.active = is_active
+        user_obj.save(using= self._db)
+        return user_obj
+
+    def create_staffuser(self, email, password=None):
+        user = self.create_user(email, password=password, is_staff=True)
+        return user
+
+    def create_superuser(self, email, password=None):
+        user = self.create_user(email, password=password, is_staff=True, is_admin=True)
+        return user
+    
+    
+
 class User(AbstractBaseUser):
+    Job_title_choices = [('frontend', 'Frontend developer'),
+                         ('backend', 'Backend developer'),
+                         ('datascience', 'Datascience')
+                        ]
+
     email = models.EmailField(max_length=255, unique=True)
-<<<<<<< HEAD
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
@@ -78,6 +102,3 @@ class Employee:
 
 
     
-=======
-    
->>>>>>> parent of b7159b70... Setup en Register
