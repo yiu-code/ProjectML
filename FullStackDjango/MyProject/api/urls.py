@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import ArticleView
-from .views import Home,Login, dbData, Register
+from . import views
 
 app_name = "articles"
 
