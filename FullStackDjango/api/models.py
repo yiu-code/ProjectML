@@ -22,6 +22,14 @@ class Article(models.Model):
     def __str__(self):
         return self.title
 
+class Product(models.Model):
+    title = models.CharField(max_length=120)
+    brand = models.CharField(max_length=30)
+    image = models.TextField()
+    price = models.FloatField()
+    category = models.CharField(max_length=30)
+
+class ProductList(models.Model):
     product = models.ForeignKey('Product', related_name='products', on_delete=models.CASCADE)
     order = models.ForeignKey('Order', related_name='orders', on_delete=models.CASCADE)
     amount = models.IntegerField()
