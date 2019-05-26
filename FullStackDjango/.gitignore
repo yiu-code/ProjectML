@@ -1,7 +1,4 @@
 .vscode
 MyProject/api/migrations/
 FullStackDjango/Pipfile/
-MyProject/db.sqlite3
-MyProject/db.sqlite3
 Pipfile
-*.sqlite3
