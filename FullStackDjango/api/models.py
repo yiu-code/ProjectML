@@ -14,7 +14,6 @@ class Author(models.Model):
       return self.name
 
 
-
 class Article(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
@@ -22,9 +21,16 @@ class Article(models.Model):
     author = models.ForeignKey('Author', related_name='articles', on_delete=models.PROTECT)
     def __str__(self):
         return self.title
-   
+
+    product = models.ForeignKey('Product', related_name='products', on_delete=models.CASCADE)
+    order = models.ForeignKey('Order', related_name='orders', on_delete=models.CASCADE)
+    amount = models.IntegerField()
+
+class Order(models.Model):
+    user = models.ForeignKey('User', related_name='user', on_delete=models.CASCADE)
 
 
+#---------------------------------- USER MODEL ---------------------------------------------
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, is_active=True, is_staff= False, is_admin=False, **extra_fields):
         if not email :
@@ -50,9 +56,9 @@ class UserManager(BaseUserManager):
     
 
 class User(AbstractBaseUser):
-    Job_title_choices = [('frontend', 'Frontend developer'),
-                         ('backend', 'Backend developer'),
-                         ('datascience', 'Datascience')
+    Job_title_choices = [('Developer', 'Developer'),
+                         ('Designer', 'Designer'),
+                         ('Office', 'Office')
                         ]
 
     email = models.EmailField(max_length=255, unique=True)
