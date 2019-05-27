@@ -1,0 +1,19 @@
+
+<html>
+    <head>
+        <title> DB Data (read from database)
+        </title>
+    </head>
+    <body>
+
+        <h1> Product page</h1>
+        {% if Article%}
+        <ol>
+            {% for articles in Article%}
+            <li>Title: {{articles.title}} <br /> Description: {{articles.description}}</li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </body>
+    </html>
+    
