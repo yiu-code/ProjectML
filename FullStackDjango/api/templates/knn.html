@@ -1,0 +1,17 @@
+﻿{% extends 'algorithm.html' %}
+
+{% block content%}
+    <h2>Recommendation</h2>
+    <div class="row">
+        <div class="col-9">
+            <h4>Items</h4>
+            {% for product in products %}
+                <p>{{product.id}}:  {{product.title}}</p>
+            {% endfor %}
+        </div>
+        <div class="col-3">
+            <h4>Distance(prediction)</h4>
+        </div>
+    </div>
+
+{% endblock %}

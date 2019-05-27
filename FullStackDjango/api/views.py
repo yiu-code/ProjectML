@@ -4,11 +4,16 @@ from api.forms import RegistrationForm
 
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import Article, Author
+from .models import Article, Author, Product, User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ArticleSerializer
 # Create your views here.
+
+def Algorithm(request):
+    products = Product.objects.all()
+    users = User.objects.all()
+    return render(request, 'knn.html', {'products': products, 'users': users})
 
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
