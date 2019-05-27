@@ -46,13 +46,6 @@
     <Compile Include="MyProject\urls.py" />
     <Compile Include="MyProject\wsgi.py" />
     <Compile Include="MyProject\__init__.py" />
-    <Compile Include="products\admin.py" />
-    <Compile Include="products\apps.py" />
-    <Compile Include="products\migrations\__init__.py" />
-    <Compile Include="products\models.py" />
-    <Compile Include="products\tests.py" />
-    <Compile Include="products\views.py" />
-    <Compile Include="products\__init__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="api\" />
@@ -64,10 +57,6 @@
     <Folder Include="api\__pycache__\" />
     <Folder Include="MyProject\" />
     <Folder Include="MyProject\__pycache__\" />
-    <Folder Include="products\" />
-    <Folder Include="products\migrations\" />
-    <Folder Include="products\migrations\__pycache__\" />
-    <Folder Include="products\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="api\templates\api\dbData.html" />
@@ -76,14 +65,12 @@
     <Content Include="api\templates\css\home.css" />
     <Content Include="api\templates\css\login.css" />
     <Content Include="api\templates\css\register.css" />
+    <Content Include="api\templates\login.html" />
     <Content Include="api\templates\register.html" />
     <Content Include="MyProject\__pycache__\settings.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\urls.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\wsgi.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\__init__.cpython-37.pyc" />
-    <Content Include="products\__pycache__\admin.cpython-37.pyc" />
-    <Content Include="products\__pycache__\models.cpython-37.pyc" />
-    <Content Include="products\__pycache__\__init__.cpython-37.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="Backup2.sqlite3" />
   </ItemGroup>
