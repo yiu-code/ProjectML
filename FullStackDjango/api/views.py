@@ -19,7 +19,7 @@ def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
 
 def Home(request):
-    return HttpResponse('<h1>Home Page </h1>')
+    return render(request, 'home.html')
 
 def Register(request):
     if request.method == 'POST':
@@ -49,8 +49,8 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 def dbData(request):
-    Article_list = Article.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
-    return render(request, 'api/dbData.html', {'Article': Article_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
+    Product_list = Product.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
+    return render(request, 'api/products.html', {'Product': Product_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
 
 
 ### BASIS API ###
