@@ -7,6 +7,7 @@ from scipy.sparse import csr_matrix
 countItems = pd.read_csv('./Count.csv', sep=";")
 inventory = pd.read_csv('./DataSets/LaptopsV2.csv', sep=";")
 employeeWitem = pd.read_csv("./DataSets/OrderHistoryV3.csv", sep=";")
+employeeList = pd.read_csv("./DataSets/Employee.csv", sep=";")
 
 # convert data to interger
 inventory["ProductId"] = inventory["ProductId"].astype(np.int64)
@@ -19,9 +20,11 @@ employeeWitem["OrderId"] = employeeWitem["OrderId"].astype(np.int64)
 employeeWitem["UserId"] = employeeWitem["UserId"].astype(np.int64)
 employeeWitem["ProductId"] = employeeWitem["ProductId"].astype(np.int64)
 employeeWitem.sort_values(by="OrderId")
+
+employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
      
 def Main():
-    recommmender = Recommender(inventory,countItems,employeeWitem, 12)
+    recommmender = Recommender(inventory,countItems,employeeWitem, 32)
     product = recommmender.Knn()
 
     for i in product:

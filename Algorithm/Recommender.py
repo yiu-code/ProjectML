@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix
 import itertools
 
 class Recommender:
-    def __init__(self, inventory, countItems, employeeWitem, UserId ):
+    def __init__(self, inventory, countItems, employeeWitem, UserId, ):
         self.inventory = inventory
         self.countItems = countItems
         self.employeeWitem = employeeWitem
@@ -37,6 +37,25 @@ class Recommender:
 
         if len(hist) > 5:
             del hist[5::] # only save the 5 most recent ID 
+
+        else:
+            print("History is empty")
+            
+            
+
+        # als len(hist) < 5:
+        #   Zoek users waar jobtitle == self.jobtitle (for self.jobtitle == employeeWitem["jobtitle"][row])
+        #   print employee list
+        #
+        #   haal user history van alle jobtitles binnen 
+
+        #   print user history lijst
+
+        #   uit alle resultaten
+        #   randomizer voor 5 producten
+
+        #   print resultaten randomizer
+
 
         #find each product Id for each 
         for i in hist:
