@@ -51,20 +51,22 @@
     <Folder Include="api\" />
     <Folder Include="api\migrations\" />
     <Folder Include="api\migrations\__pycache__\" />
+    <Folder Include="api\static\" />
+    <Folder Include="api\static\image\" />
     <Folder Include="api\templates\" />
     <Folder Include="api\templates\api\" />
-    <Folder Include="api\templates\css\" />
     <Folder Include="api\__pycache__\" />
     <Folder Include="MyProject\" />
     <Folder Include="MyProject\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="api\templates\api\dbData.html" />
-    <Content Include="api\templates\api\home.html" />
+    <Content Include="api\static\home.css" />
+    <Content Include="api\static\image\Vergrootglas.png" />
+    <Content Include="api\static\login.css" />
+    <Content Include="api\static\register.css" />
+    <Content Include="api\templates\api\shared.html" />
+    <Content Include="api\templates\api\products.html" />
     <Content Include="api\templates\base.html" />
-    <Content Include="api\templates\css\home.css" />
-    <Content Include="api\templates\css\login.css" />
-    <Content Include="api\templates\css\register.css" />
     <Content Include="api\templates\login.html" />
     <Content Include="api\templates\register.html" />
     <Content Include="MyProject\__pycache__\settings.cpython-37.pyc" />

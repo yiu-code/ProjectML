@@ -1,4 +1,5 @@
-
+{% extends "api/shared.html" %}
+{% block content %}
 <html>
     <head>
         <title> DB Data (read from database)
@@ -7,13 +8,14 @@
     <body>
 
         <h1> Product page</h1>
-        {% if Article%}
+        {% if Product%}
         <ol>
-            {% for articles in Article%}
-            <li>Title: {{articles.title}} <br /> Description: {{articles.description}}</li>
+            {% for item in Product%}
+            <li>Product: {{item.title}} <br /> Merk: {{item.brand}}</li>
             {% endfor %}
         </ol>
         {% endif %}
     </body>
     </html>
+{% endblock %}
     
