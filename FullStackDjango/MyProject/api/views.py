@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from api.forms import RegistrationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def Login(request):
-    return HttpResponse('<h1>Login Page</h1>')
+# def Login(request):
+#     return HttpResponse('<h1>Login Page</h1>')
 
+@login_required
 def Home(request):
     return HttpResponse('<h1>Home Page </h1>')
 
