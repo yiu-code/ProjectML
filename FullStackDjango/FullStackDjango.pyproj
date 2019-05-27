@@ -65,6 +65,7 @@
     <Content Include="api\templates\css\home.css" />
     <Content Include="api\templates\css\login.css" />
     <Content Include="api\templates\css\register.css" />
+    <Content Include="api\templates\login.html" />
     <Content Include="api\templates\register.html" />
     <Content Include="MyProject\__pycache__\settings.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\urls.cpython-37.pyc" />

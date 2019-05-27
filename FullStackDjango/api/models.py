@@ -28,14 +28,19 @@ class Product(models.Model):
     image = models.TextField()
     price = models.FloatField()
     category = models.CharField(max_length=30)
+    def __str__(self):
+        return self.title
 
 class ProductList(models.Model):
     product = models.ForeignKey('Product', related_name='products', on_delete=models.CASCADE)
     order = models.ForeignKey('Order', related_name='orders', on_delete=models.CASCADE)
     amount = models.IntegerField()
 
+
 class Order(models.Model):
     user = models.ForeignKey('User', related_name='user', on_delete=models.CASCADE)
+    def __str__(self):
+      return self.user
 
 
 #---------------------------------- USER MODEL ---------------------------------------------

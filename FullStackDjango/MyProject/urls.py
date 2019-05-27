@@ -19,6 +19,5 @@ from django.urls import path,include
 #Bij '' kan je ook alle URLS gebruiken van api.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api.urls')),
-
+    path('', include('api.urls'))
 ]
