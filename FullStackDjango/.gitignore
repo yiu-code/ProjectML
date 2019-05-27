@@ -1,3 +1,2 @@
 .vscode
-FullStackDjango/Pipfile/
-Pipfile
+*.pyc
