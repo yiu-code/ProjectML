@@ -53,6 +53,7 @@
     <Folder Include="api\migrations\__pycache__\" />
     <Folder Include="api\static\" />
     <Folder Include="api\static\image\" />
+    <Folder Include="api\static\scripts\" />
     <Folder Include="api\templates\" />
     <Folder Include="api\templates\api\" />
     <Folder Include="api\__pycache__\" />
@@ -64,6 +65,7 @@
     <Content Include="api\static\image\Vergrootglas.png" />
     <Content Include="api\static\login.css" />
     <Content Include="api\static\register.css" />
+    <Content Include="api\static\scripts\shared.css" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />
     <Content Include="api\templates\base.html" />

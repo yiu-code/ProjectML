@@ -3,7 +3,7 @@ from .views import ArticleView
 from . import views
 from django.contrib.auth.views import LoginView
 
-app_name = "articles"
+app_name = "api"
 
 urlpatterns =  [
     path('home', views.Home, name="home-page"),
