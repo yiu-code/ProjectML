@@ -3,13 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
 import itertools
+import random
 
 class Recommender:
-    def __init__(self, inventory, countItems, employeeWitem, UserId, ):
+    def __init__(self, inventory, countItems, employeeWitem, UserId, employeeList):
         self.inventory = inventory
         self.countItems = countItems
         self.employeeWitem = employeeWitem
         self.UserId = UserId
+        self.employeeList = employeeList
         self.DataFiltering()
 
     #simpel groupby function to get top borrowed Items
@@ -27,25 +29,81 @@ class Recommender:
         # filter out products with borrow rate < 2
         self.countItems = self.countItems[self.countItems["Count"].isin(newCount[newCount < newCount[1]].index)]
 
-    def GetUserHistory(self):
+    def CheckUserHistory(self, UserId):
         hist = []
         product = []
+        userIdArray = []
+        print(self.UserId)
         for row in range (1, (len(self.employeeWitem))):
-            if self.employeeWitem["UserId"][row] == self.UserId:
+            if self.employeeWitem["UserId"][row] == UserId:
                 hist.append(self.employeeWitem["OrderId"][row])
+                #print("Item added")
         hist.sort(reverse = True)
 
-        if len(hist) > 5:
-            del hist[5::] # only save the 5 most recent ID 
+        if len(hist) == 0:
+            changeToDifferentUser = ChangeUsers(self.UserId)
+            return changeToDifferentUser
+            
 
         else:
-            print("History is empty")
+            print("list is empty")
+            del hist[5::] # only save the 5 most recent ID 
+            for i in hist:
+                product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            print(product)
+            return product
+        
+    def ChangeUsers(self, UserId):
+        test = 1
+        return CheckUserHistory(test)
+
+
+
+    # def GetUserHistory(self, UserId):
+    #     hist = []
+    #     product = []
+    #     userIdArray = []
+    #     print(self.UserId)
+    #     for row in range (1, (len(self.employeeWitem))):
+    #         if self.employeeWitem["UserId"][row] == UserId:
+    #             hist.append(self.employeeWitem["OrderId"][row])
+    #             #print("Item added")
+    #     hist.sort(reverse = True)
+
+    #     if len(hist) == 0:
+    #         self.GetUserHistory(self.ChangeUser())
+    #         print("User has no order history")
+    #         print(self.UserId)
             
             
 
+    #     if len(hist) > 5:
+            # del hist[5::] # only save the 5 most recent ID 
+            # for i in hist:
+            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            # print(product)
+            # return product
+        
+
+    # def ChangeUser(self):
+    #     employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
+    #     randomUser = random.choice(employeeList["UserId"])
+    #     print (randomUser)
+    #     return randomUser
+
+
+            # print(hist)
+            # for i in hist:
+            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            # print(product)
+            # return product
+
+
+            
+# WAARSCHIJNLIJK ZITTEN ER VEEL TYFUSFOUTEN IN MAAR DAT KAN ME NU HELEMAAL NIKS BOEIEN
+            
         # als len(hist) < 5:
-        #   Zoek users waar jobtitle == self.jobtitle (for self.jobtitle == employeeWitem["jobtitle"][row])
-        #   print employee list
+
         #
         #   haal user history van alle jobtitles binnen 
 
@@ -58,10 +116,11 @@ class Recommender:
 
 
         #find each product Id for each 
-        for i in hist:
-            product.append(self.employeeWitem.at[(i-1), "ProductId"])
-        print(product)
-        return product
+        # print(hist)
+        # for i in hist:
+        #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+        # print(product)
+        # return product
 
     def Knn(self):
         # combine and drop the columns that is not needed for the algoritm
@@ -96,7 +155,7 @@ class Recommender:
         model_knn = NearestNeighbors(metric= 'cosine', algorithm= 'brute')
         model_knn.fit(CountpopluarItemMaxtrix)
 
-        queryIndex = self.GetUserHistory()
+        queryIndex = self.CheckUserHistory(self.UserId)
         ItemId = []
         for index in queryIndex:
             try:

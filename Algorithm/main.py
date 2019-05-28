@@ -22,9 +22,11 @@ employeeWitem["ProductId"] = employeeWitem["ProductId"].astype(np.int64)
 employeeWitem.sort_values(by="OrderId")
 
 employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
+
+randomUser = random.choice(employeeList["UserId"])
      
 def Main():
-    recommmender = Recommender(inventory,countItems,employeeWitem, 32)
+    recommmender = Recommender(inventory,countItems,employeeWitem, randomUser, employeeList)
     product = recommmender.Knn()
 
     for i in product:
