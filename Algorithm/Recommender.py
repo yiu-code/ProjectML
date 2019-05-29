@@ -1,15 +1,40 @@
+"""
+First all the needed methods are imported:
+Pandas is a data structure and analysis tool supporting data analysis workflow. 
+Numpy supports the mathematical calculations that must be done. 
+Mathplotlib has the ability to portray the data in graphs. 
+SciPy is a package that optimalizes linear algebra and statistics. 
+Itertools is used for efficient looping through data.
+Random is used to generate random numbers.
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
 import itertools
+import random
 
 class Recommender:
-    def __init__(self, inventory, countItems, employeeWitem, UserId ):
+    def __init__(self, inventory, countItems, employeeWitem, UserId, employeeList):
+        """
+        The class Recommender is created. A class is a set of objects having
+        some attributes in common. It is a blueprint for individual objects
+        with exact behaviour. __init__ is known as a constructor. This method
+        is called  when an object is created from the class and it allows the
+        class to initialize the attributes of a class. After initializing, 
+        arguments are given before diving into the 'main' part of the
+        constructor. In the body, the arguments that were given are also the 
+        attributes that the program is going to work with. 'self.' represents
+        the instance of the class. By using the self keyword, we can make a
+        class, object or attribute global instead of just local.
+        The following attributes are made global. After this the  program goes
+        to the function datafiltering, which has also been made global.
+        """
         self.inventory = inventory
         self.countItems = countItems
         self.employeeWitem = employeeWitem
         self.UserId = UserId
+        self.employeeList = employeeList
         self.DataFiltering()
 
     #simpel groupby function to get top borrowed Items
@@ -23,26 +48,108 @@ class Recommender:
         return toprecommendedItems.head(num)
 
     def DataFiltering(self):
+        """
+        A value called newCount is made. It consists of the global variable
+        countItems. countItems is the data of the Count.csv file TBC
+        """
         newCount = self.countItems["Count"].value_counts()
         # filter out products with borrow rate < 2
         self.countItems = self.countItems[self.countItems["Count"].isin(newCount[newCount < newCount[1]].index)]
 
-    def GetUserHistory(self):
+    def ChangeUsers(self, UserId):
+        test = 1
+        return CheckUserHistory(test)
+
+    def CheckUserHistory(self, UserId):
         hist = []
         product = []
+        userIdArray = []
+        print(self.UserId)
         for row in range (1, (len(self.employeeWitem))):
-            if self.employeeWitem["UserId"][row] == self.UserId:
+            if self.employeeWitem["UserId"][row] == UserId:
                 hist.append(self.employeeWitem["OrderId"][row])
+                #print("Item added")
         hist.sort(reverse = True)
 
-        if len(hist) > 5:
+        if len(hist) == 0:
+            changeToDifferentUser = self.ChangeUsers(self.UserId)
+            return changeToDifferentUser
+            
+
+        else:
+            print("list is empty")
             del hist[5::] # only save the 5 most recent ID 
+            for i in hist:
+                product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            print(product)
+            return product
+        
+
+
+
+
+    # def GetUserHistory(self, UserId):
+    #     hist = []
+    #     product = []
+    #     userIdArray = []
+    #     print(self.UserId)
+    #     for row in range (1, (len(self.employeeWitem))):
+    #         if self.employeeWitem["UserId"][row] == UserId:
+    #             hist.append(self.employeeWitem["OrderId"][row])
+    #             #print("Item added")
+    #     hist.sort(reverse = True)
+
+    #     if len(hist) == 0:
+    #         self.GetUserHistory(self.ChangeUser())
+    #         print("User has no order history")
+    #         print(self.UserId)
+            
+            
+
+    #     if len(hist) > 5:
+            # del hist[5::] # only save the 5 most recent ID 
+            # for i in hist:
+            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            # print(product)
+            # return product
+        
+
+    # def ChangeUser(self):
+    #     employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
+    #     randomUser = random.choice(employeeList["UserId"])
+    #     print (randomUser)
+    #     return randomUser
+
+
+            # print(hist)
+            # for i in hist:
+            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+            # print(product)
+            # return product
+
+
+            
+# WAARSCHIJNLIJK ZITTEN ER VEEL TYFUSFOUTEN IN MAAR DAT KAN ME NU HELEMAAL NIKS BOEIEN
+            
+        # als len(hist) < 5:
+
+        #
+        #   haal user history van alle jobtitles binnen 
+
+        #   print user history lijst
+
+        #   uit alle resultaten
+        #   randomizer voor 5 producten
+
+        #   print resultaten randomizer
+
 
         #find each product Id for each 
-        for i in hist:
-            product.append(self.employeeWitem.at[(i-1), "ProductId"])
-        print(product)
-        return product
+        # print(hist)
+        # for i in hist:
+        #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
+        # print(product)
+        # return product
 
     def Knn(self):
         # combine and drop the columns that is not needed for the algoritm
@@ -77,7 +184,7 @@ class Recommender:
         model_knn = NearestNeighbors(metric= 'cosine', algorithm= 'brute')
         model_knn.fit(CountpopluarItemMaxtrix)
 
-        queryIndex = self.GetUserHistory()
+        queryIndex = self.CheckUserHistory(self.UserId)
         ItemId = []
         for index in queryIndex:
             try:
