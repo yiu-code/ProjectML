@@ -30,11 +30,17 @@ class Recommender:
         The following attributes are made global. After this the  program goes
         to the function datafiltering, which has also been made global.
         """
+        # in panda the ondex start with 0. unlike SQL that start with 1 
+        # since we need to look up in inventory, employewithitem & employeelist
+        # it will make thej ob easier by setting the index at 1 so we don't have to.
+        # add 1 the whole time while writing code
         self.inventory = inventory
         self.countItems = countItems
         self.employeeWitem = employeeWitem
+        self.employeeWitem.index += 1 
         self.UserId = UserId
         self.employeeList = employeeList
+        self.employeeList.index += 1 
         self.DataFiltering()
 
     #simpel groupby function to get top borrowed Items
@@ -56,100 +62,58 @@ class Recommender:
         # filter out products with borrow rate < 2
         self.countItems = self.countItems[self.countItems["Count"].isin(newCount[newCount < newCount[1]].index)]
 
-    def ChangeUsers(self, UserId):
-        test = 1
-        return CheckUserHistory(test)
-
-    def CheckUserHistory(self, UserId):
-        hist = []
-        product = []
-        userIdArray = []
-        print(self.UserId)
-        for row in range (1, (len(self.employeeWitem))):
-            if self.employeeWitem["UserId"][row] == UserId:
-                hist.append(self.employeeWitem["OrderId"][row])
-                #print("Item added")
-        hist.sort(reverse = True)
+    def CheckAndGetHistory(self):
+        #so at the start it will call CreateUserHistoryArry to get an array
+        #based on their history
+        hist = self.CreateUserHistoryArray(self.UserId)
+        print("history of current user:")
 
         if len(hist) == 0:
-            changeToDifferentUser = self.ChangeUsers(self.UserId)
-            return changeToDifferentUser
-            
+            # new employee won't have a order history
+            # to give them a related recommendation based on their function
+            # we get a history from a random employee with the some function
+            userIdArray = []
+            jobTitle = self.employeeList.loc[(self.UserId), "jobtitle"]
+            print(jobTitle)          
+            sameFunction = self.employeeList['UserId'].where(self.employeeList['jobtitle'] == jobTitle).dropna()
+            for i in sameFunction:
+                if int(i) <= 30:
+                    userIdArray.append(int(i))
+            randomId = random.choice(userIdArray)
+            print("history from random user")
+            #call the function CreateUserHistoryArry but this time with a random employee ID
+            hist = self.CreateUserHistoryArray(randomId)
 
-        else:
-            print("list is empty")
-            del hist[5::] # only save the 5 most recent ID 
-            for i in hist:
-                product.append(self.employeeWitem.at[(i-1), "ProductId"])
-            print(product)
-            return product
+        print("previous borrowed items:")
+        print(hist)
+
+        #in the end it return an array with product id NOT order id
+        return hist
+
+    def CreateUserHistoryArray(self, Id):
+        hist = [] #history of Order ID
+        product = [] #fill with Items ID
+
+        #this for loop needs to be re-written when database is involed 
+        #because there are chances that an oder contains multiple products
+        for row in range (1, (len(self.employeeWitem))):
+            if self.employeeWitem["UserId"][row] == Id:
+                hist.append(self.employeeWitem["OrderId"][row])
+        hist.sort(reverse = True)
+
+        # add item id based on orderId to the product array
+        for i in hist:
+            product.append(self.employeeWitem.at[(i), "ProductId"])
         
-
-
-
-
-    # def GetUserHistory(self, UserId):
-    #     hist = []
-    #     product = []
-    #     userIdArray = []
-    #     print(self.UserId)
-    #     for row in range (1, (len(self.employeeWitem))):
-    #         if self.employeeWitem["UserId"][row] == UserId:
-    #             hist.append(self.employeeWitem["OrderId"][row])
-    #             #print("Item added")
-    #     hist.sort(reverse = True)
-
-    #     if len(hist) == 0:
-    #         self.GetUserHistory(self.ChangeUser())
-    #         print("User has no order history")
-    #         print(self.UserId)
-            
-            
-
-    #     if len(hist) > 5:
-            # del hist[5::] # only save the 5 most recent ID 
-            # for i in hist:
-            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
-            # print(product)
-            # return product
+        #drop duplicates item id
+        product = list(dict.fromkeys(product)) 
         
+        # only save the 5 most recent ID 
+        if len(product) > 5:
+            del product[5::] 
 
-    # def ChangeUser(self):
-    #     employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
-    #     randomUser = random.choice(employeeList["UserId"])
-    #     print (randomUser)
-    #     return randomUser
-
-
-            # print(hist)
-            # for i in hist:
-            #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
-            # print(product)
-            # return product
-
-
-            
-# WAARSCHIJNLIJK ZITTEN ER VEEL TYFUSFOUTEN IN MAAR DAT KAN ME NU HELEMAAL NIKS BOEIEN
-            
-        # als len(hist) < 5:
-
-        #
-        #   haal user history van alle jobtitles binnen 
-
-        #   print user history lijst
-
-        #   uit alle resultaten
-        #   randomizer voor 5 producten
-
-        #   print resultaten randomizer
-
-
-        #find each product Id for each 
-        # print(hist)
-        # for i in hist:
-        #     product.append(self.employeeWitem.at[(i-1), "ProductId"])
-        # print(product)
-        # return product
+        return product
+        
 
     def Knn(self):
         # combine and drop the columns that is not needed for the algoritm
@@ -184,7 +148,7 @@ class Recommender:
         model_knn = NearestNeighbors(metric= 'cosine', algorithm= 'brute')
         model_knn.fit(CountpopluarItemMaxtrix)
 
-        queryIndex = self.CheckUserHistory(self.UserId)
+        queryIndex = self.CheckAndGetHistory()
         ItemId = []
         for index in queryIndex:
             try:
