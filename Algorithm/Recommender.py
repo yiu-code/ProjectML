@@ -1,15 +1,46 @@
+"""
+First all the needed methods are imported:
+Pandas is a data structure and analysis tool supporting data analysis workflow. 
+Numpy supports the mathematical calculations that must be done. 
+Mathplotlib has the ability to portray the data in graphs. 
+SciPy is a package that optimalizes linear algebra and statistics. 
+Itertools is used for efficient looping through data.
+Random is used to generate random numbers.
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
 import itertools
+import random
 
 class Recommender:
-    def __init__(self, inventory, countItems, employeeWitem, UserId ):
+    def __init__(self, inventory, countItems, employeeWitem, UserId, employeeList):
+        """
+        The class Recommender is created. A class is a set of objects having
+        some attributes in common. It is a blueprint for individual objects
+        with exact behaviour. __init__ is known as a constructor. This method
+        is called  when an object is created from the class and it allows the
+        class to initialize the attributes of a class. After initializing, 
+        arguments are given before diving into the 'main' part of the
+        constructor. In the body, the arguments that were given are also the 
+        attributes that the program is going to work with. 'self.' represents
+        the instance of the class. By using the self keyword, we can make a
+        class, object or attribute global instead of just local.
+        The following attributes are made global. After this the  program goes
+        to the function datafiltering, which has also been made global.
+        """
+        # in panda the ondex start with 0. unlike SQL that start with 1 
+        # since we need to look up in inventory, employewithitem & employeelist
+        # it will make thej ob easier by setting the index at 1 so we don't have to.
+        # add 1 the whole time while writing code
         self.inventory = inventory
         self.countItems = countItems
         self.employeeWitem = employeeWitem
+        self.employeeWitem.index += 1 
         self.UserId = UserId
+        self.employeeList = employeeList
+        self.employeeList.index += 1 
         self.DataFiltering()
 
     #simpel groupby function to get top borrowed Items
@@ -23,26 +54,66 @@ class Recommender:
         return toprecommendedItems.head(num)
 
     def DataFiltering(self):
+        """
+        A value called newCount is made. It consists of the global variable
+        countItems. countItems is the data of the Count.csv file TBC
+        """
         newCount = self.countItems["Count"].value_counts()
         # filter out products with borrow rate < 2
         self.countItems = self.countItems[self.countItems["Count"].isin(newCount[newCount < newCount[1]].index)]
 
-    def GetUserHistory(self):
-        hist = []
-        product = []
+    def CheckAndGetHistory(self):
+        #so at the start it will call CreateUserHistoryArry to get an array
+        #based on their history
+        hist = self.CreateUserHistoryArray(self.UserId)
+        print("history of current user:")
+
+        if len(hist) == 0:
+            # new employee won't have a order history
+            # to give them a related recommendation based on their function
+            # we get a history from a random employee with the some function
+            userIdArray = []
+            jobTitle = self.employeeList.loc[(self.UserId), "jobtitle"]
+            print(jobTitle)          
+            sameFunction = self.employeeList['UserId'].where(self.employeeList['jobtitle'] == jobTitle).dropna()
+            for i in sameFunction:
+                if int(i) <= 30:
+                    userIdArray.append(int(i))
+            randomId = random.choice(userIdArray)
+            print("history from random user")
+            #call the function CreateUserHistoryArry but this time with a random employee ID
+            hist = self.CreateUserHistoryArray(randomId)
+
+        print("previous borrowed items:")
+        print(hist)
+
+        #in the end it return an array with product id NOT order id
+        return hist
+
+    def CreateUserHistoryArray(self, Id):
+        hist = [] #history of Order ID
+        product = [] #fill with Items ID
+
+        #this for loop needs to be re-written when database is involed 
+        #because there are chances that an oder contains multiple products
         for row in range (1, (len(self.employeeWitem))):
-            if self.employeeWitem["UserId"][row] == self.UserId:
+            if self.employeeWitem["UserId"][row] == Id:
                 hist.append(self.employeeWitem["OrderId"][row])
         hist.sort(reverse = True)
 
-        if len(hist) > 5:
-            del hist[5::] # only save the 5 most recent ID 
-
-        #find each product Id for each 
+        # add item id based on orderId to the product array
         for i in hist:
-            product.append(self.employeeWitem.at[(i-1), "ProductId"])
-        print(product)
+            product.append(self.employeeWitem.at[(i), "ProductId"])
+        
+        #drop duplicates item id
+        product = list(dict.fromkeys(product)) 
+        
+        # only save the 5 most recent ID 
+        if len(product) > 5:
+            del product[5::] 
+
         return product
+        
 
     def Knn(self):
         # combine and drop the columns that is not needed for the algoritm
@@ -77,7 +148,7 @@ class Recommender:
         model_knn = NearestNeighbors(metric= 'cosine', algorithm= 'brute')
         model_knn.fit(CountpopluarItemMaxtrix)
 
-        queryIndex = self.GetUserHistory()
+        queryIndex = self.CheckAndGetHistory()
         ItemId = []
         for index in queryIndex:
             try:
