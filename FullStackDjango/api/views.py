@@ -4,7 +4,7 @@ from api.forms import RegistrationForm
 
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import Article, Author
+from .models import Article, Author, Product
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ArticleSerializer
@@ -44,8 +44,8 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 def dbData(request):
-    Article_list = Article.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
-    return render(request, 'api/products.html', {'Article': Article_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
+    Product_list = Product.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
+    return render(request, 'api/products.html', {'Product': Product_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
 
 
 ### BASIS API ###
