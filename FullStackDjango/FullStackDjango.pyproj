@@ -36,6 +36,9 @@
     <Compile Include="api\forms.py" />
     <Compile Include="api\migrations\__init__.py" />
     <Compile Include="api\models.py" />
+    <Compile Include="api\Recommender.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="api\serializers.py" />
     <Compile Include="api\tests.py" />
     <Compile Include="api\urls.py" />
@@ -56,6 +59,7 @@
     <Folder Include="api\static\scripts\" />
     <Folder Include="api\templates\" />
     <Folder Include="api\templates\api\" />
+    <Folder Include="api\templates\css\" />
     <Folder Include="api\__pycache__\" />
     <Folder Include="MyProject\" />
     <Folder Include="MyProject\__pycache__\" />

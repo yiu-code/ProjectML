@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from api.forms import RegistrationForm
+from .Recommender import Recommender
 
 from django.http import HttpRequest
 from django.template import RequestContext
@@ -13,6 +14,7 @@ from .serializers import ArticleSerializer
 def Algorithm(request):
     products = Product.objects.all()
     users = User.objects.all()
+    test = Recommender(5)
     return render(request, 'knn.html', {'products': products, 'users': users})
 
 def Login(request):
