@@ -8,6 +8,9 @@ import random
 
 class Recommender:
     def __init__(self, UserId):
+
+        self.UserId = UserId
+    
         self.inventory = pd.DataFrame(list(Product.objects.all().values()))
         self.inventory.index += 1
         
@@ -15,16 +18,14 @@ class Recommender:
         self.employeeList.index += 1 
 
         self.fetchCount = connection.cursor().execute("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id")
-        self.count = pd.DataFrame(list(self.fetchCount.fetchall()))
-        self.count.index += 1
-        # self.count[1] is all UserID;      self.count[2] is all productId;       self.count[3]  is count per product
-
-
-        #self.employeeWitem = employeeWitem
+        self.countItems = pd.DataFrame(list(self.fetchCount.fetchall()))
+        self.countItems.index += 1
+        # self.count[0] is all UserID;      self.count[1] is all productId;       self.count[2]  is count per product
+        # index starts of rows starts with 1
+ 
+        #self.fetchEmployeeWithItem = connection.cursor().execute( query )
+        #self.employeeWitem = 
         #self.employeeWitem.index += 1 
-        #self.UserId = UserId
-
-
-        #self.countItems = countItems
-        #self.DataFiltering()
-        print(self.count[0][0])
+        
+        #self.DataFiltering()   # uncomment when added DataFiltering function
+        print(self.count[0][1])      # test
