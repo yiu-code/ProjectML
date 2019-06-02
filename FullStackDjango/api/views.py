@@ -11,11 +11,22 @@ from rest_framework.views import APIView
 from .serializers import ArticleSerializer
 # Create your views here.
 
-def Algorithm(request):
-    products = Product.objects.all()
+# this path is for entering the algorithm view. however no user is selected therefore it returns top 10 recommend items
+def TopRecommendation(request):
     users = User.objects.all()
     test = Recommender(5)
-    return render(request, 'knn.html', {'products': products, 'users': users})
+    products = test.GetTopBorrowedItems(10)
+        
+    return render(request, 'topItem.html', {'products': products, 'users': users})
+
+# to make the knn function work based on user ID 
+# it require and POST request. by clicking on a name it returns their id
+# that id will be used to call the recommendation for that specific person
+# when found give that array to the render along with the knn.html
+def Knn(request):
+    users = User.objects.all()
+    #.....
+    return #....
 
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')

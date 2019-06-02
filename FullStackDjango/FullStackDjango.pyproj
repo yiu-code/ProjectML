@@ -77,6 +77,7 @@
     <Content Include="api\templates\css\login.css" />
     <Content Include="api\templates\css\register.css" />
     <Content Include="api\templates\knn.html" />
+    <Content Include="api\templates\topItem.html" />
     <Content Include="api\templates\login.html" />
     <Content Include="api\templates\algorithm.html" />
     <Content Include="api\templates\register.html" />

@@ -25,24 +25,32 @@ class to initialize the attributes of a class. In the def __init__
 UserId is made global and data received from the database is converted
 to be able to use it for the algoritm and to make it compatible with
 the rest of the website.
-- self.count[0] is all UserID
-- self.count[1] is all productId
-- self.count[2]  is count per product
 """
 
 class Recommender:
     def __init__(self, UserId):
-        self.UserId = UserId    
-        self.inventory = pd.DataFrame(list(Product.objects.all().values()))
-        self.inventory.index += 1        
-        self.employeeList = pd.DataFrame(list(User.objects.all().values()))
-        self.employeeList.index += 1 
+        self.UserId = UserId   
+        self.fetchInventory = connection.cursor().execute("SELECT * FROM api_product") 
+        self.fetchEmployee = connection.cursor().execute("SELECT * FROM api_user")        
         self.fetchCount = connection.cursor().execute("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id")
+        self.fetchemployeeWitem = connection.cursor().execute("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;")
+
+        self.inventory = pd.DataFrame(list(self.fetchInventory.fetchall()))
+        self.inventory.columns = ["ProductId", "title", "brand", "image", "price", "category"]
+        self.inventory.index += 1
+
+        self.employeeList = pd.DataFrame(list(self.fetchEmployee.fetchall()))
+        self.employeeList.columns = ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"]
+        self.employeeList.index += 1 
+
         self.countItems = pd.DataFrame(list(self.fetchCount.fetchall()))
+        self.countItems.columns =["UserId", "ProductId", "Count"]
         self.countItems.index += 1
-        self.fetchEmployeeWithItem = connection.cursor().execute("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;")
-        self.employeeWithItem = pd.DataFrame(list(self.fetchEmployeeWithItem.fetchall()))
-        self.employeeWithItem.index += 1
+
+        self.employeeWitem = pd.DataFrame(list(self.fetchemployeeWitem.fetchall()))
+        self.employeeWitem.columns = ["OrderId", "UserId", "ProductId", "amount"]
+        self.employeeWitem.index += 1
+
         self.DataFiltering()
 
         #Received an AttributeError. 'Recommender' object has no attribute 'count' :c
@@ -56,8 +64,8 @@ class Recommender:
     self.countItems filters out products which have been borrowed <2.
     """
     def DataFiltering(self):
-        newCount = self.countItems[0].value_counts()
-        self.countItems = self.countItems[self.countItems[0].isin(newCount[newCount < newCount[1]].index)]
+        newCount = self.countItems["UserId"].value_counts()
+        self.countItems = self.countItems[self.countItems["UserId"].isin(newCount[newCount < newCount[1]].index)]
       
 
     """
@@ -69,7 +77,16 @@ class Recommender:
     def GetTopBorrowedItems(self, num):
         totalCountPerItem = pd.DataFrame(self.countItems.groupby(['ProductId'])['Count'].count())  # pd.DataFrame kan weggelaten worden?
         toprecommendedItems = pd.merge(totalCountPerItem.sort_values("Count", ascending=False), self.inventory, on="ProductId")
-        return toprecommendedItems.head(num)
+        recommendList = toprecommendedItems.head(num)
+
+        dropColumns = ["Count", "brand", "image", "price", "category"] 
+        recommendList = recommendList.drop(dropColumns, axis=1) 
+        resList = []
+        for i in range(len(recommendList)):
+            resList.append([recommendList["ProductId"][i], recommendList["title"][i] ])
+        print(resList)
+       
+        return resList
 
 
     """
@@ -159,13 +176,13 @@ class Recommender:
     """
     def Knn(self):
         combineItemCount = pd.merge(self.countItems, self.inventory, on="ProductId")
-        dropColumns = ["Brand", "Image", "Price", "Category"] 
+        dropColumns = ["brand", "image", "price", "category"] 
         combineItemCount = combineItemCount.drop(dropColumns, axis=1) 
-        combineItemCount = combineItemCount.dropna(axis = 0, subset = ['Title'])
-        productAmountCount = (combineItemCount.groupby(by= ['Title'])['Count'].sum().reset_index().rename(columns = {'Count': 'totalAmountCount'})[['Title', 'totalAmountCount']])
-        countWithTotal = combineItemCount.merge(productAmountCount, left_on = "Title", right_on = 'Title', how= 'left')
+        combineItemCount = combineItemCount.dropna(axis = 0, subset = ['title'])
+        productAmountCount = (combineItemCount.groupby(by= ['title'])['Count'].sum().reset_index().rename(columns = {'Count': 'totalAmountCount'})[['title', 'totalAmountCount']])
+        countWithTotal = combineItemCount.merge(productAmountCount, left_on = "title", right_on = 'title', how= 'left')
         CountpopluarItem = countWithTotal
-        CountpopluarItem = CountpopluarItem.drop_duplicates(['UserId', 'Title'])
+        CountpopluarItem = CountpopluarItem.drop_duplicates(['UserId', 'title'])
         CountpopluarItemPivot = CountpopluarItem.pivot(index = "ProductId", columns = 'UserId', values = 'Count').fillna(0)
         CountpopluarItemMaxtrix = csr_matrix(CountpopluarItemPivot.values)
 
@@ -183,7 +200,7 @@ class Recommender:
                 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2)
             for i in range(1, len(distances.flatten())):
                 ItemId.append([indices.flatten()[i], distances.flatten()[i]])
-        ItemId = sorted(ItemId, key= lambda x: x[1])
+        ItemId = sorted(ItemId, key= lambda x: x[1]) ## RETURN THIS FOR WEB! WHY ? CUZ [x][0] == product ID  and [x][1] == Distance
         print(ItemId)
         idList = []
 
@@ -200,9 +217,9 @@ class Recommender:
         #for testing the index does not have to increase with one because the tabel with products in datafram starts with 0 instead of 1
         print("---------------------------------------------")
         print("test log for console with duplicates and distance")
-        recommendedTitles = []
+        recommendedTitles = []        ### RETURN THIS FOR TESTING ALGORTIME TESTING 
         index = 0
         while index < len(ItemId):
-            recommendedTitles.append([self.inventory.at[ItemId[index][0], "Title"], ItemId[index][1]])
+            recommendedTitles.append([self.inventory.at[ItemId[index][0], "title"], ItemId[index][1]])
             index = index + 1
-        return recommendedTitles
+        return ItemId
