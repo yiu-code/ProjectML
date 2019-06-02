@@ -56,8 +56,8 @@ class Recommender:
     self.countItems filters out products which have been borrowed <2.
     """
     def DataFiltering(self):
-        newCount = self.countItems["Count"].value_counts()
-        self.countItems = self.countItems[self.countItems["Count"].isin(newCount[newCount < newCount[1]].index)]
+        newCount = self.countItems[0].value_counts()
+        self.countItems = self.countItems[self.countItems[0].isin(newCount[newCount < newCount[1]].index)]
       
 
     """
