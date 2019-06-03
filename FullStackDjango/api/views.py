@@ -3,9 +3,6 @@ from django.http import HttpResponse
 from api.forms import RegistrationForm
 from .Recommender import Recommender
 
-from api.forms import RegistrationForm, LoginForm
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http import HttpRequest
 from django.template import RequestContext
 from .models import Article, Author, Product, User
@@ -33,14 +30,9 @@ def Knn(request):
 
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
-# def LoginView(request):
-#     if request.method == 'POST':
 
-
-
-@login_required(login_url='/')
 def Home(request):
-    return render(request, "hello.html")
+    return render(request, 'home.html')
 
 def Register(request):
     if request.method == 'POST':
@@ -52,22 +44,7 @@ def Register(request):
         form = RegistrationForm()   
     return render(request, 'register.html', {'form': form})
 
-def login_view(request):
-    next = request.GET.get('next')
-    form = LoginForm(request.POST or None)
-    if form.is_valid():
-        email = form.cleaned_data.get('email')
-        password = form.cleaned_data.get('password')
-        user = authenticate(email=email, password=password)
-        login(request, user)
-        if next:
-            return redirect(next)
-        return redirect('/home')
-    return render(request, "login.html", {'form': form})
 
-def logout_view(request):
-    logout(request)
-    return redirect('/')
 
 
 
@@ -111,5 +88,3 @@ class ArticleView(APIView):
         article = get_object_or_404(Article.objects.all(), pk=pk)
         article.delete()
         return Response({"message": "Article with id `{}` has been deleted.".format(pk)},status=204) 
-
-
