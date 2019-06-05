@@ -13,7 +13,7 @@
             <div class="col-3" style="background-color:lightgray">
                 <h2>USERS</h2>
                 {% for user in users %}
-                    <p><a>{{user.firstname}} {{user.lastname}}</a></p>
+                    <p><a href="/knn/{{user.id}}">{{user.firstname}} {{user.lastname}}</a></p>
                 {% endfor %}
             </div>
             <div class="col-9">

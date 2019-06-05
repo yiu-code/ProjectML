@@ -101,8 +101,10 @@ class Recommender:
     """
     def CheckAndGetHistory(self):
         hist = self.CreateUserHistoryArray(self.UserId)
-        print("history of current user:")
+        haveHist = True
+
         if len(hist) == 0:
+            haveHist = False
             userIdArray = []
             jobTitle = self.employeeList.loc[(self.UserId), "jobtitle"]
             print(jobTitle)          
@@ -111,11 +113,8 @@ class Recommender:
                 if int(i) <= 30:
                     userIdArray.append(int(i))
             randomId = random.choice(userIdArray)
-            print("history from random user")
             hist = self.CreateUserHistoryArray(randomId)
-        print("previous borrowed items:")
-        print(hist)
-        return hist
+        return hist, haveHist
 
 
     """
@@ -174,13 +173,15 @@ class Recommender:
     print(quantile)
 
     """
-    def Knn(self):
+    def Knn(self, productHistoryList):
         combineItemCount = pd.merge(self.countItems, self.inventory, on="ProductId")
+        print('---------------------------------------------------------------------')
         dropColumns = ["brand", "image", "price", "category"] 
         combineItemCount = combineItemCount.drop(dropColumns, axis=1) 
         combineItemCount = combineItemCount.dropna(axis = 0, subset = ['title'])
         productAmountCount = (combineItemCount.groupby(by= ['title'])['Count'].sum().reset_index().rename(columns = {'Count': 'totalAmountCount'})[['title', 'totalAmountCount']])
         countWithTotal = combineItemCount.merge(productAmountCount, left_on = "title", right_on = 'title', how= 'left')
+
         CountpopluarItem = countWithTotal
         CountpopluarItem = CountpopluarItem.drop_duplicates(['UserId', 'title'])
         CountpopluarItemPivot = CountpopluarItem.pivot(index = "ProductId", columns = 'UserId', values = 'Count').fillna(0)
@@ -190,36 +191,31 @@ class Recommender:
 
         model_knn = NearestNeighbors(metric= 'cosine', algorithm= 'brute')
         model_knn.fit(CountpopluarItemMaxtrix)
-        queryIndex = self.CheckAndGetHistory()
         ItemId = []
 
-        for index in queryIndex:
+        for index in productHistoryList:
             try:
-                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=3)
+                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=4)
             except:
                 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2)
+            
             for i in range(1, len(distances.flatten())):
-                ItemId.append([indices.flatten()[i], distances.flatten()[i]])
+                duplicate = indices.flatten()[i] in (item for sublist in ItemId for item in sublist)
+                print(duplicate)
+                if duplicate == False and indices.flatten()[i] != 0:
+                    ItemId.append([(indices.flatten()[i]+1), distances.flatten()[i]])
+        
+        if len(ItemId) > 10:
+            del ItemId[10::] 
+        
         ItemId = sorted(ItemId, key= lambda x: x[1]) ## RETURN THIS FOR WEB! WHY ? CUZ [x][0] == product ID  and [x][1] == Distance
-        print(ItemId)
+        #print(ItemId)
         idList = []
 
-        for item in ItemId:
-            idList.append((item[0] + 1))
-        idList = list(dict.fromkeys(idList))  
-        print("for web application no duplicate ID:")
-        print(idList)
-        # Needed this return for web application to give an array of product Id and find them in the DB
-        # return idList
-
-
-        #extra for testing in console so it returns a array with name and distance. 
-        #for testing the index does not have to increase with one because the tabel with products in datafram starts with 0 instead of 1
-        print("---------------------------------------------")
-        print("test log for console with duplicates and distance")
-        recommendedTitles = []        ### RETURN THIS FOR TESTING ALGORTIME TESTING 
+        recommendedProducts = []        ### RETURN THIS FOR TESTING ALGORTIME TESTING 
         index = 0
         while index < len(ItemId):
-            recommendedTitles.append([self.inventory.at[ItemId[index][0], "title"], ItemId[index][1]])
+            recommendedProducts.append([ItemId[index][0],self.inventory.at[ItemId[index][0], "title"], ItemId[index][1]])
             index = index + 1
-        return ItemId
+        #print(recommendedProducts)
+        return recommendedProducts

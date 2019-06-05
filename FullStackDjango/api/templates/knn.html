@@ -1,17 +1,27 @@
 ﻿{% extends 'algorithm.html' %}
 
 {% block content%}
-    <h2>Recommendation</h2>
+    <h2>Employee Data</h2>
     <div class="row">
+        <div class="col-8">
+            <p>EmployeeId: {{currentUser.0.0}}</p>
+            <p>Name: {{currentUser.0.7}} {{currentUser.0.8}}</p>
+            <p>Position: {{currentUser.0.10}}</p>
+            <p>Have Order History: {{history}}</p>
+        </div>
+    </div>
+    <hr />      
+    <h3 class="mb-2">Recommendation</h3>
+    
+    <div class="row">
+        {% for product in recommend %}
         <div class="col-9">
-            <h4>Items</h4>
-            {% for product in products %}
-                <p>{{product.id}}:  {{product.title}}</p>
-            {% endfor %}
+            <p>{{product.0}}: {{product.1}}</p>
         </div>
         <div class="col-3">
-            <h4>Distance(prediction)</h4>
+            <p>with an distance of {{product.2}}</p>
         </div>
+        {% endfor %}
     </div>
 
 {% endblock %}

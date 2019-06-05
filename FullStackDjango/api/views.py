@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db import connection
 from django.http import HttpResponse
 from api.forms import RegistrationForm
 from .Recommender import Recommender
@@ -11,6 +12,10 @@ from rest_framework.views import APIView
 from .serializers import ArticleSerializer
 # Create your views here.
 
+
+def PreInfoKnn(request):
+    return render(request, 'algorithmDisclaimer.html')
+
 # this path is for entering the algorithm view. however no user is selected therefore it returns top 10 recommend items
 def TopRecommendation(request):
     users = User.objects.all()
@@ -19,14 +24,19 @@ def TopRecommendation(request):
         
     return render(request, 'topItem.html', {'products': products, 'users': users})
 
-# to make the knn function work based on user ID 
-# it require and POST request. by clicking on a name it returns their id
-# that id will be used to call the recommendation for that specific person
-# when found give that array to the render along with the knn.html
-def Knn(request):
-    users = User.objects.all()
-    #.....
-    return #....
+def Knn(request, userId):
+    #get selected user information 
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(userId))
+    currentUser = query.fetchall()
+
+    #Get UserHistory
+    recommender = Recommender(userId)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+
+    print(currentUser)
+    allUsers = User.objects.all() #required for side menu
+    return render(request, 'knn.html', {'users': allUsers, 'currentUser': currentUser, 'history': haveHist, 'recommend': recommendList})
 
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
