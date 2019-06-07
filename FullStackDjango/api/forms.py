@@ -5,8 +5,17 @@ from django.db import models
 from django.contrib.auth import authenticate
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
-    
+    Job_title_choices = [('Developer', 'Developer'),
+                         ('Designer', 'Designer'),
+                         ('Office', 'Office')
+                        ]
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'example@gmail.com'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'login-form', 'placeholder': 'enter your password'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'login-form', 'placeholder': 'enter your password'}))
+    firstname = forms.CharField(widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'John'}))
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'Doe'}))
+    jobtitle = forms.ChoiceField(choices=Job_title_choices,widget=forms.Select(attrs={'class': 'login-form'}))
+
 
     class Meta:
         model = User
@@ -24,8 +33,8 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class LoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Enter Email'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
 
     def clean(self, *args, **kwargs):
         email = self.cleaned_data.get('email')

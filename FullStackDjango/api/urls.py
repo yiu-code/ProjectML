@@ -1,5 +1,4 @@
 from django.urls import path
-from .views import ArticleView
 from . import views
 from django.contrib.auth.views import LoginView
 
@@ -12,7 +11,5 @@ urlpatterns =  [
     path('', views.login_view, name="login"),
     path('logout', views.logout_view),
     path('products', views.dbData, name='products'),
-    #Ik wees eerlijk, ik heb niet echt een idee
-    path('articles/<int:pk>', ArticleView.as_view()),
     
 ]

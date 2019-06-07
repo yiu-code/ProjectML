@@ -5,20 +5,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import Article, Author, Product
+from .models import Author, Product
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import ArticleSerializer
 # Create your views here.
 
-# def LoginView(request):
-#     if request.method == 'POST':
 
 
 
 @login_required(login_url='/')
 def Home(request):
-    return render(request, "hello.html")
+    return render(request, "home.html")
 
 def Register(request):
     if request.method == 'POST':
@@ -89,5 +87,3 @@ class ArticleView(APIView):
         article = get_object_or_404(Article.objects.all(), pk=pk)
         article.delete()
         return Response({"message": "Article with id `{}` has been deleted.".format(pk)},status=204) 
-
-
