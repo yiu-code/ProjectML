@@ -39,7 +39,6 @@
                     <li class="nav-item mr-4 ml-4">
                         <a class="nav-link font-weight-bold" href="{% url 'api:home-page' %}">Orders</a>
                     </li>
-
                 </ul>
 
 
@@ -69,20 +68,63 @@
    {#Tussen wat boven hier en onder hier zit, plaats hij wat in het gebied genaamt content zit. Hiervoor moet je dus alles een block geven#}
 {% block content %}{% endblock %}
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary flex-nowrap">
-    <button class="navbar-toggler mr-2" type="button" data-toggle="collapse" data-target="#navbar5">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <span class="navbar-brand w-100"></span>
-    <div class="navbar-collapse collapse w-100 justify-content-center" id="navbar5">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-               <a class="navbar-brand logo "><h2>DEPT</h2></a>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small bg-primary pt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+  
+          <!-- Content -->
+          <h5 class="text-uppercase">Contact</h5>
+          <p>For further information or other inquires please contact us on +31 88 040 0888.</p>
+  
+        </div>
+        <!-- Grid column -->
+  
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+  
+          <!-- Links -->
+          <h5 class="text-uppercase">Pages</h5>
+  
+          <ul class="navbar-nav">
+
+            <li class="nav-item mr-4 ml-4">
+                <a class="nav-link font-weight-bold" href="{% url 'api:home-page'%}">Home</a>
+            </li>
+            <li class="nav-item mr-4 ml-4">
+                <a class="nav-link font-weight-bold" href="{% url 'api:products' %}">Browse</a>
+            </li>
+            <li class="nav-item mr-4 ml-4">
+                <a class="nav-link font-weight-bold" href="{% url 'api:home-page' %}">Orders</a>
             </li>
         </ul>
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
     </div>
-    <div class="w-100"><!--spacer--></div>
-</nav>
+    <!-- Footer Links -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://www.deptagency.com/nl-nl/"> The avengers of Dept</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
     {#Voor de zekerheid erin gelaten, weet niet of het nog nodig is#}
 
 </body>
