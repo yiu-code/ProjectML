@@ -18,11 +18,13 @@ def PreInfoKnn(request):
 
 # this path is for entering the algorithm view. however no user is selected therefore it returns top 10 recommend items
 def TopRecommendation(request):
-    users = User.objects.all()
+    dev = User.objects.all().filter(jobtitle = "Developer")      
+    des = User.objects.all().filter(jobtitle = "Designer")
+    off = User.objects.all().filter(jobtitle = "Office")
     test = Recommender(5)
     products = test.GetTopBorrowedItems(10)
         
-    return render(request, 'topItem.html', {'products': products, 'users': users})
+    return render(request, 'topItem.html', {'products': products, 'developers': dev, 'designers': des, 'office': off})
 
 def Knn(request, userId):
     #get selected user information 
@@ -35,8 +37,10 @@ def Knn(request, userId):
     recommendList = recommender.Knn(hist)
 
     print(currentUser)
-    allUsers = User.objects.all() #required for side menu
-    return render(request, 'knn.html', {'users': allUsers, 'currentUser': currentUser, 'history': haveHist, 'recommend': recommendList})
+    dev = User.objects.all().filter(jobtitle = "Developer")      
+    des = User.objects.all().filter(jobtitle = "Designer")
+    off = User.objects.all().filter(jobtitle = "Office") #required for side menu
+    return render(request, 'knn.html', {'developers': dev, 'designers': des, 'office': off, 'currentUser': currentUser, 'history': haveHist, 'recommend': recommendList})
 
 def Login(request):
     return HttpResponse('<h1>Login Page</h1>')
