@@ -11,5 +11,7 @@ urlpatterns =  [
     path('', views.login_view, name="login"),
     path('logout', views.logout_view),
     path('products', views.dbData, name='products'),
-    
+    path('knn', views.PreInfoKnn, name="disclamer-algoritm-page"),
+    path('knn/index', views.TopRecommendation, name="algorithm-page"),
+    path('knn/<int:userId>/', views.Knn, name="knn-page")
 ]

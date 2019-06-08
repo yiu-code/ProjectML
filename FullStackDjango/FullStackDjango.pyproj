@@ -36,6 +36,9 @@
     <Compile Include="api\forms.py" />
     <Compile Include="api\migrations\__init__.py" />
     <Compile Include="api\models.py" />
+    <Compile Include="api\Recommender.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="api\serializers.py" />
     <Compile Include="api\tests.py" />
     <Compile Include="api\urls.py" />
@@ -65,12 +68,20 @@
     <Content Include="api\static\image\Vergrootglas.png" />
     <Content Include="api\static\login.css" />
     <Content Include="api\static\register.css" />
+    <Content Include="api\static\scripts\disclaimer.js" />
+    <Content Include="api\static\knn.css" />
+    <Content Include="api\static\scripts\particles.js" />
     <Content Include="api\static\scripts\shared.css" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />
     <Content Include="api\templates\base.html" />
+    <Content Include="api\static\algorithmDisclaimer.css" />
+    <Content Include="api\templates\knn.html" />
+    <Content Include="api\templates\topItem.html" />
     <Content Include="api\templates\login.html" />
+    <Content Include="api\templates\algorithm.html" />
     <Content Include="api\templates\register.html" />
+    <Content Include="api\templates\algorithmDisclaimer.html" />
     <Content Include="MyProject\__pycache__\settings.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\urls.cpython-37.pyc" />
     <Content Include="MyProject\__pycache__\wsgi.cpython-37.pyc" />

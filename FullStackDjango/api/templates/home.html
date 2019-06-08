@@ -9,40 +9,48 @@
 
   <title>Dept Agency</title>
   <meta name="description" content="Lending page">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="/static/home.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-</head>
-
-
-
-<body>
-	<div id="homeimg">
-  <img id="homeimage"src="https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/h39/h95/9126618693662/razer-blade-15-gallery08.jpg" height="600" width="1365" />
-
-</div>
-
-  <h3 id="b"> Welkom to Dept's lending page.</h3>
-
-
-  <div id="button2">
-  </br>
-  <button type="button" class="btn btn-primary" href="{% url 'api:products' %}">Products</button>
-
-</br>
-
-</div>
-
-<div id="hometekst">
-	<p> Click on the button above to surfe the product list </p>
-</div>
-  </br>
+  <meta name="author" content="width=device-width, initial-scale=1">
 
   
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/home.css">
+</head>
+
+<!-- <body>
+	<div id="homeimg">
+  <img id="homeimage"src="https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/h39/h95/9126618693662/razer-blade-15-gallery08.jpg" height="600" width="1365" /> -->
+
+<style>
+
+</style>
+</head>
+<body>
+
+<div class="hero-image">
+  <div class="hero-text">
+    <h1 style="font-size:50px">Welcome to Dept's lending page</h1>
+    <p>To surf products click on the button below!</p>
+    <button id="buttonhome"href="{% url 'api:products' %}">Products</button>
+  </div>
+</div>
+</br>
+
+<img id="image-one" src="https://www.deptagency.com/wp-content/uploads/2018/12/DEPT_23-Jan-001.jpg" width="500" height="450"/>
+
+<img id="third-image" src="https://wallpaperstock.net/wallpapers/thumbs1/27438wide.jpg" width="300" height="290"/>
+  
+<img id="fourth-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEOiEi4KKsPOtEoVNdHOtpaDyiFY3tV6iZJwSvU2S4_n0RHy2q5Q" width="250" height="270"  />
+<div>
+<img id="fifth-image" src="https://img5.goodfon.com/wallpaper/nbig/2/98/apple-myshka-kompiuter.jpg" width="300" height="290"/>
+
+<img id="sixth-image" src="https://wallpaperplay.com/walls/full/a/5/0/205608.jpg" width="300" height="290"/>
+
+<div>
+<img id="seventh-image" src="https://www.dutchdigitalagencies.com/thumbs/2880x1300_wp-content_uploads_2013_10_Dept-Amsterdam.jpg" width="1348" height="500"/>
+</div>
 </div>
 </body>
+
 </html>
 
 {% endblock %}
