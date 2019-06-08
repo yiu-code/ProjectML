@@ -91,9 +91,40 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 
-def dbData(request):
-    Product_list = Product.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
-    return render(request, 'api/products.html', {'Product': Product_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
+def products(request):
+    Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
+    return render(request, 'api/products.html', {'Product': Product_list}) 
 
+def productsRecommended(request, userId):
+#get selected user information 
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(userId))
+    currentUser = query.fetchall()
+    print()
 
+    #Get UserHistory
+    recommender = Recommender(userId)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+    #Gooit het resultaat van Id's in een lijst en pakt alle producten met die Id's. 
+    idList = []
+    Recommended = []
+    for item in recommendList:
+        idList.append(item[0])
+    for item in idList:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
+        product = query.fetchall()
+        Recommended.append(product)
 
+        
+
+    #Niet nodig denk ik.
+    print(currentUser)
+    dev = User.objects.all().filter(jobtitle = "Developer")      
+    des = User.objects.all().filter(jobtitle = "Designer")
+    off = User.objects.all().filter(jobtitle = "Office") #required for side menu
+    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
+
+def productDetail(request, productId):
+        
+        
+        return render(request, 'api/detailPage.html') 

@@ -31,13 +31,18 @@
         <input type="submit" value="Filter" href="products" class="btn btn-info" role="button">     <br/>
     </form>
       <br />
-      <a href="recommended" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
-      
+      {% if Recommended != True %}
+      {% if user.is_authenticated %}
+
+        <a href="{% url 'api:products'%}/{{user.id}}" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
+      {% endif %}
+      {% endif %}
      
     </div>
       {% if Product%}
     <div class="col-10">
         <div class="container">
+            {% if Recommended != True %}
             {% for item in Product%}
             <div class="row" >
                 <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
@@ -50,15 +55,42 @@
                     <p> {{item.title}}</p>
                     <p> Merk: {{item.brand}}</p>
                     <p> Prijs: &euro;{{item.price}}</p>
+                    <a href="productDetail/{{item.id}}">Meer informatie</a>
 
                 </div>
                 <div class="col-sm-12">
                 <div style='border-bottom:2px solid #ccc;'></div>
-</div>
+                </div>
     
                 
             </div>
             {% endfor %}
+            {% else %}
+                        {% for item in Product%}
+            <div class="row" >
+                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                    <div class="block">
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height="150"/>
+                    </div>
+                </div>
+                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                    
+                    <p> {{item.0.1}}</p>
+                    <p> Merk: {{item.0.2}}</p>
+                    <p> Prijs: &euro;{{item.0.4}}</p>
+                    <a href="../productDetail/{{item.0.0}}">Meer informatie</a>
+                     
+
+                </div>
+                <div class="col-sm-12">
+                <div style='border-bottom:2px solid #ccc;'></div>
+                </div>
+    
+                
+            </div>
+            {% endfor %}
+            {% endif %}
+
             </div>
 
         </div>
