@@ -1,20 +1,48 @@
 from django.shortcuts import render, redirect
+from django.db import connection
 from django.http import HttpResponse
 from api.forms import RegistrationForm, LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login, logout
+from .Recommender import Recommender
+
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import Author, Product
+from .models import User, Product
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from .serializers import ArticleSerializer
 # Create your views here.
 
-# def LoginView(request):
-#     if request.method == 'POST':
 
+def PreInfoKnn(request):
+    return render(request, 'algorithmDisclaimer.html')
 
+# this path is for entering the algorithm view. however no user is selected therefore it returns top 10 recommend items
+def TopRecommendation(request):
+    dev = User.objects.all().filter(jobtitle = "Developer")      
+    des = User.objects.all().filter(jobtitle = "Designer")
+    off = User.objects.all().filter(jobtitle = "Office")
+    test = Recommender(5)
+    products = test.GetTopBorrowedItems(10)
+        
+    return render(request, 'topItem.html', {'products': products, 'developers': dev, 'designers': des, 'office': off})
+
+def Knn(request, userId):
+    #get selected user information 
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(userId))
+    currentUser = query.fetchall()
+
+    #Get UserHistory
+    recommender = Recommender(userId)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+
+    print(currentUser)
+    dev = User.objects.all().filter(jobtitle = "Developer")      
+    des = User.objects.all().filter(jobtitle = "Designer")
+    off = User.objects.all().filter(jobtitle = "Office") #required for side menu
+    return render(request, 'knn.html', {'developers': dev, 'designers': des, 'office': off, 'currentUser': currentUser, 'history': haveHist, 'recommend': recommendList})
 
 @login_required(login_url='/')
 def Home(request):
@@ -68,15 +96,4 @@ def dbData(request):
     return render(request, 'api/products.html', {'Product': Product_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
 
 
-### BASIS API ###
-
-# class ArticleView(APIView):
-#     # GET METHOD - Laat de Artikelen zien. (In JSON natuurlijk)
-#     def get(self, request):
-#         articles = Article.objects.all()
-#         serializer = ArticleSerializer(articles, many=True)
-#         return Response({"articles": serializer.data})
-#     # POST METHOD - Gaat probably niet gebruikt worden in project zelf, maar laat zien hoe je meerdere methods aan 1 ding doet. - Maakt het mogelijk om een artikel te adden via JSON.
-#     def post(self, request):
-#         article = request.data.get('article')
 

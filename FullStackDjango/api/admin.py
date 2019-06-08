@@ -3,7 +3,7 @@ from .models import User, Author, Product, ProductList, Order
 # Register your models here.
 CustomUser = User
 admin.site.register(CustomUser)
-
+ 
 
 # Register your models here.
 #Maakt het mogelijk om bij het admin paneel deze dingen te wijzigen.

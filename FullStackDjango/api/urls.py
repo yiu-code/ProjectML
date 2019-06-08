@@ -1,5 +1,4 @@
 from django.urls import path
-# from .views import ArticleView
 from . import views
 from django.contrib.auth.views import LoginView
 
@@ -12,6 +11,7 @@ urlpatterns =  [
     path('', views.login_view, name="login"),
     path('logout', views.logout_view),
     path('products', views.dbData, name='products'),
-    #Ik wees eerlijk, ik heb niet echt een idee
-
+    path('knn', views.PreInfoKnn, name="disclamer-algoritm-page"),
+    path('knn/index', views.TopRecommendation, name="algorithm-page"),
+    path('knn/<int:userId>/', views.Knn, name="knn-page")
 ]
