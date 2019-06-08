@@ -2,6 +2,7 @@ from django import forms
 from .models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.db import models
+from django.contrib.auth import authenticate
 
 class RegistrationForm(UserCreationForm):
     Job_title_choices = [('Developer', 'Developer'),
