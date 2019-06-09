@@ -2,9 +2,7 @@ body, html {
   height: 100% !important;
 }
 
-#main {
-    margin-top: -25px;
-}
+
 
 #topRecommend {
     background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://www.deptagency.com/wp-content/uploads/2018/12/DEPT_23-Jan-001.jpg");

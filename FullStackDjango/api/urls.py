@@ -10,7 +10,7 @@ urlpatterns =  [
     path('', views.login_view, name="login"),
     path('logout', views.logout_view),
     path('products', views.products, name='products'),
-    path('products/<int:userId>/', views.productsRecommended, name="productsRecommended"),
+    path('products/my-recommended-products', views.productsRecommended, name="productsRecommended"),
     path('productDetail/<int:productId>/', views.productDetail, name="productDetail"),
     path('products/productDetail/<int:productId>/', views.productDetail, name="productDetail"), #Hier gaat hij naartoe als je nadat je recommended heb en op meer info druk.
     path('knn', views.PreInfoKnn, name="disclamer-algoritm-page"),

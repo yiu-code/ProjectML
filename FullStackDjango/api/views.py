@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.db import connection
 from django.http import HttpResponse
 from api.forms import RegistrationForm, LoginForm
@@ -106,16 +107,26 @@ def home(request):
 
 def products(request):
     Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
-    return render(request, 'api/products.html', {'Product': Product_list}) 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(Product_list, 10)
+    try:
+        product = paginator.page(page)
+    except PageNotAnInteger:
+        product = paginator.page(1)
+    except EmptyPage:
+        product = paginator.page(paginator.num_pages)
 
-def productsRecommended(request, userId):
-#get selected user information 
-    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(userId))
+    return render(request, 'api/products.html', {'Product': product}) 
+
+def productsRecommended(request):
+    #get selected user information 
+    id = request.user.id
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(id))
     currentUser = query.fetchall()
     print()
 
     #Get UserHistory
-    recommender = Recommender(userId)
+    recommender = Recommender(id)
     hist, haveHist = recommender.CheckAndGetHistory()
     recommendList = recommender.Knn(hist)
     #Gooit het resultaat van Id's in een lijst en pakt alle producten met die Id's. 

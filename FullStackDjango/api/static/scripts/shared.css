@@ -9,3 +9,7 @@
 .nav-link {
     color: white
 }
+
+#main {
+    margin-top: -25px;
+}
