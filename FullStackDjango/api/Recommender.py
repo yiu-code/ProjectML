@@ -9,7 +9,6 @@ Random is used to generate random numbers.
 """
 import numpy as np
 import pandas as pd
-from .models import Order, ProductList, Product, User
 from scipy.sparse import csr_matrix
 from django.db import connection
 import itertools
@@ -30,32 +29,19 @@ the rest of the website.
 class Recommender:
     def __init__(self, UserId):
         self.UserId = UserId   
-        self.fetchInventory = connection.cursor().execute("SELECT * FROM api_product") 
-        self.fetchEmployee = connection.cursor().execute("SELECT * FROM api_user")        
-        self.fetchCount = connection.cursor().execute("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id")
-        self.fetchemployeeWitem = connection.cursor().execute("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;")
-
-        self.inventory = pd.DataFrame(list(self.fetchInventory.fetchall()))
-        self.inventory.columns = ["ProductId", "title", "brand", "image", "price", "category"]
-        self.inventory.index += 1
-
-        self.employeeList = pd.DataFrame(list(self.fetchEmployee.fetchall()))
-        self.employeeList.columns = ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"]
-        self.employeeList.index += 1 
-
-        self.countItems = pd.DataFrame(list(self.fetchCount.fetchall()))
-        self.countItems.columns =["UserId", "ProductId", "Count"]
-        self.countItems.index += 1
-
-        self.employeeWitem = pd.DataFrame(list(self.fetchemployeeWitem.fetchall()))
-        self.employeeWitem.columns = ["OrderId", "UserId", "ProductId", "amount"]
-        self.employeeWitem.index += 1
-
+        self.inventory = self.PandaFormatting("SELECT * FROM api_product", ["ProductId", "title", "brand", "image", "price", "category"]) 
+        self.employeeList = self.PandaFormatting("SELECT * FROM api_user", ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"])
+        self.countItems = self.PandaFormatting("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id", ["UserId", "ProductId", "Count"])
+        self.employeeWitem = self.PandaFormatting("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;", ["OrderId", "UserId", "ProductId", "amount"])
         self.DataFiltering()
 
-        #Received an AttributeError. 'Recommender' object has no attribute 'count' :c
-        #print(self.count[0][1])      # test
-
+    def PandaFormatting(self, query, columnName):
+        fetchData = connection.cursor().execute(query)
+        dataframe = pd.DataFrame(list(fetchData.fetchall()))
+        dataframe.columns = columnName
+        dataframe.index += 1
+        return dataframe 
+        
     """
     A value called newCount is made. It consists of the global variable
     countItems. countItems is the converted data from the database which

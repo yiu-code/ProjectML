@@ -77,6 +77,7 @@
     <Content Include="api\templates\api\products.html" />
     <Content Include="api\templates\base.html" />
     <Content Include="api\static\algorithmDisclaimer.css" />
+    <Content Include="api\templates\home.html" />
     <Content Include="api\templates\knn.html" />
     <Content Include="api\templates\topItem.html" />
     <Content Include="api\templates\login.html" />
