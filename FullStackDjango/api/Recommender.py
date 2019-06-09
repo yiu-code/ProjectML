@@ -14,7 +14,6 @@ from django.db import connection
 import itertools
 import random
 
-
 """
 The class Recommender is created. A class is a set of objects having
 some attributes in common. It is a blueprint for individual objects
@@ -53,7 +52,6 @@ class Recommender:
         newCount = self.countItems["UserId"].value_counts()
         self.countItems = self.countItems[self.countItems["UserId"].isin(newCount[newCount < newCount[1]].index)]
       
-
     """
     GetTopBorrowedItems is a simple groupby function to get the top borrowed
     items from the database. totalCountPerItem adds the amount of times an 
@@ -73,7 +71,6 @@ class Recommender:
         print(resList)
        
         return resList
-
 
     """
     CheckAndGetHistory will first call the CreateUserHistoryArray to get an
@@ -102,7 +99,6 @@ class Recommender:
             hist = self.CreateUserHistoryArray(randomId)
         return hist, haveHist
 
-
     """
     In the CreateUserHistoryArray functon, two empty lists are made. One for
     the history of the OrderId and one of the products, filled with the 
@@ -128,7 +124,6 @@ class Recommender:
         if len(product) > 5:
             del product[5::] 
         return product
-
 
     """
     The algorithm starts with combining columns that are needed for the
@@ -157,7 +152,6 @@ class Recommender:
     Due to the top 1 percent being a small amount borrowed items, we took the top 5-6% instead.
     quantile = productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)).mean()
     print(quantile)
-
     """
     def Knn(self, productHistoryList):
         combineItemCount = pd.merge(self.countItems, self.inventory, on="ProductId")
@@ -183,7 +177,7 @@ class Recommender:
             try:
                 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=4)
             except:
-                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2)
+                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2) #new products might ot have many short disntace porducts close to them
             
             for i in range(1, len(distances.flatten())):
                 duplicate = indices.flatten()[i] in (item for sublist in ItemId for item in sublist)
@@ -194,11 +188,11 @@ class Recommender:
         if len(ItemId) > 10:
             del ItemId[10::] 
         
-        ItemId = sorted(ItemId, key= lambda x: x[1]) ## RETURN THIS FOR WEB! WHY ? CUZ [x][0] == product ID  and [x][1] == Distance
+        ItemId = sorted(ItemId, key= lambda x: x[1]) 
         #print(ItemId)
         idList = []
 
-        recommendedProducts = []        ### RETURN THIS FOR TESTING ALGORTIME TESTING 
+        recommendedProducts = []
         index = 0
         while index < len(ItemId):
             recommendedProducts.append([ItemId[index][0],self.inventory.at[ItemId[index][0], "title"], ItemId[index][1]])

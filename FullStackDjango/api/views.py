@@ -46,7 +46,20 @@ def Knn(request, userId):
 
 @login_required(login_url='/')
 def Home(request):
-    return render(request, "home.html")
+    id = request.user.id
+    recommender = Recommender(id)
+    topItems = recommender.GetTopBorrowedItems(4)
+
+    idList = []
+    Recommended = []
+    for item in topItems:
+        idList.append(item[0])
+    for item in idList:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
+        product = query.fetchall()
+        Recommended.append(product)
+    print(Recommended)
+    return render(request, "home.html", {'product' : Recommended})
 
 def Register(request):
     if request.method == 'POST':
@@ -115,13 +128,6 @@ def productsRecommended(request, userId):
         product = query.fetchall()
         Recommended.append(product)
 
-        
-
-    #Niet nodig denk ik.
-    print(currentUser)
-    dev = User.objects.all().filter(jobtitle = "Developer")      
-    des = User.objects.all().filter(jobtitle = "Designer")
-    off = User.objects.all().filter(jobtitle = "Office") #required for side menu
     return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
 
 def productDetail(request, productId):
