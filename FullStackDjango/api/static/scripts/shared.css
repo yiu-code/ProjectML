@@ -1,3 +1,15 @@
 #text-color{
     text-emphasis-color: white;
 }
+
+.bg {
+    background-color: #09037D !important
+}
+
+.nav-link {
+    color: white
+}
+
+#main {
+    margin-top: -25px;
+}
