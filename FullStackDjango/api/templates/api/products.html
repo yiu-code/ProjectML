@@ -1,19 +1,117 @@
+{% extends "api/shared.html" %}
+{% block content %}
 
-<html>
-    <head>
-        <title> DB Data (read from database)
-        </title>
-    </head>
+<head>
+<title> DB Data (read from database)</title>
+</head>
     <body>
+        
 
-        <h1> Product page</h1>
-        {% if Article%}
-        <ol>
-            {% for articles in Article%}
-            <li>Title: {{articles.title}} <br /> Description: {{articles.description}}</li>
+<div class="container" >
+    <h1> Laptops</h1>
+  <div class="row">
+    <div class="col-2"> <!-- style="background-color:lightgray"-->
+      <p><b>Brand</b> </p>
+      <form method=GET>
+          {% csrf_token %}
+          <input type="radio" name="Brand" value="HP">Hp<br>
+          <input type="radio" name="Brand" value="Lenovo">Lenovo<br>
+          <input type="radio" name="Brand" value="Apple">Apple<br>
+          <input type="radio" name="Brand" value="Dell">Dell<br>
+          <input type="radio" name="Brand" value="Acer">Acer<br>
+       <br />
+      <p><b>Ram</b> </p>
+          <input type="radio" name="Ram" value="4">4 GB<br>
+          <input type="radio" name="Ram" value="8">8 GB<br>
+          <input type="radio" name="Ram" value="16">16  GB<br>
+          <input type="radio" name="Ram" value="32+">32+ GB<br>
+
+       <br />
+        <input type="submit" value="Filter" href="products" class="btn btn-info" role="button">     <br/>
+    </form>
+      <br />
+        <a href="{% url 'api:products'%}/my-recommended-products" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
+
+     
+    </div>
+      {% if Product%}
+    <div class="col-10">
+        <div class="container">
+            {% if Recommended != True %}
+            {% for item in Product%}
+            <div class="row" >
+                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                    <div class="block">
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height="150"/>
+                    </div>
+                </div>
+                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                    
+                    <p> {{item.title}}</p>
+                    <p> Merk: {{item.brand}}</p>
+                    <p> Prijs: &euro;{{item.price}}</p>
+                    <a href="productDetail/{{item.id}}">Meer informatie</a>
+
+                </div>
+                <div class="col-sm-12">
+                <div style='border-bottom:2px solid #ccc;'></div>
+                </div>
+    
+                
+            </div>
             {% endfor %}
-        </ol>
-        {% endif %}
+            {% else %}
+                        {% for item in Product%}
+            <div class="row" >
+                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                    <div class="block">
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height="150"/>
+                    </div>
+                </div>
+                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                    
+                    <p> {{item.0.1}}</p>
+                    <p> Merk: {{item.0.2}}</p>
+                    <p> Prijs: &euro;{{item.0.4}}</p>
+                    <a href="../productDetail/{{item.0.0}}">Meer informatie</a>
+                     
+
+                </div>
+                <div class="col-sm-12">
+                <div style='border-bottom:2px solid #ccc;'></div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="mx-auto pt-3">
+            {% if Product.has_other_pages %}
+              <ul class="pagination justify-content-center">
+                {% if Product.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ Product.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled page-item"><a class="page-link" href="?page=">&laquo;</a></li>
+                {% endif %}
+                {% for i in Product.paginator.page_range %}
+                  {% if Product.number == i %}
+                    <li class="active page-item disabled"><a class="page-link" href="?page=">{{ i }}</a></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if Product.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ Product.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled page-item"><a class="page-link" href="?page=">&raquo;</a></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+  </div>
     </body>
-    </html>
+
+{% endblock %}
     

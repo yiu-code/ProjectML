@@ -9,6 +9,7 @@ inventory = pd.read_csv('./DataSets/LaptopsV2.csv', sep=";")
 employeeWitem = pd.read_csv("./DataSets/OrderHistoryV3.csv", sep=";")
 employeeList = pd.read_csv("./DataSets/Employee.csv", sep=";")
 
+
 # convert data to interger
 inventory["ProductId"] = inventory["ProductId"].astype(np.int64)
 
@@ -23,11 +24,11 @@ employeeWitem.sort_values(by="OrderId")
 
 employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
 
-randomUser = random.choice(employeeList["UserId"])
      
 def Main():
-    recommmender = Recommender(inventory,countItems,employeeWitem, randomUser, employeeList)
+    recommmender = Recommender(inventory,countItems,employeeWitem, 33, employeeList)
     product = recommmender.Knn()
+
 
     for i in product:
         print(i[0] +  " with a distance of: " + str(i[1]) )
