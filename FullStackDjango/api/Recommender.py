@@ -9,12 +9,10 @@ Random is used to generate random numbers.
 """
 import numpy as np
 import pandas as pd
-from .models import Order, ProductList, Product, User
 from scipy.sparse import csr_matrix
 from django.db import connection
 import itertools
 import random
-
 
 """
 The class Recommender is created. A class is a set of objects having
@@ -30,32 +28,19 @@ the rest of the website.
 class Recommender:
     def __init__(self, UserId):
         self.UserId = UserId   
-        self.fetchInventory = connection.cursor().execute("SELECT * FROM api_product") 
-        self.fetchEmployee = connection.cursor().execute("SELECT * FROM api_user")        
-        self.fetchCount = connection.cursor().execute("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id")
-        self.fetchemployeeWitem = connection.cursor().execute("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;")
+        self.inventory = self.PandaFormatting("SELECT * FROM api_product", ["ProductId", "title", "brand", "image", "price", "category"]) 
+        self.employeeList = self.PandaFormatting("SELECT * FROM api_user", ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"])
+        self.countItems = self.PandaFormatting("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id", ["UserId", "ProductId", "Count"])
+        self.employeeWitem = self.PandaFormatting("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;", ["OrderId", "UserId", "ProductId", "amount"])
+        #self.DataFiltering()
 
-        self.inventory = pd.DataFrame(list(self.fetchInventory.fetchall()))
-        self.inventory.columns = ["ProductId", "title", "brand", "image", "price", "category"]
-        self.inventory.index += 1
-
-        self.employeeList = pd.DataFrame(list(self.fetchEmployee.fetchall()))
-        self.employeeList.columns = ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"]
-        self.employeeList.index += 1 
-
-        self.countItems = pd.DataFrame(list(self.fetchCount.fetchall()))
-        self.countItems.columns =["UserId", "ProductId", "Count"]
-        self.countItems.index += 1
-
-        self.employeeWitem = pd.DataFrame(list(self.fetchemployeeWitem.fetchall()))
-        self.employeeWitem.columns = ["OrderId", "UserId", "ProductId", "amount"]
-        self.employeeWitem.index += 1
-
-        self.DataFiltering()
-
-        #Received an AttributeError. 'Recommender' object has no attribute 'count' :c
-        #print(self.count[0][1])      # test
-
+    def PandaFormatting(self, query, columnName):
+        fetchData = connection.cursor().execute(query)
+        dataframe = pd.DataFrame(list(fetchData.fetchall()))
+        dataframe.columns = columnName
+        dataframe.index += 1
+        return dataframe 
+        
     """
     A value called newCount is made. It consists of the global variable
     countItems. countItems is the converted data from the database which
@@ -67,7 +52,6 @@ class Recommender:
         newCount = self.countItems["UserId"].value_counts()
         self.countItems = self.countItems[self.countItems["UserId"].isin(newCount[newCount < newCount[1]].index)]
       
-
     """
     GetTopBorrowedItems is a simple groupby function to get the top borrowed
     items from the database. totalCountPerItem adds the amount of times an 
@@ -75,7 +59,8 @@ class Recommender:
     totalCountPerItem with the inventory
     """
     def GetTopBorrowedItems(self, num):
-        totalCountPerItem = pd.DataFrame(self.countItems.groupby(['ProductId'])['Count'].count())  # pd.DataFrame kan weggelaten worden?
+        totalCountPerItem = pd.DataFrame(self.countItems.groupby(['ProductId'])['Count'].sum())
+        print(totalCountPerItem) 
         toprecommendedItems = pd.merge(totalCountPerItem.sort_values("Count", ascending=False), self.inventory, on="ProductId")
         recommendList = toprecommendedItems.head(num)
 
@@ -87,7 +72,6 @@ class Recommender:
         print(resList)
        
         return resList
-
 
     """
     CheckAndGetHistory will first call the CreateUserHistoryArray to get an
@@ -116,7 +100,6 @@ class Recommender:
             hist = self.CreateUserHistoryArray(randomId)
         return hist, haveHist
 
-
     """
     In the CreateUserHistoryArray functon, two empty lists are made. One for
     the history of the OrderId and one of the products, filled with the 
@@ -142,7 +125,6 @@ class Recommender:
         if len(product) > 5:
             del product[5::] 
         return product
-
 
     """
     The algorithm starts with combining columns that are needed for the
@@ -171,7 +153,6 @@ class Recommender:
     Due to the top 1 percent being a small amount borrowed items, we took the top 5-6% instead.
     quantile = productAmountCount['totalAmountCount'].quantile(np.arange(.9, 1, .01)).mean()
     print(quantile)
-
     """
     def Knn(self, productHistoryList):
         combineItemCount = pd.merge(self.countItems, self.inventory, on="ProductId")
@@ -197,22 +178,22 @@ class Recommender:
             try:
                 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=4)
             except:
-                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2)
+                distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2) #new products might ot have many short disntace porducts close to them
             
             for i in range(1, len(distances.flatten())):
                 duplicate = indices.flatten()[i] in (item for sublist in ItemId for item in sublist)
                 print(duplicate)
-                if duplicate == False and indices.flatten()[i] != 0:
+                if duplicate == False:
                     ItemId.append([(indices.flatten()[i]+1), distances.flatten()[i]])
         
         if len(ItemId) > 10:
             del ItemId[10::] 
         
-        ItemId = sorted(ItemId, key= lambda x: x[1]) ## RETURN THIS FOR WEB! WHY ? CUZ [x][0] == product ID  and [x][1] == Distance
+        ItemId = sorted(ItemId, key= lambda x: x[1]) 
         #print(ItemId)
         idList = []
 
-        recommendedProducts = []        ### RETURN THIS FOR TESTING ALGORTIME TESTING 
+        recommendedProducts = []
         index = 0
         while index < len(ItemId):
             recommendedProducts.append([ItemId[index][0],self.inventory.at[ItemId[index][0], "title"], ItemId[index][1]])

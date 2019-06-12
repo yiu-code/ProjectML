@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from django.db import connection
 from django.http import HttpResponse
 from api.forms import RegistrationForm, LoginForm
@@ -46,7 +47,20 @@ def Knn(request, userId):
 
 @login_required(login_url='/')
 def Home(request):
-    return render(request, "home.html")
+    id = request.user.id
+    recommender = Recommender(id)
+    topItems = recommender.GetTopBorrowedItems(4)
+
+    idList = []
+    Recommended = []
+    for item in topItems:
+        idList.append(item[0])
+    for item in idList:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
+        product = query.fetchall()
+        Recommended.append(product)
+    print(Recommended)
+    return render(request, "home.html", {'product' : Recommended})
 
 def Register(request):
     if request.method == 'POST':
@@ -91,9 +105,70 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 
-def dbData(request):
-    Product_list = Product.objects.all() ## Article List = Variabel, Objects.all() pakt alle Artikelen in de DB ##
-    return render(request, 'api/products.html', {'Product': Product_list}) ##Op de HTML bestand in Article een variable die hier de Article_list variable is ##
+def products(request, selectedCategory, selectedBrand):
+    if selectedCategory == '0':
+        Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
+    elif selectedBrand == '0': 
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "'")
+        Product_list = query.fetchall()
+    else:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "' AND brand = '" + str(selectedBrand) + "'")
+        Product_list = query.fetchall()
+
+       
 
 
+    page = request.GET.get('page', 1)
+    paginator = Paginator(Product_list, 10)
+    try:
+        product = paginator.page(page)
+    except PageNotAnInteger:
+        product = paginator.page(1)
+    except EmptyPage:
+        product = paginator.page(paginator.num_pages)
 
+    
+    query = connection.cursor().execute("SELECT category FROM api_product GROUP BY category")
+    categories = query.fetchall()
+
+    if selectedCategory != '0':
+          query = connection.cursor().execute("SELECT brand FROM api_product WHERE category = '" + str(selectedCategory) + "'GROUP BY brand")
+          brands = query.fetchall()  
+    
+    if selectedCategory == '0':
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': False}) 
+    else:
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory), 'Brands': brands}) 
+    
+
+
+def productsRecommended(request):
+    #get selected user information 
+    id = request.user.id
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(id))
+    currentUser = query.fetchall()
+    print()
+
+    #Get UserHistory
+    recommender = Recommender(id)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+    #Gooit het resultaat van Id's in een lijst en pakt alle producten met die Id's. 
+    idList = []
+    Recommended = []
+    for item in recommendList:
+        idList.append(item[0])
+    for item in idList:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
+        product = query.fetchall()
+        Recommended.append(product)
+
+
+    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
+
+def productDetail(request, productId):
+        
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(productId))
+        product = query.fetchall()
+
+        return render(request, 'api/detailPage.html',{'Product': product})

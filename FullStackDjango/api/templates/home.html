@@ -1,56 +1,51 @@
-{% extends "api/shared.html" %}
+﻿{% extends "api/shared.html" %}
 {% block content %}
-
-<!doctype html>
-
-<html lang="en">
 <head>
-  <meta charset="utf-8">
-
-  <title>Dept Agency</title>
-  <meta name="description" content="Lending page">
-  <meta name="author" content="width=device-width, initial-scale=1">
-
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="/static/home.css">
+   <link rel="stylesheet" href="/static/home.css">
 </head>
-
-<!-- <body>
-	<div id="homeimg">
-  <img id="homeimage"src="https://d4kkpd69xt9l7.cloudfront.net/sys-master/root/h39/h95/9126618693662/razer-blade-15-gallery08.jpg" height="600" width="1365" /> -->
-
-<style>
-
-</style>
-</head>
-<body>
 
 <div class="hero-image">
   <div class="hero-text">
-    <h1 style="font-size:50px">Welcome to Dept's lending page</h1>
-    <p>To surf products click on the button below!</p>
-    <button id="buttonhome"href="{% url 'api:products' %}">Products</button>
+    <h1 style="font-size:50px">Dept loan system</h1>
+    <p>Only for Dept employees</p>
+      <hr class="whiteStyle"/>
+    <a href="/products/0/0"><button class="btn btn-success">Products</button></a>
   </div>
 </div>
 </br>
 
-<img id="image-one" src="https://www.deptagency.com/wp-content/uploads/2018/12/DEPT_23-Jan-001.jpg" width="500" height="450"/>
-
-<img id="third-image" src="https://wallpaperstock.net/wallpapers/thumbs1/27438wide.jpg" width="300" height="290"/>
-  
-<img id="fourth-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEOiEi4KKsPOtEoVNdHOtpaDyiFY3tV6iZJwSvU2S4_n0RHy2q5Q" width="250" height="270"  />
-<div>
-<img id="fifth-image" src="https://img5.goodfon.com/wallpaper/nbig/2/98/apple-myshka-kompiuter.jpg" width="300" height="290"/>
-
-<img id="sixth-image" src="https://wallpaperplay.com/walls/full/a/5/0/205608.jpg" width="300" height="290"/>
-
-<div>
-<img id="seventh-image" src="https://www.dutchdigitalagencies.com/thumbs/2880x1300_wp-content_uploads_2013_10_Dept-Amsterdam.jpg" width="1348" height="500"/>
+<div class="container my-3 ">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div id="topRecommend">
+                <div class="pr-1" id="topRecommend-text">
+                    <h1>Featured products</h1>
+                    <p>Looking for something new or just browsing ?</p>
+                    <p>Here are some populair items. Check it out right now!</p>
+                    <a href="#"><button class="btn btn-success">click here</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="row">
+                <div class="col-6 p-1">
+                    <img class="rounded" src="{{product.0.0.3}}" width="250" height="250"/>
+                </div>
+                <div class="col-6 p-1">
+                    <img class="rounded" src="{{product.1.0.3}}" width="250" height="250"  />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 p-1">
+                    <img class="rounded" src="{{product.2.0.3}}" width="250" height="250"/>
+                </div>
+                <div class="col-6 p-1">
+                    <img class="rounded" src="{{product.3.0.3}}" width="250" height="250"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-</body>
 
-</html>
 
 {% endblock %}
