@@ -21,12 +21,15 @@
 
   <div class="row">
     <div class="col-2"> <!-- style="background-color:lightgray"-->
+      <!-- Categorieeren-->
       {% for item in Categories %}
               <a href="{% url 'api:products'%}/{{item.0}}/0" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
       <br />
 
       {% endfor %}
       <br />
+
+      <!-- Brands -->
       {% if enabledCategories == True%}
       {% for item in Brands %}
               <a href="{% url 'api:products'%}/{{currentCategorie}}/{{item.0}}" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
@@ -35,8 +38,11 @@
       
       {% endif %}
       <br />
+      {% if Recommended != True%}
         <a href="{% url 'api:products'%}/my-recommended-products" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
-
+      {% else %}
+        <a href="{% url 'api:products'%}/0/0" style="color: #000000;"><i><b><u>Show all items</u></b></i></a>
+      {% endif %}
      
     </div>
       <!-- PRODUCTEN ZONDER FILTER OF RECOMMENDATIE-->
@@ -57,7 +63,7 @@
                     <p> {{item.title}}</p>
                     <p> Merk: {{item.brand}}</p>
                     <p> Prijs: &euro;{{item.price}}</p>
-                    <a href="productDetail/{{item.id}}">Meer informatie</a>
+                    <a href="{% url 'api:productDetail'%}/{{item.id}}">Meer informatie</a>
 
                 </div>
                 <div class="col-sm-12">
@@ -86,7 +92,7 @@
                     <p> {{item.0.1}}</p>
                     <p> Merk: {{item.0.2}}</p>
                     <p> Prijs: &euro;{{item.0.4}}</p>
-                    <a href="../productDetail/{{item.0.0}}">Meer informatie</a>
+                    <a href="{% url 'api:productDetail'%}/{{item.0.0}}">Meer informatie</a>
                      
 
                 </div>
@@ -115,7 +121,7 @@
                     <p> {{item.1}}</p>
                     <p> Merk: {{item.2}}</p>
                     <p> Prijs: &euro;{{item.4}}</p>
-                    <a href="../productDetail/{{item.0}}">Meer informatie</a>
+                    <a href="{% url 'api:productDetail'%}/{{item.0}}">Meer informatie</a>
                      
 
                 </div>
