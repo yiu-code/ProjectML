@@ -32,7 +32,7 @@ class Recommender:
         self.employeeList = self.PandaFormatting("SELECT * FROM api_user", ["UserId", "password", "last_login","email","active","staff","admin","firstname", "lastname","timestamp", "jobtitle"])
         self.countItems = self.PandaFormatting("SELECT u.id, pl.product_id, SUM(pl.amount) FROM api_user AS u JOIN api_order AS o ON u.id = o.user_id JOIN api_productlist AS pl ON o.id = pl.order_id GROUP BY u.id, pl.product_id", ["UserId", "ProductId", "Count"])
         self.employeeWitem = self.PandaFormatting("SELECT o.id, o.user_id, pl.product_id, pl.amount FROM api_order AS o JOIN api_productlist AS pl ON o.id = pl.order_id ORDER BY o.id, o.user_id, pl.product_id;", ["OrderId", "UserId", "ProductId", "amount"])
-        self.DataFiltering()
+        #self.DataFiltering()
 
     def PandaFormatting(self, query, columnName):
         fetchData = connection.cursor().execute(query)
@@ -59,7 +59,8 @@ class Recommender:
     totalCountPerItem with the inventory
     """
     def GetTopBorrowedItems(self, num):
-        totalCountPerItem = pd.DataFrame(self.countItems.groupby(['ProductId'])['Count'].count())  # pd.DataFrame kan weggelaten worden?
+        totalCountPerItem = pd.DataFrame(self.countItems.groupby(['ProductId'])['Count'].sum())
+        print(totalCountPerItem) 
         toprecommendedItems = pd.merge(totalCountPerItem.sort_values("Count", ascending=False), self.inventory, on="ProductId")
         recommendList = toprecommendedItems.head(num)
 
@@ -182,7 +183,7 @@ class Recommender:
             for i in range(1, len(distances.flatten())):
                 duplicate = indices.flatten()[i] in (item for sublist in ItemId for item in sublist)
                 print(duplicate)
-                if duplicate == False and indices.flatten()[i] != 0:
+                if duplicate == False:
                     ItemId.append([(indices.flatten()[i]+1), distances.flatten()[i]])
         
         if len(ItemId) > 10:
