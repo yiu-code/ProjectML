@@ -63,33 +63,39 @@
                     </p>
                 </div>
             </div>
-            <div class="justify-content-center mx-auto text-center">
+            <div style="margin-top: 0" class="justify-content-center mx-auto text-center">
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label for="id_jobtitle_0" class="btn btn-light active">
+                <label for="id_jobtitle_0" class="btn btn-dark active">
                         <input type="radio" name="jobtitle" value="Developer" required id="id_jobtitle_0" checked>
                         Developer
                 </label>
-                <label for="id_jobtitle_1" class="btn btn-light">
+                <label for="id_jobtitle_1" class="btn btn-dark">
                         <input type="radio" name="jobtitle" value="Designer" required id="id_jobtitle_1">
                         Designer
                 </label>
-                <label for="id_jobtitle_2" class="btn btn-light">
+                <label for="id_jobtitle_2" class="btn btn-dark">
                         <input type="radio" name="jobtitle" value="Office" required id="id_jobtitle_2">
                         Office
                 </label>
             </div>
         </div>
             
+           
 
 
 
-
-            <button style="margin-top: 20px" type="submit">Register</button>
+            <button style="margin-top: 10px" type="submit">Register</button>
             <a style="color: grey" href="/">Login</a>
 
             {% if form.password2.errors%}
             <div id="errorMessage" class="alert alert-danger" role="alert">
                 {{form.password2.errors}}
+            </div>
+            {% endif %}
+
+            {% if form.email.errors %}
+            <div id="errorMessage" class="alert alert-danger" role="alert">
+                {{form.email.errors}}
             </div>
             {% endif %}
 
