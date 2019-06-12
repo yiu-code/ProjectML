@@ -49,7 +49,7 @@ def Knn(request, userId):
 def Home(request):
     id = request.user.id
     recommender = Recommender(id)
-    topItems = recommender.GetTopBorrowedItems(4)
+    topItems = recommender.GetTopBorrowedItems(10)
 
     idList = []
     Recommended = []

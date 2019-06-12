@@ -73,6 +73,7 @@
     <Content Include="api\static\knn.css" />
     <Content Include="api\static\scripts\particles.js" />
     <Content Include="api\static\scripts\shared.css" />
+    <Content Include="api\static\detailPage.css" />
     <Content Include="api\templates\api\detailPage.html" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />

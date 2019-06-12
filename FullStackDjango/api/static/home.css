@@ -65,18 +65,21 @@ hr.whiteStyle {
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0));
 }
 
-.btn-success {
+.btn-dark {
     background-color: #09037D;
     border: none;
     color: white;
     font-weight: bolder;
 }
 
-    .btn-success:hover, .btn-success::selection {
-        background-color: #1e19b7;
-        color: white;
-        font-weight: bolder;
-    }
+.btn-dark:hover, .btn-dark::selection, .btn-dark:active, .btn-dark:focus, .btn-dark:active:focus {
+    background-color: #1e19b7 !important;
+    color: white;
+    outline: none !important;
+    font-weight: bolder;
+    box-shadow: none;
+}
+
 
 .rounded {
     border: solid;
@@ -88,3 +91,6 @@ hr.whiteStyle {
     text-decoration:none;
     color: white;
 }
+
+
+
