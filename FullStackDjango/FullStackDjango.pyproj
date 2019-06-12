@@ -67,6 +67,7 @@
     <Content Include="api\static\home.css" />
     <Content Include="api\static\image\Vergrootglas.png" />
     <Content Include="api\static\login.css" />
+    <Content Include="api\static\product.css" />
     <Content Include="api\static\register.css" />
     <Content Include="api\static\scripts\disclaimer.js" />
     <Content Include="api\static\knn.css" />

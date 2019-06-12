@@ -2,52 +2,68 @@
 {% block content %}
 
 <head>
+<link rel="stylesheet" href="/static/product.css">
 <title> DB Data (read from database)</title>
 </head>
     <body>
         
 
-<div class="container" >
-
-
-    {% if enabledCategories == False %}
-    <h1> Products</h1>
-    {% elif Recommended == True%}
-    <h1>Recommended Products</h1>
-    {% else %}
-    <h1>{{currentCategorie}}</h1>
-    {% endif %}
-
-
+<div class="container py-3"  >
   <div class="row">
-    <div class="col-2"> <!-- style="background-color:lightgray"-->
+    <div class="col-3 card h-50 d-inline-block"> <!-- style="background-color:lightgray"-->
+      <article class="card-group-item">
+          <header class="mx-auto">
+            {% if enabledCategories == False %}
+            <h4 class="text-center"> Products</h4>
+            {% elif Recommended == True%}
+            <h5 class="text-center">Recommended Products</h5>
+            {% else %}
+            <h4 class="text-center">{{currentCategorie}}</h4>
+            {% endif %}
+          </header>
+          <ul class="list-group list-group-flush">
+              <a href="{% url 'api:products'%}/0/0">  
+                  <li class="list-group-item">
+                    Show all items
+                  </li>
+              </a>
+                {% for item in Categories %}
+              <a href="{% url 'api:products'%}/{{item.0}}/0" class="py-1">
+                <li class="list-group-item ">
+                    {{item.0}}
+                </li>
+              </a>
+
+                {% endfor %}
+                </br>
+                <!-- Brands -->
+                {% if enabledCategories == True%}
+                <h5 class="text-center">Brands</h5>
+                {% for item in Brands %}
+                <a href="{% url 'api:products'%}/{{currentCategorie}}/{{item.0}}"  class="py-1">
+                    <li class="list-group-item">
+                        {{item.0}}
+                    </li>
+                </a>
+                {% endfor %}
+                <br />
+                {% endif %}
+
+                {% if Recommended != True%}
+                <a href="{% url 'api:products'%}/my-recommended-products">
+                <li class="list-group-item">
+                    Show recommended
+                </li>
+                </a>
+                {% endif %}
+          </ul>
+      </article>
       <!-- Categorieeren-->
-      {% for item in Categories %}
-              <a href="{% url 'api:products'%}/{{item.0}}/0" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
-      <br />
 
-      {% endfor %}
-      <br />
-
-      <!-- Brands -->
-      {% if enabledCategories == True%}
-      {% for item in Brands %}
-              <a href="{% url 'api:products'%}/{{currentCategorie}}/{{item.0}}" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
-      <br />
-      {% endfor %}
-      
-      {% endif %}
-      <br />
-      {% if Recommended != True%}
-        <a href="{% url 'api:products'%}/my-recommended-products" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
-      {% else %}
-        <a href="{% url 'api:products'%}/0/0" style="color: #000000;"><i><b><u>Show all items</u></b></i></a>
-      {% endif %}
-     
     </div>
       <!-- PRODUCTEN ZONDER FILTER OF RECOMMENDATIE-->
       {% if Product%}
-    <div class="col-10">
+    <div class="col-9">
         <div class="container">
             {% if Recommended != True and enabledCategories == False%}
             
@@ -55,7 +71,7 @@
             <div class="row" >
                 <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height="150"/>
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height="120"/>
                     </div>
                 </div>
                 <div class="col-9"> <!--style="background-color: #4cff00;" -->
