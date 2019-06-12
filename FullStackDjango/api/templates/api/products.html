@@ -69,46 +69,54 @@
             
             {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height="120"/>
+                    {% if item.category == "Mobile" or item.category == "Mouse"   %}
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.title}}</p>
-                    <p> Merk: {{item.brand}}</p>
-                    <p> Prijs: &euro;{{item.price}}</p>
-                    <a href="{% url 'api:productDetail'%}/{{item.id}}">Meer informatie</a>
+                     {{item.title}}
+                    </br>
+                     Merk: {{item.brand}}
+                    </br>
+                     Prijs: &euro;{{item.price}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.id}}"><button class="btn btn-dark mt-1">More</button></a>
 
                 </div>
-                <div class="col-sm-12">
-                <div style='border-bottom:2px solid #ccc;'></div>
-                </div>
-    
-                
+                    <div class="col-sm-12">
+                    <div style='border-bottom:2px solid #ccc;'></div>
+                    </div>                
             </div>
-
-
-
-
 
             {% endfor %}
             <!-- PRODUCTEN ZONDER FILTER MAAR MET RECOMMENDATIE-->
             {% elif Recommended == True%}
                         {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height="150"/>
+                    {% if item.0.5 == "Mobile" or item.0.5 == "Mouse"   %}
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.0.1}}</p>
-                    <p> Merk: {{item.0.2}}</p>
-                    <p> Prijs: &euro;{{item.0.4}}</p>
-                    <a href="{% url 'api:productDetail'%}/{{item.0.0}}">Meer informatie</a>
+                    {{item.0.1}}
+                    </br>
+                    Merk: {{item.0.2}}
+                    </br>
+                    Prijs: &euro;{{item.0.4}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.0.0}}"><button class="btn btn-dark mt-1">More</button></a>
                      
 
                 </div>
@@ -118,26 +126,28 @@
             </div>
             {% endfor %}
 
-
-
-
-
-
             {% else %}
             <!-- PRODUCTEN MET FILTER ZONDER RECOMMENDATIE-->
             {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height="150"/>
+                    {% if item.5 == "Mobile" or item.5 == "Mouse"   %}
+                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.1}}</p>
-                    <p> Merk: {{item.2}}</p>
-                    <p> Prijs: &euro;{{item.4}}</p>
-                    <a href="{% url 'api:productDetail'%}/{{item.0}}">Meer informatie</a>
+                    {{item.1}}
+                    </br>
+                    Merk: {{item.2}}
+                    </br>
+                    Prijs: &euro;{{item.4}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.0}}"><button class="btn btn-dark mt-1">More</button></a>
                      
 
                 </div>
@@ -147,11 +157,6 @@
             </div>
             {% endfor %}
             {% endif %}
-
-
-
-
-
 
             <div class="mx-auto pt-3">
             {% if Product.has_other_pages %}

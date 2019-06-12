@@ -66,11 +66,11 @@ class Recommender:
 
         dropColumns = ["Count", "brand", "image", "price", "category"] 
         recommendList = recommendList.drop(dropColumns, axis=1) 
+        recommendList = recommendList.sample(frac=1).reset_index(drop=True)
         resList = []
         for i in range(len(recommendList)):
             resList.append([recommendList["ProductId"][i], recommendList["title"][i] ])
         print(resList)
-       
         return resList
 
     """

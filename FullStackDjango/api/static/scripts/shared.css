@@ -14,3 +14,10 @@
     margin-top: -25px;
 }
 
+a{
+    text-decoration:none;
+}
+
+.white{
+    color:white;
+}
