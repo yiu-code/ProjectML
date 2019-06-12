@@ -115,8 +115,7 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
-class Employee:
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     
 
 
