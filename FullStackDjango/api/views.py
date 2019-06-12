@@ -106,7 +106,14 @@ def home(request):
 ## Webpagina die Db info laat zien ##
 
 def products(request, selectedCategory):
-    Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
+    if selectedCategory == '0':
+        Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
+    else: 
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "'")
+        Product_list = query.fetchall()
+        print(Product_list)
+        print(Product_list[0])
+
     page = request.GET.get('page', 1)
     paginator = Paginator(Product_list, 10)
     try:
@@ -116,10 +123,14 @@ def products(request, selectedCategory):
     except EmptyPage:
         product = paginator.page(paginator.num_pages)
 
-
-    query = connection.cursor().execute("SELECT category FROM api_product GROUPBY category")
-    category = query.fetchall()
-    return render(request, 'api/products.html', {'Product': product, 'Categories': categories}) 
+    
+    query = connection.cursor().execute("SELECT category FROM api_product GROUP BY category")
+    categories = query.fetchall()
+    if selectedCategory == '0':
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': False}) 
+    else:
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory)}) 
+    
 
 
 def productsRecommended(request):
@@ -144,7 +155,7 @@ def productsRecommended(request):
         Recommended.append(product)
 
 
-    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True, 'Categories': Category})
+    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
 
 def productDetail(request, productId):
         
