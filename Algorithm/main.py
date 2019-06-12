@@ -4,9 +4,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.sparse import csr_matrix
-countItems = pd.read_csv('./Count.csv', sep=";")
-inventory = pd.read_csv('./DataSets/LaptopsV2.csv', sep=";")
-employeeWitem = pd.read_csv("./DataSets/OrderHistoryV3.csv", sep=";")
+countItems = pd.read_csv('./CountV5-2.csv', sep=";")
+inventory = pd.read_csv('./DataSets/LaptopsV3.csv', sep=";")
+employeeWitem = pd.read_csv("./DataSets/OrderHistoryV5.csv", sep=";")
 employeeList = pd.read_csv("./DataSets/Employee.csv", sep=";")
 
 
@@ -26,9 +26,9 @@ employeeList["UserId"] = employeeList["UserId"].astype(np.int64)
 
      
 def Main():
-    recommmender = Recommender(inventory,countItems,employeeWitem, 33, employeeList)
+    recommmender = Recommender(inventory,countItems,employeeWitem, 1, employeeList)
     product = recommmender.Knn()
-
+    print(recommmender.GetTopBorrowedItems(5))
 
     for i in product:
         print(i[0] +  " with a distance of: " + str(i[1]) )
