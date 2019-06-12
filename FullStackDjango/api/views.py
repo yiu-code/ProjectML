@@ -105,7 +105,7 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 
-def products(request):
+def products(request, selectedCategory):
     Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
     page = request.GET.get('page', 1)
     paginator = Paginator(Product_list, 10)
@@ -116,7 +116,11 @@ def products(request):
     except EmptyPage:
         product = paginator.page(paginator.num_pages)
 
-    return render(request, 'api/products.html', {'Product': product}) 
+
+    query = connection.cursor().execute("SELECT category FROM api_product GROUPBY category")
+    category = query.fetchall()
+    return render(request, 'api/products.html', {'Product': product, 'Categories': categories}) 
+
 
 def productsRecommended(request):
     #get selected user information 
@@ -139,7 +143,8 @@ def productsRecommended(request):
         product = query.fetchall()
         Recommended.append(product)
 
-    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
+
+    return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True, 'Categories': Category})
 
 def productDetail(request, productId):
         
