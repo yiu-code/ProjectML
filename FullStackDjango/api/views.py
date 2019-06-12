@@ -105,14 +105,18 @@ def home(request):
 
 ## Webpagina die Db info laat zien ##
 
-def products(request, selectedCategory):
+def products(request, selectedCategory, selectedBrand):
     if selectedCategory == '0':
         Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
-    else: 
+    elif selectedBrand == '0': 
         query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "'")
         Product_list = query.fetchall()
-        print(Product_list)
-        print(Product_list[0])
+    else:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "' AND brand = '" + str(selectedBrand) + "'")
+        Product_list = query.fetchall()
+
+       
+
 
     page = request.GET.get('page', 1)
     paginator = Paginator(Product_list, 10)
@@ -126,10 +130,15 @@ def products(request, selectedCategory):
     
     query = connection.cursor().execute("SELECT category FROM api_product GROUP BY category")
     categories = query.fetchall()
+
+    if selectedCategory != '0':
+          query = connection.cursor().execute("SELECT brand FROM api_product WHERE category = '" + str(selectedCategory) + "'GROUP BY brand")
+          brands = query.fetchall()  
+    
     if selectedCategory == '0':
         return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': False}) 
     else:
-        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory)}) 
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory), 'Brands': brands}) 
     
 
 
