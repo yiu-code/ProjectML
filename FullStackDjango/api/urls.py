@@ -16,5 +16,6 @@ urlpatterns =  [
     path('products/productDetail/<int:productId>/', views.productDetail, name="productDetail"), #Hier gaat hij naartoe als je nadat je recommended heb en op meer info druk.
     path('knn', views.PreInfoKnn, name="disclamer-algoritm-page"),
     path('knn/index', views.TopRecommendation, name="algorithm-page"),
-    path('knn/<int:userId>/', views.Knn, name="knn-page")
+    path('knn/<int:userId>/', views.Knn, name="knn-page"),
+    path('cart', views.cart, name="shopping-cart-page")
 ]

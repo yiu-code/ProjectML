@@ -75,6 +75,7 @@
     <Content Include="api\templates\api\detailPage.html" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />
+    <Content Include="api\templates\shoppingcart.html" />
     <Content Include="api\templates\base.html" />
     <Content Include="api\static\algorithmDisclaimer.css" />
     <Content Include="api\templates\home.html" />

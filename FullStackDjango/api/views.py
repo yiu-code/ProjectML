@@ -103,6 +103,14 @@ def home(request):
         }
     )
 
+
+def cart(request):
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'shoppingcart.html'
+    )
+
 ## Webpagina die Db info laat zien ##
 
 def products(request, selectedCategory):
