@@ -1,5 +1,18 @@
 ﻿{% extends "api/shared.html" %}
 {% block content %}
 
-DetailPagina
+
+Naam: {{Product.0.1}}
+<br />
+Id: {{Product.0.0}}
+<br />
+Merk: {{Product.0.2}}
+<br />
+Image: {{Product.0.3}}
+<img src="{{Product.0.3}}"/>
+<br />
+Prijs: {{Product.0.4}}
+<br />
+Categorie: {{Product.0.5}}
+<br />
 {% endblock %}

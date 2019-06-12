@@ -168,5 +168,7 @@ def productsRecommended(request):
 
 def productDetail(request, productId):
         
-        
-        return render(request, 'api/detailPage.html') 
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(productId))
+        product = query.fetchall()
+
+        return render(request, 'api/detailPage.html',{'Product': product})
