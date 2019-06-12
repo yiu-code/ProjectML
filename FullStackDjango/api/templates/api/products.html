@@ -8,36 +8,29 @@
         
 
 <div class="container" >
-    <h1> Laptops</h1>
+    {% if enabledCategories == False %}
+    <h1> Products</h1>
+    {% else %}
+    <h1>{{currentCategorie}}</h1>
+    {% endif  %}
   <div class="row">
     <div class="col-2"> <!-- style="background-color:lightgray"-->
-      <p><b>Brand</b> </p>
-      <form method=GET>
-          {% csrf_token %}
-          <input type="radio" name="Brand" value="HP">Hp<br>
-          <input type="radio" name="Brand" value="Lenovo">Lenovo<br>
-          <input type="radio" name="Brand" value="Apple">Apple<br>
-          <input type="radio" name="Brand" value="Dell">Dell<br>
-          <input type="radio" name="Brand" value="Acer">Acer<br>
-       <br />
-      <p><b>Ram</b> </p>
-          <input type="radio" name="Ram" value="4">4 GB<br>
-          <input type="radio" name="Ram" value="8">8 GB<br>
-          <input type="radio" name="Ram" value="16">16  GB<br>
-          <input type="radio" name="Ram" value="32+">32+ GB<br>
+      {% for item in Categories %}
+              <a href="{% url 'api:products'%}/{{item.0}}" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
+      <br />
 
-       <br />
-        <input type="submit" value="Filter" href="products" class="btn btn-info" role="button">     <br/>
-    </form>
+      {% endfor %}
       <br />
         <a href="{% url 'api:products'%}/my-recommended-products" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
 
      
     </div>
+      <!-- PRODUCTEN ZONDER FILTER OF RECOMMENDATIE-->
       {% if Product%}
     <div class="col-10">
         <div class="container">
-            {% if Recommended != True %}
+            {% if Recommended != True and enabledCategories == False%}
+            
             {% for item in Product%}
             <div class="row" >
                 <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
@@ -59,8 +52,14 @@
     
                 
             </div>
+
+
+
+
+
             {% endfor %}
-            {% else %}
+            <!-- PRODUCTEN ZONDER FILTER MAAR MET RECOMMENDATIE-->
+            {% elif Recommended == True%}
                         {% for item in Product%}
             <div class="row" >
                 <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
@@ -82,7 +81,42 @@
                 </div>
             </div>
             {% endfor %}
+
+
+
+
+
+
+            {% else %}
+            <!-- PRODUCTEN MET FILTER ZONDER RECOMMENDATIE-->
+            {% for item in Product%}
+            <div class="row" >
+                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                    <div class="block">
+                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height="150"/>
+                    </div>
+                </div>
+                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                    
+                    <p> {{item.1}}</p>
+                    <p> Merk: {{item.2}}</p>
+                    <p> Prijs: &euro;{{item.4}}</p>
+                    <a href="../productDetail/{{item.0}}">Meer informatie</a>
+                     
+
+                </div>
+                <div class="col-sm-12">
+                <div style='border-bottom:2px solid #ccc;'></div>
+                </div>
+            </div>
+            {% endfor %}
             {% endif %}
+
+
+
+
+
+
             <div class="mx-auto pt-3">
             {% if Product.has_other_pages %}
               <ul class="pagination justify-content-center">
