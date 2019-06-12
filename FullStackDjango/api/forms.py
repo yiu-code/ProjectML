@@ -9,12 +9,12 @@ class RegistrationForm(UserCreationForm):
                          ('Designer', 'Designer'),
                          ('Office', 'Office')
                         ]
-    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'example@gmail.com'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'login-form', 'placeholder': 'enter your password'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'login-form', 'placeholder': 'enter your password'}))
-    firstname = forms.CharField(widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'John'}))
-    lastname = forms.CharField(widget=forms.TextInput(attrs={'class': 'login-form', 'placeholder': 'Doe'}))
-    jobtitle = forms.ChoiceField(choices=Job_title_choices,widget=forms.Select(attrs={'class': 'login-form'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={ 'placeholder': 'example@gmail.com'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'enter your password'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'enter your password'}))
+    firstname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'John'}))
+    lastname = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Doe'}))
+    jobtitle = forms.ChoiceField(choices=Job_title_choices, widget=forms.RadioSelect(attrs={}))
 
 
     class Meta:
@@ -33,7 +33,7 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Enter Email'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Enter Email'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Enter Password'}))
 
     def clean(self, *args, **kwargs):
