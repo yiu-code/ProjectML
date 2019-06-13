@@ -17,5 +17,6 @@ urlpatterns =  [
     path('productDetail/<int:productId>/', views.productDetail, name="productDetail"),
     path('knn', views.PreInfoKnn, name="disclamer-algoritm-page"),
     path('knn/index', views.TopRecommendation, name="algorithm-page"),
-    path('knn/<int:userId>/', views.Knn, name="knn-page")
+    path('knn/<int:userId>/', views.Knn, name="knn-page"),
+    path('orders', views.orderHistory, name="orderhist-page")
 ]
