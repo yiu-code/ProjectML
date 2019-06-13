@@ -26,6 +26,7 @@ def TopRecommendation(request):
     off = User.objects.all().filter(jobtitle = "Office")
     test = Recommender(5)
     products = test.GetTopBorrowedItems(10)
+    print(products)
         
     return render(request, 'topItem.html', {'products': products, 'developers': dev, 'designers': des, 'office': off})
 
@@ -167,8 +168,20 @@ def productsRecommended(request):
     return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
 
 def productDetail(request, productId):
-        
         query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(productId))
         product = query.fetchall()
-
         return render(request, 'api/detailPage.html',{'Product': product})
+
+
+def orderHistory(request):
+    id = request.user.id
+    print(id)
+    orderHistory = []
+    query = connection.cursor().execute("SELECT api_order.id, api_productlist.product_id, api_product.title, api_product.image, api_product.id amount FROM api_order JOIN api_productlist ON api_order.id = api_productlist.order_id JOIN api_product ON api_productlist.product_id == api_product.id WHERE user_id =" + str(id))
+    orderList = query.fetchall()
+    orderHistory.append(orderList)
+    print(orderList)
+
+
+    return render(request, 'api/orderHistoryPage.html', {'OrderHistory': orderList})
+
