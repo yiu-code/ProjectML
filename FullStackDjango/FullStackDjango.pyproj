@@ -64,6 +64,7 @@
     <Folder Include="MyProject\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="api\static\cart.css" />
     <Content Include="api\static\home.css" />
     <Content Include="api\static\image\Vergrootglas.png" />
     <Content Include="api\static\login.css" />
@@ -75,6 +76,7 @@
     <Content Include="api\templates\api\detailPage.html" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />
+    <Content Include="api\templates\complete.html" />
     <Content Include="api\templates\shoppingcart.html" />
     <Content Include="api\templates\base.html" />
     <Content Include="api\static\algorithmDisclaimer.css" />

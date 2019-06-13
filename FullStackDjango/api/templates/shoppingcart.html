@@ -1,5 +1,35 @@
 ﻿{% extends "api/shared.html" %}
 {% block content %}
 
-Shopping Cart Page
+
+<head>
+    <link rel="stylesheet" href="/static/cart.css">
+</head>
+
+<div class="cart-title">
+    <h1 style="font-size:50px">Your shopping cart</h1>
+ </div>
+<div>
+    <p class="empty">Your shopping cart is empty</p>
+</div>
+
+<div class='col-sm-8 col-sm-offset-2'>
+
+        {% for item in items_in_cart %}
+        <div class="table">
+            <p>{{item.0.2}}</p>
+        </div>
+
+        {% endfor %}
+
+</div>
+
+
+<body>
+    <button onclick="window.location.href = '{% url 'api:complete-order'%}';"> 
+        Checkout
+     </button>
+ </body>
+
+
 {% endblock %}

@@ -9,7 +9,7 @@ from .Recommender import Recommender
 
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import User, Product
+from .models import User, Product, Cart, CartItem, Cart_Items
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from .serializers import ArticleSerializer
@@ -105,10 +105,38 @@ def home(request):
 
 
 def cart(request):
+    #cart = CartItem.objects.all()
+    #print(cart)
+
+    double_list = []
+    items_in_cart = []
+    query = connection.cursor().execute("SELECT p.title, ci.quantity, p.price, c.total FROM api_product AS p JOIN api_cartitem AS ci ON p.id = ci.product_id JOIN api_cart AS c ON ci.product_id = c.product_id ORDER BY p.title, ci.quantity, c.total;")
+    cartList = query.fetchall()
+    double_list.append(cartList)
+    for items in double_list:
+        for single_item in items:
+            items_in_cart.append(single_item)
+
+    print(items_in_cart)
+    context = {"cart": cart}
+    template = "shoppingcart.html"
+    return render(request, template, context)
+
+
+def add_to_cart(request):
+    pass
+
+def remove_from_cart(request):
+    pass
+
+def update_cart(request, slug):
+   pass
+
+def complete(request):
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'shoppingcart.html'
+        'complete.html'
     )
 
 ## Webpagina die Db info laat zien ##
