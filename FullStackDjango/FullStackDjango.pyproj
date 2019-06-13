@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>FullStackDjango</Name>
     <RootNamespace>FullStackDjango</RootNamespace>
-    <InterpreterId>Global|canopy.enthought.com|User</InterpreterId>
+    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -67,6 +67,7 @@
     <Content Include="api\static\home.css" />
     <Content Include="api\static\image\Vergrootglas.png" />
     <Content Include="api\static\login.css" />
+    <Content Include="api\static\orderhistory.css" />
     <Content Include="api\static\product.css" />
     <Content Include="api\static\register.css" />
     <Content Include="api\static\scripts\disclaimer.js" />
@@ -75,6 +76,7 @@
     <Content Include="api\static\scripts\shared.css" />
     <Content Include="api\static\detailPage.css" />
     <Content Include="api\templates\api\detailPage.html" />
+    <Content Include="api\templates\api\orderHistoryPage.html" />
     <Content Include="api\templates\api\shared.html" />
     <Content Include="api\templates\api\products.html" />
     <Content Include="api\templates\base.html" />

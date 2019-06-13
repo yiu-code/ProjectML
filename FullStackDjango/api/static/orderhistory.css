@@ -3,7 +3,6 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
 }
 
 h1 {
@@ -30,4 +29,30 @@ p {
     min-height: 100vh;
     transition: all 0.3s;
 }
+
+
+.btn-dark {
+    background-color: #09037D;
+    border: none;
+    color: white;
+    font-weight: bolder;
+}
+
+    .btn-dark:hover, .btn-dark::selection, .btn-dark:active, .btn-dark:active:focus {
+        background-color: #1e19b7 !important;
+        color: white;
+        font-weight: bolder;
+        outline: none;
+    }
+
+.page-item a {
+    color: black;
+}
+
+.page-item a:hover {
+        color: white;
+        background-color: #1e19b7;
+    }
+
+
 
