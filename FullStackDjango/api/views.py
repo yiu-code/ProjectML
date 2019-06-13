@@ -180,7 +180,9 @@ def orderHistory(request):
     query = connection.cursor().execute("SELECT api_order.id, api_productlist.product_id, api_product.title, api_product.image, api_product.id, api_productlist.amount, api_product.category FROM api_order JOIN api_productlist ON api_order.id = api_productlist.order_id JOIN api_product ON api_productlist.product_id == api_product.id WHERE user_id =" + str(id) + " ORDER BY api_order.id DESC")
     orderList = query.fetchall()
     print(orderList)
-
+    
+    userQuery = connection.cursor().execute("SELECT * FROM api_user Where id = " + str(id)) 
+    user = userQuery.fetchall()
     page = request.GET.get('page', 1)
     paginator = Paginator(orderList, 10)
     try:
@@ -191,5 +193,5 @@ def orderHistory(request):
         product = paginator.page(paginator.num_pages)
 
 
-    return render(request, 'api/orderHistoryPage.html', {'OrderHistory': product})
+    return render(request, 'api/orderHistoryPage.html', {'OrderHistory': product, 'User': user })
 
