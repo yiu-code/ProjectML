@@ -167,7 +167,7 @@ def orderHistory(request):
     id = request.user.id
     print(id)
     orderHistory = []
-    query = connection.cursor().execute("SELECT api_order.id, api_productlist.product_id, api_product.title, api_product.image, amount FROM api_order JOIN api_productlist ON api_order.id = api_productlist.order_id JOIN api_product ON api_productlist.product_id == api_product.id WHERE user_id =" + str(id))
+    query = connection.cursor().execute("SELECT api_order.id, api_productlist.product_id, api_product.title, api_product.image, api_product.id amount FROM api_order JOIN api_productlist ON api_order.id = api_productlist.order_id JOIN api_product ON api_productlist.product_id == api_product.id WHERE user_id =" + str(id))
     orderList = query.fetchall()
     orderHistory.append(orderList)
     print(orderList)
