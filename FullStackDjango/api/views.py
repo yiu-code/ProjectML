@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.db import connection
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from api.forms import RegistrationForm, LoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login, logout
@@ -9,7 +9,7 @@ from .Recommender import Recommender
 
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import User, Product, Cart, CartItem, Cart_Items
+from .models import User, Product
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from .serializers import ArticleSerializer
@@ -167,7 +167,6 @@ def productDetail(request, productId):
         product = query.fetchall()
         return render(request, 'api/detailPage.html',{'Product': product})
 
-
 def orderHistory(request):
     id = request.user.id
     print(id)
@@ -189,4 +188,16 @@ def orderHistory(request):
 
 
     return render(request, 'api/orderHistoryPage.html', {'OrderHistory': product, 'User': user })
+
+
+
+def addOrder(request, productId):
+    id = request.user.id
+
+    print("This is product ID: " + str(productId))
+
+    query = connection.cursor().execute("select * from api_product where id =" + str(productId))
+    product = query.fetchall()
+
+    return render(request, 'api/detailPageOrder.html',{'Product': product})
 

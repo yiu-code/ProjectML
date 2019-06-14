@@ -1,10 +1,11 @@
 ﻿{% extends "api/shared.html" %}
 {% block content %}
 
-<header>
+<head>
   <!-- Your custom styles (optional) -->
   <link href="/static/detailPage.css" rel="stylesheet">
-</header>
+
+</head>
 
  <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
@@ -46,10 +47,26 @@
                 <span> </span>
               <input name="productId" value="{{Product.0.0}}" hidden="hidden"/>
                 <!-- Trigger modal with Reserve button -->
-                <a  href="/productDetail/{{Product.0.0}}/order"><button class="btn btn-dark btn-md my-0 ml-1" type="button">Reserve          
-              </button></a>
+                <button class="btn btn-dark btn-md my-0 ml-1" type="button" data-toggle="modal" data-target="#myModal" href="/productDetail/{{Product.0.0}}/order">Reserve          
+              </button>
 
-              
+              <!-- Modal-->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal Content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Thank you for the following reservation</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><b>{{Product.0.1}}</b></p>
+                                <p>{{Product.0.2}}</p>
+                            </div>
+                            <div class="modal-footer"><button type="button" class="btn btn-dark" data-dismiss="modal">Close </button></div>
+                        </div>
+                    </div>
+                </div>
             </form>
           </div>
           <!--Content-->
@@ -80,4 +97,5 @@
     </div>
 
  </main>
+
 {% endblock %}

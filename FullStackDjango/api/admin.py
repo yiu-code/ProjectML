@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Author, Product, ProductList, Order, Cart 
+from .models import User, Author, Product, ProductList, Order
 # Register your models here.
 CustomUser = User
 admin.site.register(CustomUser)
@@ -11,4 +11,3 @@ admin.site.register(Author)
 admin.site.register(Product)
 admin.site.register(ProductList)
 admin.site.register(Order)
-admin.site.register(Cart)
