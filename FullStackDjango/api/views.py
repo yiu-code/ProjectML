@@ -93,6 +93,7 @@ def login_view(request):
         return redirect('/home')
     return render(request, "login.html", {'form': form})
 
+
 def logout_view(request):
     logout(request)
     return redirect('/')
@@ -100,7 +101,7 @@ def logout_view(request):
 
 
 ## Webpagina die Db info laat zien ##
-
+@login_required(login_url='/')
 def products(request, selectedCategory, selectedBrand):
     if selectedCategory == '0':
         Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
@@ -137,7 +138,7 @@ def products(request, selectedCategory, selectedBrand):
         return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory), 'Brands': brands}) 
     
 
-
+@login_required(login_url='/')
 def productsRecommended(request):
     #get selected user information 
     id = request.user.id
@@ -162,11 +163,13 @@ def productsRecommended(request):
 
     return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
 
+@login_required(login_url='/')
 def productDetail(request, productId):
         query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(productId))
         product = query.fetchall()
         return render(request, 'api/detailPage.html',{'Product': product})
 
+@login_required(login_url='/')
 def orderHistory(request):
     id = request.user.id
     print(id)
@@ -190,7 +193,7 @@ def orderHistory(request):
     return render(request, 'api/orderHistoryPage.html', {'OrderHistory': product, 'User': user })
 
 
-
+@login_required(login_url='/')
 def addOrder(request, productId):
     id = request.user.id
     print("This is product ID: " + str(productId))
