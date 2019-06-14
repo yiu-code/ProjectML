@@ -20,7 +20,7 @@
         <!--Grid column-->
 
         <!--Grid column-->
-        <div class="col-md-6 mb-4">
+        <div class="col-md-6 mb-4 ">
 
           <!--Content-->
           <div class="p-4">
@@ -42,11 +42,10 @@
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
-              <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+              <input type="number" name="amount" value="1" aria-label="Search" class="form-control" min="1" max="5" style="width: 100px" required>
                 <span> </span>
               <input name="productId" value="{{Product.0.0}}" hidden="hidden"/>
-                <button class="btn btn-dark btn-md my-0 ml-1" type="submit">Add          
-                <i class="fas fa-shopping-cart ml-1"></i>
+                <button class="btn btn-dark btn-md my-0 ml-1" type="submit">Reserve          
               </button>
             </form>
           </div>
@@ -64,7 +63,7 @@
       <div class="row d-flex ml-5 wow fadeIn">
 
         <!--Grid column-->
-        <div class="col-md-10 text-left">
+        <div class="col-md-10 text-left pb-5">
 
           <h4 class="my-4 h4">Description</h4>
 
@@ -74,40 +73,8 @@
         <!--Grid column-->
 
       </div>
-      <!--Grid row-->
-
-      <!--Grid row-->
-      <div class="row wow fadeIn">
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-      </div>
-      <!--Grid row-->
 
     </div>
 
-Categorie: {{Product.0.5}}
  </main>
 {% endblock %}

@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg">
         <div class="container">
             <!-- <a class="navbar-brand logo " href="/"><h2>HotBunsJS</h2></a> -->
-            <a class="navbar-brand logo " href="/"><h2>Dept</h2></a>
+            <a class="navbar-brand logo" href="{% url 'api:home-page'%}"><h2>Dept</h2></a>
                 {# Via static pakt hij het plaatje uit de static folder. Dit is verplicht. #}
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -44,9 +44,6 @@
 
                 <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                   <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <i style="color:white" class="fas fa-search fa-2x mx-2"></i>
-                        </li>
                         <li class="nav-item">
                              <i style="color:white" class="fas fa-shopping-cart fa-2x mx-2"></i>
                         </li>

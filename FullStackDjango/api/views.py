@@ -49,18 +49,25 @@ def Knn(request, userId):
 @login_required(login_url='/')
 def Home(request):
     id = request.user.id
-    recommender = Recommender(id)
-    topItems = recommender.GetTopBorrowedItems(10)
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(id))
+    currentUser = query.fetchall()
+    print()
 
+    #Get UserHistory
+    recommender = Recommender(id)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+    #Gooit het resultaat van Id's in een lijst en pakt alle producten met die Id's. 
     idList = []
     Recommended = []
-    for item in topItems:
+    for item in recommendList:
         idList.append(item[0])
     for item in idList:
         query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
         product = query.fetchall()
         Recommended.append(product)
-    print(Recommended)
+
+
     return render(request, "home.html", {'product' : Recommended})
 
 def Register(request):
@@ -91,18 +98,6 @@ def logout_view(request):
     return redirect('/')
 
 
-
-def home(request):
-    """Renders the home page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'api/home.html',
-        {
-            'title':'Home Page',
-            
-        }
-    )
 
 ## Webpagina die Db info laat zien ##
 
