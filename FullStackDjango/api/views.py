@@ -9,7 +9,7 @@ from .Recommender import Recommender
 
 from django.http import HttpRequest
 from django.template import RequestContext
-from .models import User, Product
+from .models import User, Product, Order, ProductList
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from .serializers import ArticleSerializer
@@ -193,11 +193,18 @@ def orderHistory(request):
 
 def addOrder(request, productId):
     id = request.user.id
-
     print("This is product ID: " + str(productId))
-
     query = connection.cursor().execute("select * from api_product where id =" + str(productId))
-    product = query.fetchall()
+    Found = query.fetchall()
+   
+    newOrder = Order.objects.create(user = request.user)
+    
+    myorder = Order.objects.latest('id')
+    myorderId = myorder
 
-    return render(request, 'api/detailPageOrder.html',{'Product': product})
+    productInstance = Product.objects.get(title = str(Found[0][1]))
+    
+    addProduct = ProductList.objects.create(product = productInstance , order = myorderId, amount = 1 )
+
+    return render(request, 'api/detailPageOrder.html',{'Product': Found, 'Order': myorderId.id})
 

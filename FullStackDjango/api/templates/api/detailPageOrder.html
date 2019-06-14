@@ -25,7 +25,8 @@
 
           <!--Content-->
           <div class="p-4">
-
+            <h2 style="color:forestgreen">Product is reserved on order number: {{Order}}</h2>
+                
             <div class="mb-3">
               <h3>{{Product.0.1}}</h3>
             </div>
@@ -41,14 +42,7 @@
               sint voluptatibus!
               Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
 
-            <form class="d-flex justify-content-left">
-              <!-- Default input -->
-              <input type="number" name="amount" value="1" aria-label="Search" class="form-control" min="1" max="5" style="width: 100px" required>
-                <span> </span>
-              <input name="productId" value="{{Product.0.0}}" hidden="hidden"/>
-                <!-- Trigger modal with Reserve button -->
-                <button class="btn btn-dark btn-md my-0 ml-1" type="button" data-toggle="modal" data-target="#myModal" href="/productDetail/{{Product.0.0}}/order">Reserve          
-              </button>
+
 
               <!-- Modal-->
                 <div id="myModal" class="modal fade" role="dialog">
@@ -67,7 +61,6 @@
                         </div>
                     </div>
                 </div>
-            </form>
           </div>
           <!--Content-->
 
