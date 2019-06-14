@@ -2,78 +2,121 @@
 {% block content %}
 
 <head>
+<link rel="stylesheet" href="/static/product.css">
 <title> DB Data (read from database)</title>
 </head>
     <body>
         
 
-<div class="container" >
-    {% if enabledCategories == False %}
-    <h1> Products</h1>
-    {% else %}
-    <h1>{{currentCategorie}}</h1>
-    {% endif  %}
+<div class="container py-3"  >
   <div class="row">
-    <div class="col-2"> <!-- style="background-color:lightgray"-->
-      {% for item in Categories %}
-              <a href="{% url 'api:products'%}/{{item.0}}" style="color: #000000;"><i><b><u>{{item.0}}</u></b></i></a>
-      <br />
+    <div class="col-3 card h-50 d-inline-block"> <!-- style="background-color:lightgray"-->
+      <article class="card-group-item">
+          <header class="mx-auto">
+            {% if enabledCategories == False %}
+            <h4 class="text-center"> Products</h4>
+            {% elif Recommended == True%}
+            <h5 class="text-center">Recommended Products</h5>
+            {% else %}
+            <h4 class="text-center">{{currentCategorie}}</h4>
+            {% endif %}
+          </header>
+          <ul class="list-group list-group-flush">
+              <a href="{% url 'api:products'%}/0/0">  
+                  <li class="list-group-item">
+                    Show all items
+                  </li>
+              </a>
+                {% for item in Categories %}
+              <a href="{% url 'api:products'%}/{{item.0}}/0" class="py-1">
+                <li class="list-group-item ">
+                    {{item.0}}
+                </li>
+              </a>
 
-      {% endfor %}
-      <br />
-        <a href="{% url 'api:products'%}/my-recommended-products" style="color: #000000;"><i><b><u>Show recommended</u></b></i></a>
+                {% endfor %}
+                </br>
+                <!-- Brands -->
+                {% if enabledCategories == True%}
+                <h5 class="text-center">Brands</h5>
+                {% for item in Brands %}
+                <a href="{% url 'api:products'%}/{{currentCategorie}}/{{item.0}}"  class="py-1">
+                    <li class="list-group-item">
+                        {{item.0}}
+                    </li>
+                </a>
+                {% endfor %}
+                <br />
+                {% endif %}
 
-     
+                {% if Recommended != True%}
+                <a href="{% url 'api:products'%}/my-recommended-products">
+                <li class="list-group-item">
+                    Show recommended
+                </li>
+                </a>
+                {% endif %}
+          </ul>
+      </article>
+      <!-- Categorieeren-->
+
     </div>
       <!-- PRODUCTEN ZONDER FILTER OF RECOMMENDATIE-->
       {% if Product%}
-    <div class="col-10">
+    <div class="col-9">
         <div class="container">
             {% if Recommended != True and enabledCategories == False%}
             
             {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height="150"/>
+                    {% if item.category == "Mobile" or item.category == "Mouse"   %}
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.image}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.title}}</p>
-                    <p> Merk: {{item.brand}}</p>
-                    <p> Prijs: &euro;{{item.price}}</p>
-                    <a href="productDetail/{{item.id}}">Meer informatie</a>
-                    <button onclick=""> Add to cart</button>
+                     {{item.title}}
+                    </br>
+                     Merk: {{item.brand}}
+                    </br>
+                     Prijs: &euro;{{item.price}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.id}}"><button class="btn btn-dark mt-1">More</button></a>
 
                 </div>
-                <div class="col-sm-12">
-                <div style='border-bottom:2px solid #ccc;'></div>
-                </div>
-    
-                
+                    <div class="col-sm-12">
+                    <div style='border-bottom:2px solid #ccc;'></div>
+                    </div>                
             </div>
-
-
-
-
 
             {% endfor %}
             <!-- PRODUCTEN ZONDER FILTER MAAR MET RECOMMENDATIE-->
             {% elif Recommended == True%}
                         {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height="150"/>
+                    {% if item.0.5 == "Mobile" or item.0.5 == "Mouse"   %}
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.0.3}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.0.1}}</p>
-                    <p> Merk: {{item.0.2}}</p>
-                    <p> Prijs: &euro;{{item.0.4}}</p>
-                    <a href="../productDetail/{{item.0.0}}">Meer informatie</a>
+                    {{item.0.1}}
+                    </br>
+                    Merk: {{item.0.2}}
+                    </br>
+                    Prijs: &euro;{{item.0.4}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.0.0}}"><button class="btn btn-dark mt-1">More</button></a>
                      
 
                 </div>
@@ -83,26 +126,28 @@
             </div>
             {% endfor %}
 
-
-
-
-
-
             {% else %}
             <!-- PRODUCTEN MET FILTER ZONDER RECOMMENDATIE-->
             {% for item in Product%}
             <div class="row" >
-                <div class="col-3"> <!--style="background-color: #d5f4e6;" -->
+                <div class="col-3 py-4"> <!--style="background-color: #d5f4e6;" -->
                     <div class="block">
-                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height="150"/>
+                    {% if item.5 == "Mobile" or item.5 == "Mouse"   %}
+                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height=150"/>
+                    {% else %}
+                    <img class="img-left" src="{{item.3}}" style="float:left" width="150" height=100"/>
+                    {% endif%}
                     </div>
                 </div>
-                <div class="col-9"> <!--style="background-color: #4cff00;" -->
+                <div class="col-9 py-2"> <!--style="background-color: #4cff00;" -->
                     
-                    <p> {{item.1}}</p>
-                    <p> Merk: {{item.2}}</p>
-                    <p> Prijs: &euro;{{item.4}}</p>
-                    <a href="../productDetail/{{item.0}}">Meer informatie</a>
+                    {{item.1}}
+                    </br>
+                    Merk: {{item.2}}
+                    </br>
+                    Prijs: &euro;{{item.4}}
+                    </br>
+                    <a href="{% url 'api:productDetail'%}/{{item.0}}"><button class="btn btn-dark mt-1">More</button></a>
                      
 
                 </div>
@@ -112,11 +157,6 @@
             </div>
             {% endfor %}
             {% endif %}
-
-
-
-
-
 
             <div class="mx-auto pt-3">
             {% if Product.has_other_pages %}

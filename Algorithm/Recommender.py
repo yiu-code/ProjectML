@@ -99,6 +99,7 @@ class Recommender:
         for row in range (1, (len(self.employeeWitem))):
             if self.employeeWitem["UserId"][row] == Id:
                 hist.append(self.employeeWitem["OrderId"][row])
+                #print("Item added")
         hist.sort(reverse = True)
 
         # add item id based on orderId to the product array

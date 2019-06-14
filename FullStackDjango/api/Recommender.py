@@ -66,11 +66,11 @@ class Recommender:
 
         dropColumns = ["Count", "brand", "image", "price", "category"] 
         recommendList = recommendList.drop(dropColumns, axis=1) 
+        recommendList = recommendList.sample(frac=1).reset_index(drop=True)
         resList = []
         for i in range(len(recommendList)):
             resList.append([recommendList["ProductId"][i], recommendList["title"][i] ])
         print(resList)
-       
         return resList
 
     """
@@ -181,7 +181,7 @@ class Recommender:
                 distances, indices = model_knn.kneighbors(CountpopluarItemPivot.loc[int(index), :].values.reshape(1, -1), n_neighbors=2) #new products might ot have many short disntace porducts close to them
             
             for i in range(1, len(distances.flatten())):
-                duplicate = indices.flatten()[i] in (item for sublist in ItemId for item in sublist)
+                duplicate = indices.flatten()[i]+1 in (item for sublist in ItemId for item in sublist)
                 print(duplicate)
                 if duplicate == False:
                     ItemId.append([(indices.flatten()[i]+1), distances.flatten()[i]])

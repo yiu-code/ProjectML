@@ -26,6 +26,7 @@ def TopRecommendation(request):
     off = User.objects.all().filter(jobtitle = "Office")
     test = Recommender(5)
     products = test.GetTopBorrowedItems(10)
+    print(products)
         
     return render(request, 'topItem.html', {'products': products, 'developers': dev, 'designers': des, 'office': off})
 
@@ -48,18 +49,25 @@ def Knn(request, userId):
 @login_required(login_url='/')
 def Home(request):
     id = request.user.id
-    recommender = Recommender(id)
-    topItems = recommender.GetTopBorrowedItems(4)
+    query = connection.cursor().execute("SELECT * FROM api_user WHERE id =" + str(id))
+    currentUser = query.fetchall()
+    print()
 
+    #Get UserHistory
+    recommender = Recommender(id)
+    hist, haveHist = recommender.CheckAndGetHistory()
+    recommendList = recommender.Knn(hist)
+    #Gooit het resultaat van Id's in een lijst en pakt alle producten met die Id's. 
     idList = []
     Recommended = []
-    for item in topItems:
+    for item in recommendList:
         idList.append(item[0])
     for item in idList:
         query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(item))
         product = query.fetchall()
         Recommended.append(product)
-    print(Recommended)
+
+
     return render(request, "home.html", {'product' : Recommended})
 
 def Register(request):
@@ -91,64 +99,20 @@ def logout_view(request):
 
 
 
-def home(request):
-    """Renders the home page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'api/home.html',
-        {
-            'title':'Home Page',
-            
-        }
-    )
-
-
-def cart(request):
-    #cart = CartItem.objects.all()
-    #print(cart)
-
-    double_list = []
-    items_in_cart = []
-    query = connection.cursor().execute("SELECT p.title, ci.quantity, p.price, c.total FROM api_product AS p JOIN api_cartitem AS ci ON p.id = ci.product_id JOIN api_cart AS c ON ci.product_id = c.product_id ORDER BY p.title, ci.quantity, c.total;")
-    cartList = query.fetchall()
-    double_list.append(cartList)
-    for items in double_list:
-        for single_item in items:
-            items_in_cart.append(single_item)
-
-    print(items_in_cart)
-    context = {"cart": cart}
-    template = "shoppingcart.html"
-    return render(request, template, context)
-
-
-def add_to_cart(request):
-    pass
-
-def remove_from_cart(request):
-    pass
-
-def update_cart(request, slug):
-   pass
-
-def complete(request):
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'complete.html'
-    )
-
 ## Webpagina die Db info laat zien ##
 
-def products(request, selectedCategory):
+def products(request, selectedCategory, selectedBrand):
     if selectedCategory == '0':
         Product_list = Product.objects.all() ## Product List = Variabel, Objects.all() pakt alle producten in de DB ##
-    else: 
+    elif selectedBrand == '0': 
         query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "'")
         Product_list = query.fetchall()
-        print(Product_list)
-        print(Product_list[0])
+    else:
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE category = '" + str(selectedCategory) + "' AND brand = '" + str(selectedBrand) + "'")
+        Product_list = query.fetchall()
+
+       
+
 
     page = request.GET.get('page', 1)
     paginator = Paginator(Product_list, 10)
@@ -162,10 +126,15 @@ def products(request, selectedCategory):
     
     query = connection.cursor().execute("SELECT category FROM api_product GROUP BY category")
     categories = query.fetchall()
+
+    if selectedCategory != '0':
+          query = connection.cursor().execute("SELECT brand FROM api_product WHERE category = '" + str(selectedCategory) + "'GROUP BY brand")
+          brands = query.fetchall()  
+    
     if selectedCategory == '0':
         return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': False}) 
     else:
-        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory)}) 
+        return render(request, 'api/products.html', {'Product': product, 'Categories': categories, 'enabledCategories': True, 'currentCategorie': str(selectedCategory), 'Brands': brands}) 
     
 
 
@@ -194,6 +163,30 @@ def productsRecommended(request):
     return render(request, 'api/products.html', {'Product': Recommended, 'Recommended': True})
 
 def productDetail(request, productId):
-        
-        
-        return render(request, 'api/detailPage.html') 
+        query = connection.cursor().execute("SELECT * FROM api_product WHERE id =" + str(productId))
+        product = query.fetchall()
+        return render(request, 'api/detailPage.html',{'Product': product})
+
+
+def orderHistory(request):
+    id = request.user.id
+    print(id)
+    orderHistory = []
+    query = connection.cursor().execute("SELECT api_order.id, api_productlist.product_id, api_product.title, api_product.image, api_product.id, api_productlist.amount, api_product.category FROM api_order JOIN api_productlist ON api_order.id = api_productlist.order_id JOIN api_product ON api_productlist.product_id == api_product.id WHERE user_id =" + str(id) + " ORDER BY api_order.id DESC")
+    orderList = query.fetchall()
+    print(orderList)
+    
+    userQuery = connection.cursor().execute("SELECT * FROM api_user Where id = " + str(id)) 
+    user = userQuery.fetchall()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(orderList, 10)
+    try:
+        product = paginator.page(page)
+    except PageNotAnInteger:
+        product = paginator.page(1)
+    except EmptyPage:
+        product = paginator.page(paginator.num_pages)
+
+
+    return render(request, 'api/orderHistoryPage.html', {'OrderHistory': product, 'User': user })
+
